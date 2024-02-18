@@ -19,7 +19,7 @@ function App() {
     setContent(
       <TypeAnimation
         sequence={[
-          "I'm Hae."
+          "hi, i'm hae :)"
         ]}
         cursor= {false}
         wrapper="h2"
@@ -30,7 +30,7 @@ function App() {
       <div>
       <TypeAnimation
         sequence={[
-          "I'm a computer science student at UNSW Sydney."
+            "cs @ unsw."
         ]}
         wrapper="h2"
         speed={50}
@@ -39,7 +39,6 @@ function App() {
     )
     setContentThree(
       <div>
-        <Router>
           <Routes>
             <Route path="/writings" element ={<Writings/>}/>
             <Route path="/projects" element = {<Projects/>}/>
@@ -50,7 +49,6 @@ function App() {
           <Link className = "button" to ="/projects">projects</Link>
           <Link className = "button" to ="/resources">resources</Link>
           <Link className = "button" to ="/subjects">subject reviews</Link>
-        </Router> 
       </div>
     );
     setContentFour(<div></div>)
