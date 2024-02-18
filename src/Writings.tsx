@@ -14,16 +14,6 @@ export function Writings() {
         <AltSideColumn/>
         <AltColumn>
           <h1>writings (WIP)</h1>
-          <Article>
-            <h3>Jazz drumming: how it changed my life</h3>
-            Jazz drumming is the innate act of swing. 
-          </Article>
-          <Article>
-            <h3>
-              Why frontend work makes me want to cry
-            </h3>
-            Frontend is so sad
-          </Article>
         </AltColumn>
         <AltSideColumn/>
       </Row>
