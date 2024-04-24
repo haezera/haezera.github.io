@@ -58,7 +58,16 @@ export function Resources() {
         <ResourceButton href="/2022 T1.pdf">2022 t1</ResourceButton>
         <ResourceButton href="/2022 T2 and T3.pdf">2022 t2 & t3</ResourceButton>
         <ResourceButton href="/2023 T1.pdf">2023 t1</ResourceButton>
-
+      </Column>
+      <SideColumn/>
+    </Row>
+    <Row>
+      <SideColumn/>
+      <Column>
+        <h1> comp3121 </h1>
+      </Column>
+      <Column>
+        <ResourceButton href="/COMP3121 Exam Notes.pdf">final exam notes</ResourceButton>
       </Column>
       <SideColumn/>
     </Row>
