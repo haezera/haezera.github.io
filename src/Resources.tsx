@@ -67,7 +67,8 @@ export function Resources() {
         <h1> comp3121 </h1>
       </Column>
       <Column>
-        <ResourceButton href="/COMP3121 Exam Notes.pdf">final exam notes</ResourceButton>
+        <ResourceButton href="/COMP3121 Exam Notes.pdf">truncated course notes (exam)</ResourceButton>
+        <ResourceButton href="/3121_extensive_notes.pdf">extensive course notes</ResourceButton>
       </Column>
       <SideColumn/>
     </Row>
