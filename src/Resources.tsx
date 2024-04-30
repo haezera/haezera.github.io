@@ -1,4 +1,4 @@
-import React from 'react';
+eximport React from 'react';
 import { Button } from './components/Button';
 import { Column } from './components/Column';
 import { Menubar } from './components/Menubar';
@@ -69,6 +69,7 @@ export function Resources() {
       <Column>
         <ResourceButton href="/COMP3121 Exam Notes.pdf">truncated course notes (exam)</ResourceButton>
         <ResourceButton href="/3121_extensive_notes.pdf">extensive course notes</ResourceButton>
+        <ResourceButton href="/Lecture Examples.pdf">lecture examples summary</ResourceButton>
       </Column>
       <SideColumn/>
     </Row>
