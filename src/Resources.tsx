@@ -1,4 +1,4 @@
-eximport React from 'react';
+import React from 'react';
 import { Button } from './components/Button';
 import { Column } from './components/Column';
 import { Menubar } from './components/Menubar';
