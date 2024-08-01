@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>COMP2511 Final Notes</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="comp2511-final-notes">COMP2511 Final Notes</h1>
+<h2 id="table-of-contents">Table of contents</h2>
+<ul>
+<li><a href="#comp2511-final-notes">COMP2511 Final Notes</a>
+<ul>
+<li><a href="#table-of-contents">Table of contents</a></li>
+<li><a href="#domain-modelling">Domain modelling</a>
+<ul>
+<li><a href="#arrows">Arrows</a>
+<ul>
+<li><a href="#multiplicities">Multiplicities</a></li>
+</ul>
+</li>
+<li><a href="#classesabstract-classesinterfaces">Classes/Abstract classes/Interfaces</a></li>
+</ul>
+</li>
+<li><a href="#object-oriented-programming-in-java">Object-oriented programming in Java</a>
+<ul>
+<li><a href="#access-modifiers">Access Modifiers</a></li>
+<li><a href="#exceptions-in-java">Exceptions in Java</a></li>
+</ul>
+</li>
+<li><a href="#programming-patterns">Programming Patterns</a>
+<ul>
+<li><a href="#functional-programming-in-java">Functional programming in Java</a>
+<ul>
+<li><a href="#lambda-expressions">Lambda Expressions</a></li>
+<li><a href="#pipelines-and-streams">Pipelines and streams</a></li>
+</ul>
+</li>
+<li><a href="#asynchronous-programming">Asynchronous Programming</a>
+<ul>
+<li><a href="#synchronized"><code>synchronized</code></a></li>
+</ul>
+</li>
+<li><a href="#generic-programming">Generic Programming</a>
+<ul>
+<li><a href="#bounded-type-parameters">Bounded Type Parameters</a></li>
+<li><a href="#wildcards">Wildcards</a></li>
+</ul>
+</li>
+<li><a href="#iterator-pattern">Iterator Pattern</a></li>
+</ul>
+</li>
+<li><a href="#design-patterns">Design patterns</a>
+<ul>
+<li><a href="#behavioural-patterns">Behavioural patterns</a>
+<ul>
+<li><a href="#strategy-pattern">Strategy pattern</a></li>
+<li><a href="#state-pattern">State pattern</a></li>
+<li><a href="#observer-pattern">Observer Pattern</a></li>
+<li><a href="#template-method">Template Method</a></li>
+<li><a href="#visitor-pattern">Visitor Pattern</a></li>
+<li><a href="#command-pattern">Command Pattern</a></li>
+</ul>
+</li>
+<li><a href="#structural-patterns">Structural Patterns</a>
+<ul>
+<li><a href="#composite-pattern">Composite Pattern</a></li>
+<li><a href="#decorator-pattern">Decorator Pattern</a></li>
+<li><a href="#adapter-pattern">Adapter Pattern</a></li>
+</ul>
+</li>
+<li><a href="#creational-patterns">Creational Patterns</a>
+<ul>
+<li><a href="#factory-metodabstract-factory">Factory Metod/Abstract Factory</a></li>
+<li><a href="#singleton-pattern">Singleton Pattern</a></li>
+<li><a href="#builder-pattern">Builder Pattern</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="domain-modelling">Domain modelling</h2>
+<p>There is a specified domain modelling question in the exam!</p>
+<h3 id="arrows">Arrows</h3>
+<center>
+<img src="file:////Users/haekim/Library/CloudStorage/GoogleDrive-haeohreum04@gmail.com/My Drive/uni/comp2511/notes/2ajCN.jpg">
+</center>
+Note that in 2511 we use the inheritance arrow for both interfaces and classes (I might be trolling).
+<ul>
+<li>Association is the lowest bond between two classes - they might be used in a method of a class but do not contain eachother.</li>
+<li>Dependency might mean that the fields of a class change depending on another method.</li>
+<li>Composition means that the class will only exist in it's &quot;parent&quot; class.</li>
+<li>Aggregation means that it can exist alone, but is also contained in &quot;parent&quot; calsses.</li>
+</ul>
+<h4 id="multiplicities">Multiplicities</h4>
+<p>Consider the following arrow <code>1 -&gt; 4</code>; this means that one LHS can belong to 4 RHS. We use the following notation to mean &gt;= x <code>x..* -&gt; 4</code>; this would be <code>x</code> or more LHS belong to 4 RHS.</p>
+<p>It's important to think about how many instances of a class can exist in a composition/aggregation relationship. In a singleton pattern, whats the multiplicity? It is intrinsically a <code>1-1</code> relationship, therefor we will have <code>1 -&gt; 1</code>.</p>
+<h3 id="classesabstract-classesinterfaces">Classes/Abstract classes/Interfaces</h3>
+<p>Class boxes are structured as follows:</p>
+<center>
+<img src="file:////Users/haekim/Library/CloudStorage/GoogleDrive-haeohreum04@gmail.com/My Drive/uni/comp2511/notes/uml_class.png">
+</center>
+<h2 id="object-oriented-programming-in-java">Object-oriented programming in Java</h2>
+<h3 id="access-modifiers">Access Modifiers</h3>
+<ul>
+<li><code>public</code>: refers to the ability to access this method or variable outside of the current class, package and more.</li>
+<li><code>private</code>: refers to the negation of public</li>
+<li><code>static</code>: refers to the ability to access this method without an instantiated object</li>
+<li><code>final</code>: refers to a constant, similar to <code>#define</code></li>
+<li><code>protected</code>: can only be referred to by classes in the same package</li>
+<li><code>default</code>: provides a default implementation - useful in interfaces.</li>
+</ul>
+<h3 id="exceptions-in-java">Exceptions in Java</h3>
+<p>The three types of exceptions in Java are:</p>
+<ul>
+<li>Checked exceptions</li>
+<li>Errors</li>
+<li>Runtime exceptions</li>
+</ul>
+<p>Exceptions that extend from <code>RuntimeException</code> or <code>Error</code> are unchecked, and those that extend from <code>Exception</code> are checked. You can create your own exceptions by extending a class from an Exception. Exceptions generally taken in a <code>String</code> into the constructor, which reflects the message that will be outputted at the throwing of the exception.</p>
+<h2 id="programming-patterns">Programming Patterns</h2>
+<h3 id="functional-programming-in-java">Functional programming in Java</h3>
+<h4 id="lambda-expressions">Lambda Expressions</h4>
+<p>An anonymous inner class with only one method can be replaced by a lambda expression. Lambda expressions come in the form:</p>
+<pre><code class="language-txt">(x, y, ...) -&gt; logic or {logic}
+</code></pre>
+<p>Lambda expressions can be used to implement an interface with <em>only one abstract method</em>.</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">FunctionalInterface</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compute</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span>;
+}
+
+<span class="hljs-type">FunctionalInterface</span> <span class="hljs-variable">f1</span> <span class="hljs-operator">=</span> (x, y) -&gt; x + y;
+f1.compute(<span class="hljs-number">3</span>, <span class="hljs-number">10</span>); <span class="hljs-comment">// outputs 13</span>
+</code></pre>
+<p>We can treat existing methods as functional interfaces using <code>::</code>, e.g: <code>ClassName::methodName</code>.</p>
+<h4 id="pipelines-and-streams">Pipelines and streams</h4>
+<p>A pipeline is a sequence of aggregate operations. A stream is a <em>sequence of elements</em>. A stream is used to apply functional programming methods, such as <code>filter</code>, or <code>forEach</code>. An example of this can be found below:</p>
+<pre><code class="language-cpp">strList.<span class="hljs-built_in">stream</span>()
+       .<span class="hljs-built_in">filter</span>(e -&gt; e.<span class="hljs-built_in">length</span>() &gt; <span class="hljs-number">0</span>)
+       .<span class="hljs-built_in">mapToInt</span>(String::length)
+       .<span class="hljs-built_in">average</span>()
+       .<span class="hljs-built_in">getAsDouble</span>()
+</code></pre>
+<p>This:</p>
+<ol>
+<li>Filters any empty strings</li>
+<li>Maps remaining strings to their lengths, therefore: <code>['abc', 'ab'] -&gt; [3, 2]</code></li>
+<li>Gets the average of the new list</li>
+<li>Returns the average as a double</li>
+</ol>
+<h3 id="asynchronous-programming">Asynchronous Programming</h3>
+<p>Asynchronous programming refers to programmign where operations can be run concurrently and independently. Most classes that are commonly used in Java are NOT thread safe; and thus, trying to run threads on them may cause in data race conditions.</p>
+<h4 id="synchronized"><code>synchronized</code></h4>
+<p>Synchronized is a key word that allows only <em>one thread</em> to execute the method, avoiding concurrency issues. This however, does not mean that race conditions are removed. If you have multiple methods that mutate the state of an object, then even if they are all synchronised, it might be unsafe.</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Account</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">balance</span> <span class="hljs-operator">=</span> <span class="hljs-number">500</span>;
+
+    <span class="hljs-comment">// This is thread safe!</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">withdraw</span><span class="hljs-params">(<span class="hljs-type">int</span> amount)</span> {
+        balance = old_balance - amount;
+    }
+}
+</code></pre>
+<p>Locks are used as follows:</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Account</span> {
+  <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> <span class="hljs-variable">balance</span> <span class="hljs-operator">=</span> <span class="hljs-number">500</span>;
+  <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">ReentrantLock</span> <span class="hljs-variable">lock</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReentrantLock</span>();
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">withdraw</span><span class="hljs-params">(<span class="hljs-type">int</span> amount)</span> {
+    lock.lock();
+    <span class="hljs-keyword">try</span> {
+      balanced = old_balance - amount;
+    } <span class="hljs-keyword">finally</span> {
+      lock.unlock()
+    }
+  }
+}
+</code></pre>
+<h3 id="generic-programming">Generic Programming</h3>
+<p>Generics are a way to allow <em>multiple</em> types to be accepted into one class, method, interface and more. Generics are already used by many Java engineers in the form of:</p>
+<pre><code class="language-java">List&lt;GenericOne, GenericTwo&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;GenericOne, GenericTwo&gt;();
+</code></pre>
+<p>These generics allow for the ease of creating a list of multiple different storage types. To utilise a generic in a class/method, we must declare a generic. An example of how this is done can be found below:</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Pair</span>&lt;K, V&gt; {
+    <span class="hljs-keyword">public</span> K <span class="hljs-title function_">getKey</span><span class="hljs-params">()</span>;
+    <span class="hljs-keyword">public</span> V <span class="hljs-title function_">getValue</span><span class="hljs-params">()</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">IntegerPair</span>&lt;Integer, Integer&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Pair</span>&lt;Integer, Integer&gt;;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">NormalClass</span> {
+    <span class="hljs-keyword">public</span> &lt;T&gt; genericMethod(T parameter);
+}
+</code></pre>
+<h4 id="bounded-type-parameters">Bounded Type Parameters</h4>
+<p>Bounded type parameters are <em>very useful</em>. They allow us to create generics, but enforce that they are either a subclass or a superclass of a given class. This means that we are able to call comparator functions, use other methods, etc. Consider the following example:</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> &lt;U <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Number</span>, V <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Number</span>&gt; add(U u, V, v) {
+    <span class="hljs-keyword">return</span> u + v;
+}
+</code></pre>
+<p>We couldn't possibly do this if <code>u</code> or <code>v</code> was an object of type, for example, <code>Exception</code>. You can also have multiple bounds:</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> &lt;U <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Number</span> &amp; String &amp; ...&gt;
+</code></pre>
+<ol>
+<li><code>U extends C</code>: indicates that U must be a sub-class of C, or be C.</li>
+<li><code>U super C</code>: indicates that U msut be a super-class of C, or be C.</li>
+</ol>
+<h4 id="wildcards">Wildcards</h4>
+<p>For classes that use generics, we may not entirely know what specific type the class will take at runtime; but we <em>may</em> know if it will be a sub/super-class of a class. In this case, we use a wild card <code>?</code> to be able to access methods of the sub/super-class.</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">double</span> <span class="hljs-title function_">sumOfList</span><span class="hljs-params">(List&lt;? extends Number&gt; l)</span> {
+    <span class="hljs-type">double</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-number">0.0</span>;
+    <span class="hljs-keyword">for</span> (Number n : l) {
+        s += n.doubleValue();
+    }
+    <span class="hljs-keyword">return</span> s;
+}
+</code></pre>
+<p>Wildcards can also be unbounded, or can of course, use <code>super</code>.</p>
+<p>A reminder that <code>List&lt;Number&gt;</code> and <code>List&lt;Integer&gt;</code> is not a subtype of eachother - and that the two types are not related. For collections/generics used in classes, be sure to have the inheritance tree in your head! Just because the generics are subtypes of eachother, doesn't mean the generic usage in a class will be.</p>
+<h3 id="iterator-pattern">Iterator Pattern</h3>
+<p>Iterators should tell us two things:</p>
+<ol>
+<li>Do we have any elements left?</li>
+<li>What is the next element?</li>
+</ol>
+<p>In Java, we do this by implementing <code>Iterator&lt;T&gt;</code>, which requires the implementation of <code>hasNext()</code> and <code>remove()</code>. The implementation is entirely up to you! For trees, maybe you will use the pre-order traversal. For hash maps, maybe you will iterate through the underlying array.</p>
+<h2 id="design-patterns">Design patterns</h2>
+<h3 id="behavioural-patterns">Behavioural patterns</h3>
+<h4 id="strategy-pattern">Strategy pattern</h4>
+<blockquote>
+<p>Different algorithms are applied in the same context - for example; the end goal is to sum a list but we might have different ways (arithmetic sum, geometric sum, etc). Abstract these &quot;ways&quot; into classes to help Open-Closed principle.</p>
+</blockquote>
+<p>A class/method uses a <em>family</em> of algorithms - put each of them into a <strong>class</strong>, interfaced by a common interface.</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Class</span> {
+  <span class="hljs-keyword">public</span> Strategy strategy;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">method</span><span class="hljs-params">(String condition)</span> {
+    <span class="hljs-keyword">if</span> (condition.equals(<span class="hljs-string">&quot;1&quot;</span>)) {
+      strategy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StrategyOne</span>();
+    } <span class="hljs-keyword">else</span> {
+      strategy = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StrategyTwo</span>();
+    }
+    strategy.algorithm();
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Strategy</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">algorithm</span><span class="hljs-params">()</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StrategyOne</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Strategy</span>;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StrategyTwo</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Strategy</span>;
+</code></pre>
+<h4 id="state-pattern">State pattern</h4>
+<blockquote>
+<p>A traffic light has a distinct state (x seconds for green, y seconds for yellow, etc). Represent these relationships using clever interfacing.</p>
+</blockquote>
+<p>If the problem you are trying to solve can be modelled by a <em>state machine</em> - or in general, has the notion of <em>state</em>; it should be solved with <em>State pattern</em>.</p>
+<p>State pattern is solved by creating a common interface which includes the functionalities of each state. The changing of state is implemented in the parent class that holds the state machine.</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">State</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">algorithm</span><span class="hljs-params">()</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StateOne</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">State</span> {
+  <span class="hljs-keyword">public</span> Class class;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">algorithm</span><span class="hljs-params">()</span> {
+    <span class="hljs-comment">// do stuff</span>
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-comment">/* condition */</span>) {
+      class.changeState(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StateTwo</span>());
+    }
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StateTwo</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">State</span>;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Class</span> {
+  <span class="hljs-keyword">public</span> State state;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">example</span><span class="hljs-params">()</span> {
+    state.algorithm();
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">changeState</span><span class="hljs-params">(State newState)</span> {
+    <span class="hljs-built_in">this</span>.state = newState;
+  }
+}
+</code></pre>
+<h4 id="observer-pattern">Observer Pattern</h4>
+<blockquote>
+<p>Instead of everyone asking one person about some news, that one person yells out the news to everyone.</p>
+</blockquote>
+<p>Many classes rely on one class to update values or be notified of changes.</p>
+<p>Instead of the observers going to the observed and asking for updates, the observed just sends updates any time it needs to.</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Observed</span> {
+  <span class="hljs-keyword">public</span> List&lt;Observer&gt; observers;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">update</span><span class="hljs-params">()</span> {
+    observers.addUpdate(<span class="hljs-string">&quot;UPDATED&quot;</span>);
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Observer</span> {
+  <span class="hljs-keyword">public</span> List&lt;String&gt; observations;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addUpdate</span><span class="hljs-params">(String update)</span> {
+    observations.add(update);
+  }
+}
+</code></pre>
+<h4 id="template-method">Template Method</h4>
+<blockquote>
+<p>Make a base recipe for a cake - and extend these recipes by changing specific steps slightly for different cakes.</p>
+</blockquote>
+<p>Similar processes have similar code - but might differ in minute ways (for example, parsing a CSV vs Excel). Partition the code into repeated parts (the template) and non-repeatd parts (the steps), where you can override the steps (but can still provide a default implementation).</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AbstractClass</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> templateMethod;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">step1</span><span class="hljs-params">()</span>;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">step2</span><span class="hljs-params">()</span>;
+  <span class="hljs-comment">// ...</span>
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Class1</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractClass</span> {
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">step3</span><span class="hljs-params">()</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Class2</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractClass</span> {
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">step4</span><span class="hljs-params">()</span>;
+  
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">step5</span><span class="hljs-params">()</span>;
+}
+</code></pre>
+<h4 id="visitor-pattern">Visitor Pattern</h4>
+<blockquote>
+<p>Let's say 5 people want to be greeted a different way, but I can only know who I'm greeting by asking their name. Instead of asking everyones names - you designate a middle man to greet them for you (who knows how to greet them).</p>
+</blockquote>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Visitor</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">greet</span><span class="hljs-params">(Person1 person)</span>;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">greet</span><span class="hljs-params">(Person2 person)</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person1Visitor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Visitor</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">greet</span><span class="hljs-params">(Person2 person)</span> {
+    System.out.println(<span class="hljs-string">&quot;Bonjour!&quot;</span>);
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person2</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">accept</span><span class="hljs-params">(Visitor visitor)</span> {
+    visitor.greet(<span class="hljs-built_in">this</span>);
+  }
+}
+</code></pre>
+<h4 id="command-pattern">Command Pattern</h4>
+<blockquote>
+<p>An order at the stock exchange requires lots of information - the broker it came from, the volume, the price, etc. Instead of shipping this information off to be executed by the receiver, we package it into a request that can unify the request into one 'StockBuy' request.</p>
+</blockquote>
+<p>This is advantageous as we can delay the order, push the order faster, modify the order, cancel the order without sending half of the information only, etc.</p>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Command</span> {
+  <span class="hljs-keyword">public</span> Receiver receiver;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">execute</span><span class="hljs-params">()</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CommandOne</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Command</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">execute</span><span class="hljs-params">()</span> {
+    <span class="hljs-comment">// logic to the receiver...</span>
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CommandTwo</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Command</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">execute</span><span class="hljs-params">()</span> {
+    <span class="hljs-comment">// logic to the receiver...</span>
+  }
+}
+</code></pre>
+<h3 id="structural-patterns">Structural Patterns</h3>
+<h4 id="composite-pattern">Composite Pattern</h4>
+<blockquote>
+<p>If you have a hierachical structure (say, a military) that can be assigned in a tree-like order; many operations can be expressed as a tree traversal (for example, the reporting of casualties). Represent these relationships as trees, with a common interfaced method (example, <code>report()</code>), that traverses down the tree and reports.</p>
+</blockquote>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Node</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">report</span><span class="hljs-params">()</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Soldier</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Node</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">report</span><span class="hljs-params">()</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Captain</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Node</span> {
+  <span class="hljs-keyword">public</span> List&lt;Soldier&gt; soldiers;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">report</span><span class="hljs-params">()</span> {
+    <span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (Soldier s : soldiers) {
+      sum += s.report();
+    }
+
+    <span class="hljs-keyword">return</span> sum;
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">General</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Node</span> {
+  <span class="hljs-keyword">public</span> List&lt;Captain&gt; captains;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">report</span><span class="hljs-params">()</span> {
+    <span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span> (Captain c : captains) {
+      sum *= s.report();
+    }
+
+    <span class="hljs-keyword">return</span> sum;
+  }
+}
+</code></pre>
+<h4 id="decorator-pattern">Decorator Pattern</h4>
+<blockquote>
+<p>We have base objects (called components) and their decorators. A good example is coffee - we could have Ethiopian blends, Kenyan blends, and to each of these base espresso shots, we could add sugar, milk, and more.</p>
+</blockquote>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Component</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">cost</span><span class="hljs-params">()</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EthiopianBlend</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Component</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">cost</span><span class="hljs-params">()</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Milk</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Component</span> {
+  <span class="hljs-keyword">public</span> Component wrapped;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-title function_">Milk</span><span class="hljs-params">(Component c)</span> {
+    wrapped = c;
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">cost</span><span class="hljs-params">()</span> {
+    <span class="hljs-keyword">return</span> wrapped.cost() + <span class="hljs-number">0.5</span>;
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Sugar</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Component</span> {
+  <span class="hljs-keyword">public</span> Component wrapped;
+  
+  <span class="hljs-keyword">public</span> <span class="hljs-title function_">Sugar</span><span class="hljs-params">(Component c)</span> {
+    wrapped = c;
+  }
+
+  <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">cost</span><span class="hljs-params">()</span> {
+    <span class="hljs-keyword">return</span> wrapped.cost() + <span class="hljs-number">0.25</span>;
+  }
+}
+
+<span class="hljs-type">EthiopianBlend</span> <span class="hljs-variable">coffee</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">EthiopianBlend</span>();
+<span class="hljs-type">Milk</span> <span class="hljs-variable">coffeeAndMilk</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Milk</span>(coffee);
+<span class="hljs-type">Sugar</span> <span class="hljs-variable">coffeeAndMilkAndSugar</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Sugar</span>(coffeeAndMilk);
+coffeeAndMilkAndSugar.cost(); <span class="hljs-comment">// 0.25 + 0.5 + 3 = 3.75</span>
+</code></pre>
+<h4 id="adapter-pattern">Adapter Pattern</h4>
+<blockquote>
+<p>Not all data comes in the shape we want. Student one may report their findings in alphabetical order of title, while student two may report their findings in a randomised order. If I need the data to be in alphabetical order of author, I create an <em>Adapter</em> that takes in all data and provides me the shape I need.</p>
+</blockquote>
+<p>No example for this.</p>
+<h3 id="creational-patterns">Creational Patterns</h3>
+<h4 id="factory-metodabstract-factory">Factory Metod/Abstract Factory</h4>
+<blockquote>
+<p>Lets say you have classes <code>X, Y, Z, ..</code> which all extend from <code>A</code>. Instead of creating classes we need in <code>X, Y, Z, ...</code> independent of <code>A</code>, we can create an abstract method in <code>A</code> that creates some product. Then, by implementing this method in <code>X, Y, Z, ...</code>, we can use polymorphism and interact with <code>A</code>.</p>
+<p>Abstract Factories are an extension (or more so, a culmination) of factory methods. You create an abstract factory <code>AF</code>, and implement two factories, <code>BF</code>, <code>CF</code>, which create the same products that have different specifications (creating chairs, but one is an office chair and one is a sofa...).</p>
+<p>This affords us a level of abstraction and not caring what specific concrete classes are created.</p>
+</blockquote>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Chair</span> {
+  <span class="hljs-type">int</span> height;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-title function_">Chair</span><span class="hljs-params">(<span class="hljs-type">int</span> height)</span> {
+    <span class="hljs-built_in">this</span>.height = height;
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Aeron</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Chair</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-title function_">Aeron</span><span class="hljs-params">()</span> {
+    <span class="hljs-built_in">super</span>(<span class="hljs-number">5</span>);
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Mirra</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Chair</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-title function_">Mirra</span><span class="hljs-params">()</span> {
+    <span class="hljs-built_in">super</span>(<span class="hljs-number">6</span>);
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">AbstractFactory</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">createChair</span><span class="hljs-params">()</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AeronFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">AbstractFactory</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">createChair</span><span class="hljs-params">()</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Aeron</span>();
+  }
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MirraFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">AbstractFactory</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">createChair</span><span class="hljs-params">()</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Mirra</span>();
+  }
+}
+
+<span class="hljs-type">AbstractFactory</span> <span class="hljs-variable">factory</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MirraFactory</span>();
+factory.createChar(); <span class="hljs-comment">// Creates a Mirra chair, abstracted!</span>
+</code></pre>
+<h4 id="singleton-pattern">Singleton Pattern</h4>
+<blockquote>
+<p>Anything that has 'global access' requirements (things like databases, etc.) should use singleton pattern. There can only ever be one instance of the class (as we can only access that class through the Singleton), and this can ensure thread-safety (provided you add locks)</p>
+</blockquote>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Database</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">write</span><span class="hljs-params">(String data)</span>;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">read</span><span class="hljs-params">(<span class="hljs-type">int</span> dataPos)</span>;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DatabaseAPI</span> {
+  <span class="hljs-keyword">public</span> Database database;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-title function_">getDatabase</span><span class="hljs-params">()</span> {
+    <span class="hljs-keyword">if</span> (database == <span class="hljs-literal">null</span>) {
+      <span class="hljs-comment">// add thread locks here if multi-threaded</span>
+      database = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Database</span>();
+    }
+
+    <span class="hljs-keyword">return</span> database;
+  }
+}
+</code></pre>
+<h4 id="builder-pattern">Builder Pattern</h4>
+<blockquote>
+<p>Objects with multiple different options and combinations can have cumbersome constructors. A good example is a house - a house can have different # of windows, bathrooms, they might have pools or not, garages, etc. Instead of creating a huge constructor - make a <code>Builder</code>, that builds the house step by step using segregated methods.</p>
+</blockquote>
+<pre><code class="language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">House</span> {
+  <span class="hljs-type">int</span> <span class="hljs-variable">bathrooms</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+  <span class="hljs-type">int</span> <span class="hljs-variable">bedrooms</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+  <span class="hljs-type">int</span> <span class="hljs-variable">garage</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;
+  ...
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HouseBuilder</span> {
+  <span class="hljs-keyword">public</span> House house;
+
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">buildHouse</span><span class="hljs-params">()</span>;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">buildBathroom</span><span class="hljs-params">()</span>;
+  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">buildBedroom</span><span class="hljs-params">()</span>;
+  <span class="hljs-keyword">public</span> House <span class="hljs-title function_">returnHouse</span><span class="hljs-params">()</span>;
+  ...
+}
+</code></pre>
+
+            
+            
+        </body>
+        </html>
