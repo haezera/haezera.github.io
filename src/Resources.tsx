@@ -13,6 +13,20 @@ export function Resources() {
     <Row>
       <SideColumn/>
       <Column>
+        <h1> math2801 </h1>
+      </Column>
+      <Column>
+        <ResourceButton href="/survey_design_and_experiments.pdf">survey design and experiments</ResourceButton>
+        <ResourceButton href="/random_variables.pdf">random variables</ResourceButton>
+        <ResourceButton href="/descriptive_stats.pdf">descriptive statistics</ResourceButton>
+        <ResourceButton href="/bivariate_distributions.pdf">bivariate distributions</ResourceButton>
+        <ResourceButton href="/univariate_distributions.pdf">univariate distributions</ResourceButton>
+      </Column>
+      <SideColumn/>
+    </Row>
+    <Row>
+      <SideColumn/>
+      <Column>
         <h1> math1081</h1>
       </Column>
       <Column>
@@ -70,6 +84,16 @@ export function Resources() {
         <ResourceButton href="/COMP3121 Exam Notes.pdf">truncated course notes (exam)</ResourceButton>
         <ResourceButton href="/3121_extensive_notes.pdf">extensive course notes</ResourceButton>
         <ResourceButton href="/Lecture Examples.pdf">lecture examples summary</ResourceButton>
+      </Column>
+      <SideColumn/>
+    </Row>
+    <Row>
+      <SideColumn/>
+      <Column>
+        <h1> comp2511</h1>
+      </Column>
+      <Column>
+        <ResourceButton href="/2511_notes.html">course notes</ResourceButton>
       </Column>
       <SideColumn/>
     </Row>
