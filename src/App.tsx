@@ -40,12 +40,10 @@ function App() {
     setContentThree(
       <div>
           <Routes>
-            <Route path="/writings" element ={<Writings/>}/>
             <Route path="/projects" element = {<Projects/>}/>
             <Route path="/resources" element = {<Resources/>}/>
             <Route path="/subjects" element = {<Subjects/>}/>
           </Routes>
-          <Link className = "button" to ="/writings">writings</Link>
           <Link className = "button" to ="/projects">projects</Link>
           <Link className = "button" to ="/resources">resources</Link>
           <Link className = "button" to ="/subjects">subject reviews</Link>

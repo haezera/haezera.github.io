@@ -12,6 +12,13 @@ export function Resources() {
     <Menubar/> <Namecard/>
     <Row>
       <SideColumn/>
+      <Column/>
+      <Column>
+      <h3>Some of these documents have a .docx file attached to them. You can see if it has one by removing the .pdf flag with a .docx flag in the link.</h3>
+      </Column>
+    </Row>
+    <Row>
+      <SideColumn/>
       <Column>
         <h1> math2801 </h1>
       </Column>
@@ -78,22 +85,33 @@ export function Resources() {
     <Row>
       <SideColumn/>
       <Column>
-        <h1> comp3121 </h1>
+        <h1> comp2511</h1>
       </Column>
       <Column>
-        <ResourceButton href="/COMP3121 Exam Notes.pdf">truncated course notes (exam)</ResourceButton>
-        <ResourceButton href="/3121_extensive_notes.pdf">extensive course notes</ResourceButton>
-        <ResourceButton href="/Lecture Examples.pdf">lecture examples summary</ResourceButton>
+        <ResourceButton href="/2511_notes.html">course notes</ResourceButton>
       </Column>
       <SideColumn/>
     </Row>
     <Row>
       <SideColumn/>
       <Column>
-        <h1> comp2511</h1>
+        <h1> comp3121 </h1>
       </Column>
       <Column>
-        <ResourceButton href="/2511_notes.html">course notes</ResourceButton>
+        <ResourceButton href="/COMP3121 Exam Notes.pdf">truncated course notes (exam)</ResourceButton>
+        <ResourceButton href="/3121_extensive_notes.pdf">extensive course notes</ResourceButton>
+        <ResourceButton href="/comp3121 lecture examples.pdf">lecture examples summary</ResourceButton>
+      </Column>
+      <SideColumn/>
+    </Row>
+    <Row>
+      <SideColumn/>
+      <Column>
+        <h1> comp3311 </h1>
+      </Column>
+      <Column>
+        <ResourceButton href="/comp3311 full notes.pdf">extensive course notes</ResourceButton>
+        <ResourceButton href="/comp3311 cheat sheet.pdf">truncated course notes (exam)</ResourceButton>
       </Column>
       <SideColumn/>
     </Row>

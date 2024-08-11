@@ -15,7 +15,6 @@ root.render(
   <HashRouter>
     <Routes>
       <Route path="/" element={<App/>}/>
-      <Route path="/writings" element ={<Writings/>}/>
       <Route path="/projects" element = {<Projects/>}/>
       <Route path="/resources" element = {<Resources/>}/>
       <Route path="/subjects" element = {<Subjects/>}/>
