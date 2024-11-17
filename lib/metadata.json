@@ -1,0 +1,350 @@
+{
+  "vaultName": "haezera",
+  "lastExport": 1731814538471,
+  "pluginVersion": "1.8.01",
+  "validBodyClasses": "publish css-settings-manager theme-dark native-scrollbars show-inline-title show-ribbon is-fullscreen",
+  "useCustomHeadContent": false,
+  "useCustomFavicon": false,
+  "files": [
+    "public/linear models gif.gif",
+    "resources/comp3121/3121_extensive_notes.pdf",
+    "resources/comp3121/COMP3121 Exam Notes.pdf",
+    "resources/comp3121/comp3121 lecture examples.pdf",
+    "resources/comp3311/comp3311 cheat sheet.pdf",
+    "resources/comp3311/comp3311 full notes.pdf",
+    "resources/math1081/1081lt1.pdf",
+    "resources/math1081/2020 T1_annotated.pdf",
+    "resources/math1081/2020 T2_annotated.pdf",
+    "resources/math1081/2020 T3_annotated.pdf",
+    "resources/math1081/2021 T1_annotated.pdf",
+    "resources/math1081/2021 T2_annotated.pdf",
+    "resources/math1081/2021 T3_annotated.pdf",
+    "resources/math1081/2022 T1_annotated.pdf",
+    "resources/math1081/2022 T2+_annotated.pdf",
+    "resources/math1081/labtest2.pdf",
+    "resources/math1231/2020 T1.pdf",
+    "resources/math1231/2020 T2.pdf",
+    "resources/math1231/2020 T3.pdf",
+    "resources/math1231/2021 T1.pdf",
+    "resources/math1231/2021 T2.pdf",
+    "resources/math1231/2021 T3.pdf",
+    "resources/math1231/2022 T1.pdf",
+    "resources/math1231/2022 T2 and T3.pdf",
+    "resources/math1231/2023 T1.pdf",
+    "resources/math2801/bivariate_distributions.pdf",
+    "resources/math2801/descriptive_stats.pdf",
+    "resources/math2801/random_variables.pdf",
+    "resources/math2801/survey_design_and_experiments.pdf",
+    "resources/math2801/univariate_distributions.pdf",
+    "educational resources.md",
+    "haeohreum kim.md",
+    "lib/fonts/94f2f163d4b698242fef.otf",
+    "lib/fonts/72505e6a122c6acd5471.woff2",
+    "lib/fonts/2d5198822ab091ce4305.woff2",
+    "lib/fonts/c8ba52b05a9ef10f4758.woff2",
+    "lib/fonts/cb10ffd7684cd9836a05.woff2",
+    "lib/fonts/b5f0f109bc88052d4000.woff2",
+    "lib/fonts/cbe0ae49c52c920fd563.woff2",
+    "lib/fonts/535a6cf662596b3bd6a6.woff2",
+    "lib/fonts/70cc7ff27245e82ad414.ttf",
+    "lib/fonts/454577c22304619db035.ttf",
+    "lib/fonts/52ac8f3034507f1d9e53.ttf",
+    "lib/fonts/05b618077343fbbd92b7.ttf",
+    "lib/fonts/4bb6ac751d1c5478ff3a.woff2",
+    "lib/media/874d8b8e340f75575caa.svg"
+  ],
+  "mainDependencies": [
+    "lib/fonts/94f2f163d4b698242fef.otf",
+    "lib/fonts/72505e6a122c6acd5471.woff2",
+    "lib/fonts/2d5198822ab091ce4305.woff2",
+    "lib/fonts/c8ba52b05a9ef10f4758.woff2",
+    "lib/fonts/cb10ffd7684cd9836a05.woff2",
+    "lib/fonts/b5f0f109bc88052d4000.woff2",
+    "lib/fonts/cbe0ae49c52c920fd563.woff2",
+    "lib/fonts/535a6cf662596b3bd6a6.woff2",
+    "lib/fonts/70cc7ff27245e82ad414.ttf",
+    "lib/fonts/454577c22304619db035.ttf",
+    "lib/fonts/52ac8f3034507f1d9e53.ttf",
+    "lib/fonts/05b618077343fbbd92b7.ttf",
+    "lib/fonts/4bb6ac751d1c5478ff3a.woff2",
+    "lib/media/874d8b8e340f75575caa.svg"
+  ],
+  "fileInfo": {
+    "public/linear models gif.gif": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 9321275,
+      "exportedPath": "public/linear models gif.gif",
+      "dependencies": []
+    },
+    "resources/comp3121/3121_extensive_notes.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 427822,
+      "exportedPath": "resources/comp3121/3121_extensive_notes.pdf",
+      "dependencies": []
+    },
+    "resources/comp3121/COMP3121 Exam Notes.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 234191,
+      "exportedPath": "resources/comp3121/COMP3121 Exam Notes.pdf",
+      "dependencies": []
+    },
+    "resources/comp3121/comp3121 lecture examples.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 230937,
+      "exportedPath": "resources/comp3121/comp3121 lecture examples.pdf",
+      "dependencies": []
+    },
+    "resources/comp3311/comp3311 cheat sheet.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 152979,
+      "exportedPath": "resources/comp3311/comp3311 cheat sheet.pdf",
+      "dependencies": []
+    },
+    "resources/comp3311/comp3311 full notes.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 145139,
+      "exportedPath": "resources/comp3311/comp3311 full notes.pdf",
+      "dependencies": []
+    },
+    "resources/math1081/1081lt1.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 192709,
+      "exportedPath": "resources/math1081/1081lt1.pdf",
+      "dependencies": []
+    },
+    "resources/math1081/2020 T1_annotated.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 1717059,
+      "exportedPath": "resources/math1081/2020 T1_annotated.pdf",
+      "dependencies": []
+    },
+    "resources/math1081/2020 T2_annotated.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 1310890,
+      "exportedPath": "resources/math1081/2020 T2_annotated.pdf",
+      "dependencies": []
+    },
+    "resources/math1081/2020 T3_annotated.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 1355213,
+      "exportedPath": "resources/math1081/2020 T3_annotated.pdf",
+      "dependencies": []
+    },
+    "resources/math1081/2021 T1_annotated.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 2009807,
+      "exportedPath": "resources/math1081/2021 T1_annotated.pdf",
+      "dependencies": []
+    },
+    "resources/math1081/2021 T2_annotated.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 2746920,
+      "exportedPath": "resources/math1081/2021 T2_annotated.pdf",
+      "dependencies": []
+    },
+    "resources/math1081/2021 T3_annotated.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 2491287,
+      "exportedPath": "resources/math1081/2021 T3_annotated.pdf",
+      "dependencies": []
+    },
+    "resources/math1081/2022 T1_annotated.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 2882238,
+      "exportedPath": "resources/math1081/2022 T1_annotated.pdf",
+      "dependencies": []
+    },
+    "resources/math1081/2022 T2+_annotated.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 3519785,
+      "exportedPath": "resources/math1081/2022 T2+_annotated.pdf",
+      "dependencies": []
+    },
+    "resources/math1081/labtest2.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 1623865,
+      "exportedPath": "resources/math1081/labtest2.pdf",
+      "dependencies": []
+    },
+    "resources/math1231/2020 T1.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 89072,
+      "exportedPath": "resources/math1231/2020 T1.pdf",
+      "dependencies": []
+    },
+    "resources/math1231/2020 T2.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 126427,
+      "exportedPath": "resources/math1231/2020 T2.pdf",
+      "dependencies": []
+    },
+    "resources/math1231/2020 T3.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 149835,
+      "exportedPath": "resources/math1231/2020 T3.pdf",
+      "dependencies": []
+    },
+    "resources/math1231/2021 T1.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 112364,
+      "exportedPath": "resources/math1231/2021 T1.pdf",
+      "dependencies": []
+    },
+    "resources/math1231/2021 T2.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 223477,
+      "exportedPath": "resources/math1231/2021 T2.pdf",
+      "dependencies": []
+    },
+    "resources/math1231/2021 T3.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 125968,
+      "exportedPath": "resources/math1231/2021 T3.pdf",
+      "dependencies": []
+    },
+    "resources/math1231/2022 T1.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 134277,
+      "exportedPath": "resources/math1231/2022 T1.pdf",
+      "dependencies": []
+    },
+    "resources/math1231/2022 T2 and T3.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 179853,
+      "exportedPath": "resources/math1231/2022 T2 and T3.pdf",
+      "dependencies": []
+    },
+    "resources/math1231/2023 T1.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 168298,
+      "exportedPath": "resources/math1231/2023 T1.pdf",
+      "dependencies": []
+    },
+    "resources/math2801/bivariate_distributions.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 245113,
+      "exportedPath": "resources/math2801/bivariate_distributions.pdf",
+      "dependencies": []
+    },
+    "resources/math2801/descriptive_stats.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 354780,
+      "exportedPath": "resources/math2801/descriptive_stats.pdf",
+      "dependencies": []
+    },
+    "resources/math2801/random_variables.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 213929,
+      "exportedPath": "resources/math2801/random_variables.pdf",
+      "dependencies": []
+    },
+    "resources/math2801/survey_design_and_experiments.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 168134,
+      "exportedPath": "resources/math2801/survey_design_and_experiments.pdf",
+      "dependencies": []
+    },
+    "resources/math2801/univariate_distributions.pdf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 393653,
+      "exportedPath": "resources/math2801/univariate_distributions.pdf",
+      "dependencies": []
+    },
+    "educational resources.md": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 878,
+      "exportedPath": "educational resources.html",
+      "dependencies": []
+    },
+    "haeohreum kim.md": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 1013,
+      "exportedPath": "haeohreum kim.html",
+      "dependencies": []
+    },
+    "lib/fonts/94f2f163d4b698242fef.otf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 66800,
+      "exportedPath": "lib/fonts/94f2f163d4b698242fef.otf",
+      "dependencies": []
+    },
+    "lib/fonts/72505e6a122c6acd5471.woff2": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 104232,
+      "exportedPath": "lib/fonts/72505e6a122c6acd5471.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/2d5198822ab091ce4305.woff2": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 104332,
+      "exportedPath": "lib/fonts/2d5198822ab091ce4305.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/c8ba52b05a9ef10f4758.woff2": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 98868,
+      "exportedPath": "lib/fonts/c8ba52b05a9ef10f4758.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/cb10ffd7684cd9836a05.woff2": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 106876,
+      "exportedPath": "lib/fonts/cb10ffd7684cd9836a05.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/b5f0f109bc88052d4000.woff2": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 105804,
+      "exportedPath": "lib/fonts/b5f0f109bc88052d4000.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/cbe0ae49c52c920fd563.woff2": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 106108,
+      "exportedPath": "lib/fonts/cbe0ae49c52c920fd563.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/535a6cf662596b3bd6a6.woff2": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 111708,
+      "exportedPath": "lib/fonts/535a6cf662596b3bd6a6.woff2",
+      "dependencies": []
+    },
+    "lib/fonts/70cc7ff27245e82ad414.ttf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 192740,
+      "exportedPath": "lib/fonts/70cc7ff27245e82ad414.ttf",
+      "dependencies": []
+    },
+    "lib/fonts/454577c22304619db035.ttf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 161376,
+      "exportedPath": "lib/fonts/454577c22304619db035.ttf",
+      "dependencies": []
+    },
+    "lib/fonts/52ac8f3034507f1d9e53.ttf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 191568,
+      "exportedPath": "lib/fonts/52ac8f3034507f1d9e53.ttf",
+      "dependencies": []
+    },
+    "lib/fonts/05b618077343fbbd92b7.ttf": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 155288,
+      "exportedPath": "lib/fonts/05b618077343fbbd92b7.ttf",
+      "dependencies": []
+    },
+    "lib/fonts/4bb6ac751d1c5478ff3a.woff2": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 7876,
+      "exportedPath": "lib/fonts/4bb6ac751d1c5478ff3a.woff2",
+      "dependencies": []
+    },
+    "lib/media/874d8b8e340f75575caa.svg": {
+      "modifiedTime": 1731814538471,
+      "sourceSize": 317,
+      "exportedPath": "lib/media/874d8b8e340f75575caa.svg",
+      "dependencies": []
+    }
+  }
+}
