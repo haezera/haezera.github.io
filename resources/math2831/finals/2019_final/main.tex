@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+ \usepackage{graphicx}
+ \usepackage{titling}
+ \usepackage{amsmath}
+ \usepackage{amssymb}
+ \title{2019}
+\author{Haeohreum Kim}
+\date{December 2024}
+ 
+ \usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+    \fancyhf{} % clear all header and footer fields
+    \fancyfoot[L]{\thedate}
+    \fancyhead[L]{MATH2831}
+    \fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1em%
+    %{\large \@date}%
+  \end{center}%
+  \par
+  \vskip 1em}
+\makeatother
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+\begin{document}
+
+\maketitle
+\section*{Question 1}
+\subsection*{a)}
+Already done in 2014 - i) is done as a question itself, ii) is done as part of one of the questions.
+\subsection*{b)}
+\begin{align*}
+    \text{Cov}(AY, BZ) &= \text{E}((AY - E(AY))(BZ - E(BZ))^T) \\ 
+    &= \text{E}((AY - AE(Y))(Z^TB^T - E(Z)B^T)) \\ 
+    &= \text{E}(A(Y-E(Y))(Z - E(Z))^TB^T) \\ 
+    &= A\text{Cov}(Y, Z)B^T \\ 
+    &= AVB^T
+\end{align*}
+
+\subsection*{c)}
+\begin{enumerate}
+    \item Just use the formula you just derived.
+    \begin{align*}
+        \text{Cov}((I-H)y, (X^TX)^{-1}X^Ty) &= (I-H)\text{Cov}(y, y)X(X^TX)^{-1} \\ 
+        &= (X(X^TX)^{-1} - X(X^TX)^{-1}X^TX(X^TX)^{-1})\text{Cov}(y, y) \\ 
+        &= (X(X^TX)^{-1} - X(X^TX)^{-1})\text{Cov}(y, y) \\ 
+        &= \textbf{0}
+    \end{align*}
+    \item Use the expectation of a quadratic form, given to you in the formula sheet.
+    \item \begin{align*}
+        E(\hat{\sigma}^2) &= \frac{E(y^T(I - H)y)}{n - p} \\ 
+        &= \frac{tr((I - H)\sigma^2I) + B^TX^T(I - X(X^TX)^{-1}X^T)XB}{n - p} \\ 
+        &= \frac{tr((I - H)\sigma^2I) + (B^TX^T - B^TX^T)XB}{n - p} \\
+        &= \frac{tr((I_n - X(X^TX)^{-1}X^T))\sigma^2I}{n - p} \\ 
+        &= \frac{\sigma^2tr(I_n) - \sigma^2tr(X(X^TX)^{-1}X^T)}{n - p} \\ 
+        &= \frac{n\sigma^2 - \sigma^2tr((X^TX)^{-1}X^TX)}{n - p} \\ 
+        &= \frac{n\sigma^2 - p\sigma^2}{n- p} \\
+        &= \sigma^2
+    \end{align*}
+    Thereby, unbiased.
+\end{enumerate}
+
+\newpage 
+\section*{Question 2}
+\subsection*{a)}
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item Errors, and hence responses, are uncorrelated.
+        \item Responses are a linear combination of predictors.
+        \item Error variance is constant.
+        \item Errors are normally distributed $\sim N(0, \sigma^2)$, and thus responses are also
+        normally distributed.
+    \end{enumerate}
+    \item First diagnostic plot has a fan shape in the residuals vs fitted plot, which indicates 
+    non-constant variance. It has skew in the QQ plot, which violates the normality assumption.
+    It also has some shape to the to the residuals vs fitted plot, which may mean the responses 
+    are not a linear combination of predictors.
+
+    Second diagnostic has less/no fan shape - but still has a minor shape to the graph. Normality 
+    looks a lot better with less skew. The second data set is of course much better.
+
+    \item You can transform the data to stabilise variance, or you can used weighted least squares 
+    regression.
+\end{enumerate}
+
+\subsection*{b)}
+\begin{enumerate}
+    \item 77.79\% (Not \textit{too} sure whether to use adjusted or not here... but purely by definition),
+    $R^2$ should be used here?
+    \item The $p$-value is $< 2\times 10^{-16}$. This indicates that with a significance level of 5\%, we can 
+    reject the null hypothesis that $\beta_{weight} = 0$, and that is has statistical significance 
+    in ouir model. 
+    \item $t_{0.975, 394} = 1.966$. Therefore, we have:
+    $$ (-2.424 \times 10^{-4}) \pm 1.966 \times (2.652 \times 10^{-5})$$
+    \item We have the statistic:
+    $$ \frac{R(\text{displacement}|\text{weight}, \text{cylinders}) + R(\text{weight} | \text{cylinders}) / 2}{SS_{res} / 394} = 85.129$$
+    This is much larger tha $F_{0.95, 2, 394}$, so we can reject the null hypothesis. 
+    \item This is just a $t$-test testing whether $\beta_{displacement} = 0$. The $p$-value is 0.0317.
+    There is enough evidence to reject the null hypothesis. 
+\end{enumerate}
+
+\section*{Question 3}
+This is already done in 2014.
+
+\section*{Question 4}
+\subsection*{a)}
+We didn't learn logistic regression.
+
+\subsection*{b)}
+\begin{enumerate}
+    \item Consider that $H_{ii} = x_i^T(X^TX)^{-1}x_i$.
+    \begin{align*}
+        \frac{\sum_{i=1}\text{Var}(\hat{y_i})}{\sigma^2} &= \frac{\sum_{i=1}^n\text{Var}(x_i^Tb)}{\sigma^2} \\
+        &= \frac{\sum_{i=1}^n x_i^T\text{Var}(y_i)x_i}{\sigma^2} \\ 
+        &= \frac{\sum_{i=1}^n \sigma^2x_i^T(X^TX)^{-1}x_i}{\sigma^2} \\ 
+        &= \frac{\sum_{i=1}^n \sigma^2H_{ii}}{\sigma^2} \\ 
+        &= \sum_{i=1}^n H_{ii} \\ 
+        &= p
+    \end{align*}
+    \item $R^2$ considers the raw $SS_{reg}/SS_{res}$. Adjusted adjusts for the fact that for GLM,
+    then more params you add, the higher $R^2$ becomes - so it weights the $SS_{reg}$ by the number of 
+    parameters, and the $SS_{res}$ by the number of parameters. Mallow's $C_p$ considers a subset model's 
+    bias-variance tradeoff; considering whether the usage of $p$ parameters effectively reduces 
+    the variance of the model compared to the full model's variance. 
+\end{enumerate}
+
+\end{document}
