@@ -1,0 +1,30 @@
+\contentsline {section}{\numberline {I}Operating Systems Overview}{1}{}%
+\contentsline {section}{\numberline {II}Theory of processes, threads and related models}{2}{}%
+\contentsline {subsection}{\numberline {\mbox {II-A}}What are processes and threads?}{2}{}%
+\contentsline {subsection}{\numberline {\mbox {II-B}}How are processes and threads managed in an OS?}{3}{}%
+\contentsline {subsection}{\numberline {\mbox {II-C}}Examples of process and thread model}{3}{}%
+\contentsline {section}{\numberline {III}Concurrency and sychronisation}{4}{}%
+\contentsline {subsection}{\numberline {\mbox {III-A}}What is concurrency and it's implications?}{4}{}%
+\contentsline {subsection}{\numberline {\mbox {III-B}}Avoidance and detection of critical regions}{5}{}%
+\contentsline {subsection}{\numberline {\mbox {III-C}}Techniques for mutual exclusions and their extensions}{5}{}%
+\contentsline {section}{\numberline {IV}MIPS R3000, and practical implementation of processes and threads}{8}{}%
+\contentsline {subsection}{\numberline {\mbox {IV-A}}MIPS details}{8}{}%
+\contentsline {subsection}{\numberline {\mbox {IV-B}}Context switching: implementation and implications in the kernel}{9}{}%
+\contentsline {section}{\numberline {V}System calls}{10}{}%
+\contentsline {section}{\numberline {VI}Deadlocks and Livelocks}{12}{}%
+\contentsline {section}{\numberline {VII}File management and file systems}{14}{}%
+\contentsline {subsection}{\numberline {\mbox {VII-A}}File system components}{14}{}%
+\contentsline {subsection}{\numberline {\mbox {VII-B}}UNIX File Systems and Components}{15}{}%
+\contentsline {subsection}{\numberline {\mbox {VII-C}}Practical implementation of \texttt {inodes} and file system components}{18}{}%
+\contentsline {subsection}{\numberline {\mbox {VII-D}}File system consistency with journalling}{19}{}%
+\contentsline {section}{\numberline {VIII}Memory hierarchy, caching and performance}{20}{}%
+\contentsline {section}{\numberline {IX}Memory management}{20}{}%
+\contentsline {subsection}{\numberline {\mbox {IX-A}}Simpler partitioning methods, and their components}{20}{}%
+\contentsline {subsection}{\numberline {\mbox {IX-B}}Concurrency, timesharing and swapping}{22}{}%
+\contentsline {subsection}{\numberline {\mbox {IX-C}}Virtual memory}{22}{}%
+\contentsline {subsection}{\numberline {\mbox {IX-D}}Page table improvements and alternatives; inverted, hashed and TLB cache}{23}{}%
+\contentsline {subsection}{\numberline {\mbox {IX-E}}MIPS R3000 Address Space Layout}{24}{}%
+\contentsline {subsection}{\numberline {\mbox {IX-F}}TLB Exception handling in MIPS R3000}{24}{}%
+\contentsline {subsection}{\numberline {\mbox {IX-G}}Paging performance considerations}{25}{}%
+\contentsline {subsection}{\numberline {\mbox {IX-H}}Virtual memory management policies}{26}{}%
+\contentsline {section}{\numberline {X}Multiprocessor systems and their implications}{27}{}%
