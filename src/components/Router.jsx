@@ -8,7 +8,6 @@ import Resources from "../pages/Resources";
 const Router = () => {
   const routes = [
     { name: "Home", path: "/" },
-    { name: "What I Work On", path: "/about" },
     { name: "Resources", path: "/resources" }
   ]
 

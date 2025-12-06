@@ -2,7 +2,7 @@ import { Box, Typography, Link } from "@mui/material";
 import { Description, PictureAsPdf } from "@mui/icons-material";
 
 // Import all resource files using Vite's glob
-const resourceFiles = import.meta.glob('/src/resources/**/*.{html,pdf,tex,md}', { 
+const resourceFiles = import.meta.glob('/src/resources/**/*.{html,pdf,tex,md,apkg}', { 
   eager: true,
   as: 'url'
 });
@@ -18,7 +18,7 @@ const Resources = () => {
     const filename = filePath.split('/').pop();
     const extension = filename.split('.').pop()?.toLowerCase();
     
-    if (!['html', 'pdf', 'tex', 'md'].includes(extension)) return;
+    if (!['html', 'pdf', 'tex', 'md', 'apkg'].includes(extension)) return;
     
     if (!courseFiles[course]) {
       courseFiles[course] = [];
@@ -57,8 +57,11 @@ const Resources = () => {
         Resources
       </Typography>
       <Typography sx={{ mb: 4 }}>
-      A more <i>comprehensive</i> repository of materials can be found <a href="https://github.com/haezera/haezera.github.io/tree/main/src/resources" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", color: "#4A9EFF" }}>here</a>.
+      A more <i>comprehensive</i> repository of materials can be found <a href="https://github.com/haezera/haezera.github.io/tree/main/src/resources" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline", color: "#4A9EFF" }}>here</a>
       </Typography>
+      <Box sx={{ width: "100%", height: "50px", border: "1px solid #ff3045", backgroundColor: "rgb(255, 48, 69, 0.4)",  borderRadius: 2, p: 2, display: "flex", alignItems: "center", justifyContent: "center", mb: 3 }}>
+        I graduated in December of 2025! The below notes thus could be outdated, or just plain wrong.
+      </Box>
       
       {sortedCourses.map(course => {
         const files = courseFiles[course];
