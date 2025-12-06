@@ -1,0 +1,39 @@
+\contentsline {section}{\numberline {I}Markowitz Portfolio Theory}{1}{}%
+\contentsline {subsection}{\numberline {\mbox {I-A}}Return and risk}{1}{}%
+\contentsline {subsection}{\numberline {\mbox {I-B}}Portfolios}{2}{}%
+\contentsline {subsection}{\numberline {\mbox {I-C}}Preference and Utility}{4}{}%
+\contentsline {subsection}{\numberline {\mbox {I-D}}Minimum variance/efficient frontier and optimal portfolios with no risk-free asset}{5}{}%
+\contentsline {subsection}{\numberline {\mbox {I-E}}Complete portfolios including a risk-free asset}{6}{}%
+\contentsline {subsection}{\numberline {\mbox {I-F}}Separation and the optimal risky portfolio}{7}{}%
+\contentsline {subsection}{\numberline {\mbox {I-G}}Capital Market Line (CML)}{8}{}%
+\contentsline {subsection}{\numberline {\mbox {I-H}}Capital Asset Pricing Model (CAPM)}{8}{}%
+\contentsline {subsection}{\numberline {\mbox {I-I}}Systematic and unsystematic (idiosyncratic) risk}{9}{}%
+\contentsline {subsection}{\numberline {\mbox {I-J}}Security Market Line (SML)}{9}{}%
+\contentsline {section}{\numberline {II}Market Models \& Market Efficiency}{9}{}%
+\contentsline {subsection}{\numberline {\mbox {II-A}}Single index model (SIM): a market portfolio proxy}{9}{}%
+\contentsline {subsection}{\numberline {\mbox {II-B}}Active investing}{10}{}%
+\contentsline {subsection}{\numberline {\mbox {II-C}}Multi-factor models}{12}{}%
+\contentsline {subsection}{\numberline {\mbox {II-D}}The efficient market hypothesis (EMH)}{12}{}%
+\contentsline {subsection}{\numberline {\mbox {II-E}}Event studies and how to apply them}{13}{}%
+\contentsline {subsection}{\numberline {\mbox {II-F}}Market anomalies and effects}{13}{}%
+\contentsline {subsection}{\numberline {\mbox {II-G}}Behavioural biases}{14}{}%
+\contentsline {subsection}{\numberline {\mbox {II-H}}Limits to arbitrage}{14}{}%
+\contentsline {section}{\numberline {III}Bond pricing and term structure of interest rates}{14}{}%
+\contentsline {subsection}{\numberline {\mbox {III-A}}Pricing bonds}{15}{}%
+\contentsline {subsection}{\numberline {\mbox {III-B}}Term structure of interest rates}{16}{}%
+\contentsline {subsection}{\numberline {\mbox {III-C}}Future rates (rates under certainty)}{17}{}%
+\contentsline {subsection}{\numberline {\mbox {III-D}}Forward rates (rates under uncertainty)}{17}{}%
+\contentsline {subsection}{\numberline {\mbox {III-E}}Expectations Hypothesis}{18}{}%
+\contentsline {subsection}{\numberline {\mbox {III-F}}Liquidity preference hypothesis}{18}{}%
+\contentsline {subsection}{\numberline {\mbox {III-G}}Bond pricing sensitivity to underlying rate $\Delta $}{18}{}%
+\contentsline {subsection}{\numberline {\mbox {III-H}}Effective measures of bond maturity: duration}{19}{}%
+\contentsline {subsection}{\numberline {\mbox {III-I}}Convexity}{20}{}%
+\contentsline {subsection}{\numberline {\mbox {III-J}}Holding a portfolio of bonds: duration and immunisation}{20}{}%
+\contentsline {section}{\numberline {IV}Options and Derivatives}{21}{}%
+\contentsline {subsection}{\numberline {\mbox {IV-A}}Introduction to options}{21}{}%
+\contentsline {subsection}{\numberline {\mbox {IV-B}}Concepts and terminology in options trading and pricing}{21}{}%
+\contentsline {subsection}{\numberline {\mbox {IV-C}}Options pricing: binomial option pricing}{22}{}%
+\contentsline {subsection}{\numberline {\mbox {IV-D}}Option strategies}{23}{}%
+\contentsline {subsection}{\numberline {\mbox {IV-E}}Put-call parity}{24}{}%
+\contentsline {subsection}{\numberline {\mbox {IV-F}}The impact of early excercise on an option}{25}{}%
+\contentsline {subsection}{\numberline {\mbox {IV-G}}Black-Scholes model for pricing (European) options}{25}{}%

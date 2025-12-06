@@ -1,0 +1,36 @@
+\contentsline {section}{\numberline {1}Markowitz Optimisation}{2}{}%
+\contentsline {subsection}{\numberline {1.1}Pre-text on statistics and measures used in portfolio management}{2}{}%
+\contentsline {subsection}{\numberline {1.2}Portfolios}{4}{}%
+\contentsline {subsection}{\numberline {1.3}Preference and utility}{5}{}%
+\contentsline {subsection}{\numberline {1.4}Efficient frontiers of risky portfolios}{7}{}%
+\contentsline {subsection}{\numberline {1.5}Complete portfolios including a risk-free asset}{8}{}%
+\contentsline {subsection}{\numberline {1.6}Capital Asset Pricing Model (CAPM)}{10}{}%
+\contentsline {subsection}{\numberline {1.7}Usage and interpretation of CAPM}{12}{}%
+\contentsline {section}{\numberline {2}Market models and market efficiency}{14}{}%
+\contentsline {subsection}{\numberline {2.1}Single Index Model (SIM): A practical CAPM}{14}{}%
+\contentsline {subsection}{\numberline {2.2}Active investing and exploiting $\alpha $}{15}{}%
+\contentsline {subsection}{\numberline {2.3}Fama-French-Carhart 4 Factor Model}{17}{}%
+\contentsline {subsection}{\numberline {2.4}Efficient Market Hypothesis (EMH)}{17}{}%
+\contentsline {subsection}{\numberline {2.5}Behavioural biases}{19}{}%
+\contentsline {subsection}{\numberline {2.6}Limits to arbitrage}{19}{}%
+\contentsline {section}{\numberline {3}Bonds}{20}{}%
+\contentsline {subsection}{\numberline {3.1}Bond characteristics}{20}{}%
+\contentsline {subsection}{\numberline {3.2}Term structure of interest rates}{23}{}%
+\contentsline {subsection}{\numberline {3.3}Future rates}{24}{}%
+\contentsline {subsection}{\numberline {3.4}Forward rates}{25}{}%
+\contentsline {subsection}{\numberline {3.5}Expectations Hypothesis}{25}{}%
+\contentsline {subsection}{\numberline {3.6}Liquidity Preference Hypothesis}{26}{}%
+\contentsline {subsection}{\numberline {3.7}Interest rate risk ($\Delta $), duration and convexity}{26}{}%
+\contentsline {subsection}{\numberline {3.8}Convexity}{28}{}%
+\contentsline {subsection}{\numberline {3.9}Interest rate immunisation}{29}{}%
+\contentsline {section}{\numberline {4}Options}{31}{}%
+\contentsline {subsection}{\numberline {4.1}Option characteristics and types}{31}{}%
+\contentsline {subsection}{\numberline {4.2}Intrinsic value at exercise}{32}{}%
+\contentsline {subsection}{\numberline {4.3}Binomial pricing model}{33}{}%
+\contentsline {subsection}{\numberline {4.4}Put-call parity}{34}{}%
+\contentsline {subsection}{\numberline {4.5}Practical bounds on option prices}{34}{}%
+\contentsline {subsection}{\numberline {4.6}Non-linearity of option prices relative to the underlying}{35}{}%
+\contentsline {subsection}{\numberline {4.7}Optimality and usefulness of early exercise on Americans}{35}{}%
+\contentsline {subsection}{\numberline {4.8}Black-Scholes pricing model (B-S model)}{36}{}%
+\contentsline {subsection}{\numberline {4.9}Option price sensitivity to parameters}{37}{}%
+\contentsline {subsection}{\numberline {4.10}Options strategies}{37}{}%
