@@ -79,7 +79,7 @@ const PriceChart = ({ data }) => {
       maintainAspectRatio: false,
       layout: {
         padding: {
-          right: 60, // Add padding on the right for the price label
+          right: 60,
           top: 20,
           bottom: 0,
           left: 0
