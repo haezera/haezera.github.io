@@ -1,0 +1,399 @@
+\documentclass[journal, letterpaper]{IEEEtran}
+
+
+\usepackage{graphicx}
+
+
+
+
+
+\usepackage{url}        
+
+
+
+\usepackage{amsmath}    
+
+
+\usepackage{textgreek}	% Greek to me, dawg
+\usepackage{listings}
+\usepackage{csvsimple}
+\usepackage{longtable}
+
+
+
+
+\begin{document}
+
+
+	\title{Algorithms Design and Analysis}
+	\author{Haeohreum Kim}
+	\maketitle
+
+
+  \section{Divide and Conquer}
+  Divide and Conquer algorithms are defined by the splitting of problems into subproblems, such that the problems
+  become simpler (usually, $\Theta(1)$).
+  \subsection{Master Theorem}
+  The master theorem provides an easy framework to analyse divide and conquer algorithms. For some $a > 0$ and $b > 1$,
+  and some driving function $f(n)$, the master theorem is: \[ T(n) = a \cdot T(\frac{n}{b}) + f(n)\]
+  To figure the asymptotic complexity of the algorithm, we use the watershed function $n^{\log_b(a)}$ to consider
+  three cases (informally); where $c^* = \log_b(a)$:
+  \begin{enumerate}
+    \item If $f(n) = O(n^{c^* - \epsilon})$ for some $\epsilon > 0$, then $T(n) = \Theta(n^{c^*})$.
+    \item If $f(n) = O(n^{c^*}\log^k n)$ for some $k \ge 0$, then $T(n) = \Theta(n^{c^*\log^{k+1}n})$
+    \item If $f(n) = \Omega(n^{c^* + \epsilon})$ for some $\epsilon > 0$, and for some $k < 1$ and some $n_0$,
+      \[ af(\frac{n}{b}) \le kf(n)\]
+      holds for all $n > n_0$ (the regularity condition), then $T(n) = \Theta(f(n))$.
+  \end{enumerate}
+  \subsection{Inversion Counting}
+  Consider an array
+  $A$, ranking a person $A$'s preferences from $1 \to n$. The array $B$, ranks the person $B$'s preferences using
+  person $A$'s ranks - that is, if person $B$ likes person $A$'s $5$th preferred option, then the first array
+  element would be $5$. \\ \\ 
+  The algorithm uses merge sort to count the inversions between three cases - the left subarray, the right subarray,
+  as well as across the left and right subarray. In the above scenario, an inversion is whenever a large number
+  comes before a small number. It runs in $\Theta(n \log n)$ time.
+  \subsection{Karatsuba Multiplication}
+  When trying to multiply large numbers using elementary techniques, we find that for some $n$ bits, we have $\Theta(n^2)$ work
+  to do. Rather, Karatsuba's algorithm splits some numbers $n$ and $m$ into half, say $n_{\text{hi}}, n_{\text{lo}}, 
+  m_{\text{hi}}, m_{\text{lo}}$. It should
+  follow that:
+  \begin{align*}
+    n &= 2^{\frac{n}{2}}\cdot n_{\text{hi}} + n_{\text{lo}} \\ 
+    m &= 2^{\frac{n}{2}}\cdot m_{\text{hi}} + m_{\text{lo}}
+  \end{align*}
+  Hence, now $n \cdot m$ becomes 
+  $2^n\cdot (n_\text{hi} \cdot n_\text{lo}) + 2^{\frac{n}{2}}\cdot (n_{\text{hi}}\cdot m_{\text{lo}} + m_{\text{hi}}\cdot n_{\text{lo}}) + 
+  n_{\text{lo}}\cdot m_{\text{lo}}$. The obvious next step is to then, also subdivide these multiplications into even smaller 
+  halves, which eventually become constant. The time complexity of Karatsuba's is $O(n^{1.6})$
+  \subsection{Strassen's Matrix Multiplication Algorithm}
+  Strassen's Algorithm splits square matrices into quadrants, which serve as their own matrices. The general premise is such that if
+  we have a matrix equation:
+  \[ \begin{bmatrix} a & b \\ c & d \end{bmatrix} \times \begin{bmatrix} e & f \\ g & h \end{bmatrix} = 
+  \begin{bmatrix} ae + bg & af + bh \\ ce + dg & cd + dh \end{bmatrix}  \]
+  Then we can also have $a, b, c, \ldots$ be matrices themselves, and divide them until they become $2\times 2$ matrices. \\ \\
+  Note that multiplying will still be $\Theta(n^2)$, and splitting is $\Theta(1)$. The trick comes in making some
+  expressions, such that we can reuse some of the values that were calculated. There are 7 overall products, instead of 8 products.
+  Hence, the recursion function is:
+  \[ 7\cdot T(\frac{n}{2}) + \Theta(n^2)\]
+  Therefore, our watershed function $n^{2.81}$, which is larger then the driving function, therefore, the algorithm's time complexity
+  is $\Theta(n^{2.81})$.
+  \subsection{DFT, FFT and Polynomials}
+  The Discrete Fourier Transform transforms a sequence of numbers into a frequency domain:
+  \[DFT(X)[k] = \sum_{n=0}^{N-1} X[n] \cdot e^{\frac{-2\pi i k n }{N}} \]
+  where $N$ is the length of the input.
+  The FFT uses complex numbers as a way to create a collapsible set of values. Here, instead of having to calculate every single
+  value, we have to calculate half of the roots of unity then before for each recursive level.
+  \begin{verbatim}
+n = len(P)
+if n == 1:
+  return P
+w = exp((2 * Pi * i) / n)
+P(even) = [even indices]
+P(odd) = [odd indices]
+y(even) = FFT(P(even))
+y(odd) = FFT(P(odd))
+y = [0] * n
+for j in range(n / 2):
+  y[j] = y(even)[j] + w^j * y(odd)[j]
+  y[j+n/2] = y(even)[j] - w^j * y(odd)[j]
+
+return y
+  \end{verbatim}
+  Note that the $\frac{n}{2}$ notation denotes the mirrored roots of unity. Hence, in one step, we are able to calculate $y[j]$
+  and $y[j + \frac{n}{2}]$, which is the crux of this algorithm.
+  \section{Greedy}
+  Greedy algorithms take local optimal steps that build to a global optimal solution. It's clear that greedy algorithms don't 
+  apply to every scenario, as then every problem would be trivial. In 3121, you are expected to intuit the application
+  of a greedy algorithm. \\ \\ 
+  There are two main subgenres of greedy problems, which are \textbf{optimal selection} and \textbf{optimal ordering}. Optimal
+  selection requires an algorithm that selects an item or a combination of items from an input, whereas an optimal ordering question
+  requires the algorithm to reorder the given input to meet a certain standard.
+  \subsection{Correctness of greedy algorithms}
+  Greedy algorithms are hard to prove. They suffer from being myopic, and hence, it is often difficult to justify that
+  the local step taken will always build to an optimal solution. There are two main ways to justify a greedy algorithm
+  formally. \\
+  \subsubsection{Exchange argument}
+  The exchange argument is one in that for some alternative solution $B = \{b_0, b_1, \ldots, b_n\}$, that for the
+  greedy solution $A = \{a_0, a_1, \ldots, a_m\}$, for any selection in $B$, you can exchange it with an appropiate
+  selection in $A$, and it stay an optimal solution. \\ \\ 
+  Consider the "Activity Selection" exercises proof below: \\ 
+  Suppose some greedy solution $G = \{g_1, \ldots, g_r\}$ and some alternative selection $A = \{a_1, \ldots, a_s\}$, each in
+  ascending order of time. Suppose that $g_1 = a_1, g_2 = a_2, \ldots, g_{k-1} = a_{k-1}, g_k \neq a_k$. \\ \\ 
+  Hence, we can define $A' = \{ g_1, \ldots, g_k, a_{k + 1}, \ldots, a_s\}$. There is certainly no conflicts $< k$, and since
+  $g_k$ finishes no later then $a_k$, there are no conflicts $\ge k$. Hence, A' is a valid selection. It can also be trivially
+  said that the size of $A' = A$, and hence, the exchange maintains the optimal solution. \\
+  \subsubsection{Greedy stays ahead}
+  The greedy stays ahead argument is one that proves for every single local selection, that the greedy solution
+  will be ahead (or equal to) any alternative solution. This is generally done akin to induction. \\ \\  Consider the "cell towers"
+  example from the lectures below: \\ 
+  For the base case of one tower, we place a tower 5km east of the first house encountered. If we place it any further east,
+  it no longer covers the house, hence the base case holds true. \\ \\ 
+  Suppose the claim is true for some $k - 1$, and consider the $k$-th tower. There is a house $h$ such that:
+  \[g_{k-1} + 5 < h = g_k - 5\]
+  The alternatively paced towers, $a_{k -1}$ and $a_{k}$ are placed such that $a_{k-1} \le g_{k-1}$, and hence, if $a_k > g_k$, the
+  house $h$ will not be covered.
+  \subsection{Strongly connected components}
+  Given a graph $G = (V, E)$ and a vertex $v$, the \emph{strongly connected component} of G containing $v$ consists
+  of all vertices $u \in V$ such that there is a path in $G$ from $v$ to $u$ and a path from $u$ to $v$. We will
+  denote it by $C_v$. \\ \\ 
+  To find if $u$ reaches $v$, construct another graph $G_{\text{rev}} = (V, E_{\text{rev}})$ consisting of the same
+  set of vertices $V$, but with the set of edges $E_{\text{rev}}$ obtained by reversing the direction of all edges
+  $E$ of $G$. If $v$ can reach $u$ in both $G$ and $G_{\text{rev}}$, then $u$ can also reach $v$.
+  \subsubsection{Algorithm}
+  \begin{itemize}
+    \item BFS from the original graph $G$, to find $R_v \subseteq V$, where $R$ denotes the reachable set of vertices.
+    \item BFS from the reversed graph $G_{\text{rev}}$, to find $R_v' \subseteq V$.
+    \item Hence, we have $O(V(V + E))$, with a BFS from each vertex.
+  \end{itemize}
+  However, a better time algorithm exists, using \emph{Kosaraju's Algorithm} and \emph{Tarjan's Algorithm}, which finds all strongly connected components
+  in $O(V + E)$ time.
+  \subsubsection{Condensation graph}
+  The condensation graph is a graph that represents all of the strongly connected components as a set that connect to other
+  strongly connected components. This may be useful for any problems that require the use of strongly connected components.
+  \subsection{Topological sorting}
+  Let $G = (V, E)$ be a directed graph, and let $n = |V|$. A \emph{topological sort} of $G$ is a linear ordering (enumeration) of
+  it's vertices $\sigma : V \to \{1, \ldots, n \}$ such that if there exists an edge $(v, w) \in E$ then $v$ precedes $w$ in
+  the ordering, i.e $\sigma(v) < \sigma(w)$. \\ \\ 
+  A directed acyclic graph permits a topological sort of it's verticies. Topological sorts are not necessarily unique. \\ \\ 
+  Can be computed in $O(V + E)$ time. Often useful to start with a topological sort, and then consider the problem for
+  directed acyclic graph problems.
+  \subsection{Djikstra's Algorithm}
+  We know of the Djikstra's Algorithm from COMP2521. Let us prove some of the things that we took for granted in COMP2521. Note
+  that $d_v$ denotes the shortest path from $s$ to $v$, where $s$ is the source vertex. $S$ represents the set of vertices
+  where the shortest path has been found.
+  \begin{enumerate}
+    \item Why is it correct to always add the vertex outside S with the smallest $d_v$ value?
+    \item When $v$ is added to $S$, for which vertices $z$ must we updated $d_z$, and how do we do these updates?
+    \item What data structure should be used to present the $d_v$ values?
+    \item What is the time complexity of the algorithm?
+  \end{enumerate}
+  \newpage 
+  \begin{enumerate}
+    \item Suppose there is some other shortest path from $s$ to $v$, which leaves to some vertex $y$ before reaching $v$.
+      The alternate path, $p'$, has a weight of atleast $d_y$. However, $v$ was chosen to have the smallest $d$-value amongst
+      vertices outside $S$. Therefore, we know that $d_v \le d_y$, and hence, $d_v$ is indeed the shortest path. \\ 
+    \item Consider the correct penultimate vertex $v$, and another alternative penultimate vertex, $u$, that both lead
+      to $z$. Let us claim for contradiction that $u$ leads to the shorter path. This means that within the shortest
+      path from $v$ to $z$, that it contains $u$. \\ \\Since $u$ was added before $v$ was, we know that there is some
+      shortest path from $s \to u$ that does not pass through $v$. Appending the edge from $u$ to $z$ produces
+      a path through $S$ from $s$ to $z$ which is no longer then $p$. Hence $p \ge d_v$, where $d_v$ is the existing
+      $d_z$ value, and therefore, the changed $d_z$ must have penultimate vertex $v$. \\ 
+    \item Since we need to delete and find the minimum $d_v$ values, we should use a heap. However, we also need
+      to update $d_v$ values at times, we need to use an \emph{augmented heap} that also has a lookup table for
+      which index the values are contained at. \\ 
+  \item $O((n+m)\log n)$ with the augmented heap, but $O(m + n\log n)$ with a Fibonacci heap.
+  \end{enumerate}
+  \section{Flow networks}
+  Flow networks are defined by directed graphs, where each edge $e = (u, v) \in E$ has a positive integer capacity
+  $c(u, v) > 0$. \\ \\ 
+  A flow in a network is a function $f : E \to [0, \infty), f(u, v) \ge 0$, which satifies:
+  \begin{enumerate}
+    \item A flow edge is less than or equal to the capacity edge
+    \item The outgoing flow is equal to the incoming flow
+  \end{enumerate}
+  The value of a flow, is then defined as:
+  \[|f| = \sum_{(s, v) \in E}f(s, v) = \sum_{(v, t) \in E} f(v, t) \]
+  The \emph{residual flow network} is a network that represents the leftover capacities for each flow edge - by representing
+  it as the opposite directional edge. The two edges for each flow is:
+  \begin{enumerate}
+    \item an edge from $v$ to $w$ with capacity $c - f$, and 
+    \item an edge from $w$ to $v$ with capacity $f$.
+  \end{enumerate}
+  An \textbf{augmenting path} is a path in the residual flow network from $s$ to $t$.
+  \pagebreak
+  \subsection{Single source and destination maximum flow}
+  For flow networks, we generally want to find the maximum flow possible within the flow network. The \emph{Ford-Fulkerson} algorithm
+  works as such:
+  \begin{enumerate}
+    \item Keeping adding through new augmenting paths
+    \item When there are no more augmenting paths, we have achieved the largest possible flow.
+  \end{enumerate}
+  \textbf{Proof} \\
+  The maximum flow of a flow network is found at a point where the flow over two partitions of the vertices $V$, is the same
+  as the total capacity over those two partitions. We call these partitions \emph{cuts}. \\ \\  After the use of the Ford-Fulkerson
+  Algorithm, partition the vertices into sets $S$ and $T$, such that in $S$, all vertices are reachable from the source
+  using the residual network, and where $T$ are the remaining vertices. Hence, it follows that:
+  \[ (s, t) : s \in S, t \in T : c(s, t) = f(s, t) \]
+  as $f(t, s) = 0$. Thus, at this point, the flow is maximal, and the cut is a minimal cut - the value of the flow is the
+  maximum flow of the network. \\\\
+  \textbf{Efficiency} \\ 
+  The efficiency of the algorithm can be described by $O(E|f|)$, as each edge could take the minimum increment $1$, and then
+  we would have to apply DFS for every single augmenting path from $1 \ldots |f|$. \\ \\ 
+  This can be improved by using \emph{Edmonds-Karp} algorithm, which extends the Ford-Fulkerson through the taking of
+  the shortest paths possible. Then, the number of augmenting paths is $O(VE)$, and since each takes $O(E)$ to find,
+  the time complexity is $O(VE^2)$. Note that the original bound still applies, and either one could be stricter.
+
+  \subsection{Problem-solving with flow networks}
+  To solve problems with flow networks, we must first learn to declare flow networks. Flow networks must be
+  explicitly defined with vertices, sinks, sources and capacities. You can use a dotpoint style format. \\ \\ 
+  If you see a time complexity that looks like $O(nm^2)$, then it's likely a flow network question.
+  \subsection{Multiple sources and sinks}
+  To deal with multiple sources and sinks, create a "super sink" and/or a "super source", that connects all
+  sinks and/or sources to a single sink/source.
+  \newpage
+  \section{Dynamic Programming}
+  Dynamic programming is a problem solving paradigm that utilises \emph{overlapping} subproblems. There are four main
+  types that are present in COMP3121, which are:
+  \begin{itemize}
+    \item One parameter, constant recurrence 
+    \item One parameter, linear recurrence
+    \item Two parameter, constant recurrence
+    \item Two parameter, linear recurrence
+  \end{itemize}
+  However, three parameter questions can certainly be asked. Here are some examples for each problem type. 
+  
+  \subsection{Shortest path in a  directed acyclic graph} 
+  Due to topological ordering of DAG's, we are able to create a dynamic programming solution to shortest paths. 
+  \\ For all $t \in V$, let $P(t)$ be the problem of determining $\text{opt}(t)$, the length of the shortest
+  path from $s$ to $t$. 
+  \[ \text{opt}(t) = \min\{\text{opt}(v) + w(v, t) | (v, t) \in E \}\]
+  We improve from using Djikstra's ($O(n\log n)$) to getting $O(n + m)$ performance.
+  \subsection{Bellman-Ford algorithm} 
+  The Bellman-Ford algorithm finds the shortest path to all vertices from a single source. The algorithm requires $|V| - 1$ iterations
+  where each iteration consistently checks each edge, and checks if any paths can be shortened. \\
+  For all $0 \le i \le n - 1$ and all
+  $t \in V$, let $P(i, t)$ be the problem of determining $\text{opt}(i, t)$, the length of a shortest path from $s \to t$
+  which contains at most $i$ edges. 
+  \[ \text{opt}(i, t) = \min\{ \text{opt}(i - 1, v) + w(v, t) | (v, t) \in E\}\]
+  The theory is that at most, the shortest path must use $n - 1$ edges, and hence, the answer is located at the 
+  list of values $\text{opt}(n - 1, t)$. The overall time complexity is $O(nm)$. The shortest paths can of course,
+  be reoconstructed by storing steps during the algorithm, and then using $\text{argmin}$ notation.
+  \subsection{Floyd-Warshall Algorithm}
+  The Floyd-Warshall Algorithm finds the shortest path between \emph{every single pair}.\\ For all $1 \le i, j \le n$ and $0 \le k \le n$,
+  let $P(i, j, k)$ be the problem of determining $\text{opt}(i, j, k)$, the weight of a shortest path from $v_i \to v_j$ using only
+  $v_1, \ldots, v_k$ as intermediate vertices. 
+  \[ \text{opt}(i, j, k) = \min(\text{opt}(i, j, k - 1), \text{opt}(i, k, k - 1) + \text{opt}(k, j, k - 1))\]
+  Base cases exist where if $i = j$ then $0$, if an edge exists, then the edge weight, and if no edge exists, then $\infty$. The
+  Floyd-Warshall algorithm takes $O(n^3)$ time.
+  \pagebreak 
+  \subsection{Rabin-Karp Algorithm}
+  The Rabin-Karp algorithm is a string-matching algorithm that utilises "polynomial rolling hashing" to be able to find
+  substrings of equal hash value - and then compare them character by character. The hashing function is as follows:
+  \[ h(B) = d^{m - 1} \cdot b_1 + d^{m-2} \cdot b_2 + \ldots + b_m\]
+  where $B$ is a string, $d$ is the length of the alphabet and $b_i$ are the characters of the string $B$. We can use Horner's
+  rule to create repetitiveness. Indeed, there are overlapping terms for two strings, $A_{s}$ and
+  $A_{s + 1}$, such that:
+  \[ H(A_{s + 1}) = d \cdot H(A_s) - d^m a_s + a_{s + m}\]
+  From this, we can calculate precompute the hash for the comparison string $B$ in $O(m)$ - and at the worst case,
+  every string in $A$ matches to the comparison hash, which leads to $O(mn)$ performance.
+  \subsection{Knuth-Morris-Pratt Algorithm}
+  The Knuth-Morris-Pratt (KMP) algorithm utilises a notion of a prefix-suffix to compare two strings
+  in linear time. For example, for some pattern \verb|xyxyxzx|, let us say we get to some
+  pattern \verb|xyxyxy|. We don't like this, as we were expecting a \verb|z|. However, this
+  doesn't mean we have to restart from the second letter of the comparator. We can simply identify that
+  \verb|xyxy| is a prefix-suffix in the comparator string that is contains in our pattern. \\ \\ 
+  This notion of a prefix-suffix is controlled by the \emph{failure function}, defined by $\pi(k)$, which is the length
+  of the longest prefix-suffix for a string $B_k$. Thus, if we get to some width of the string $w$, we know that if we face
+  a unmatched character, we can reduce to $\pi(w)$, to find the best partial match we can. \\ \\ Consider the following algorithm. 
+  \begin{itemize}
+    \item Maintain pointers $l = 1$ and $r = 0$, which record the left and right boundaries of our current partial match. 
+    \item We'll use $w = r - l + 1$ as shorthand for the length of our partial match.
+    \item Compare the next character $a_{r + 1}$ to $b_{w + 1}$. If they agree, we can extend the partial match.
+    \item Otherwise, try to extend from $\pi(w) \to \pi(w) + 1$, by increasing $l$ by the appropiate amount, and repeat previous
+      step.
+    \item If the characters ever agree, increase $r$ by one.
+    \item If a match of length $0$ can't be extended, increase both $l$ and $r$ by one and move on
+  \end{itemize}
+  Two pointer $O(n + m)$ solution, where $O(m)$ is to precompute the failure function values. \newpage
+  Let $\pi(k)$ be the length of the longest prefix-suffix of $B_k$.
+  The following recurrence is used
+  to compute the failure function:
+  \[\pi(k + 1) = \begin{cases}
+    \pi(k) + 1 & \text{if } b_{k + 1} = b_{\pi(k) + 1} \\ 
+    \pi(\pi(k)) + 1 & \text{if } b_{k + 1} = b_{\pi(\pi(k)) + 1} \\ 
+    \ldots
+  \end{cases}\]
+  The base case is $\pi(1) = 0$. The algorithm works by finding matching characters,
+  and when an unmatching character is found - by iterating backwards to find a smaller matching
+  segment (a smaller prefix-suffix).
+  \subsection{KMP represented as a finite automaton}
+  What is a finite automaton? Hell if I know. But in general, we have some "transition" function, which shows the different
+  changes in state of our "search" that may occur at each point of our search. For example, consider the below diagram:
+  \begin{center}
+    \includegraphics[scale=0.5]{finite_automaton}
+  \end{center}
+  Here, at each stage, the corresponding number in the alphabet shows if that letter is encountered next, what state the
+  matching would go into next. For example, at state $k = 5$, if we saw a $x$ again, we'd have to start all the way from
+  state $1$, as we can't reuse any of our letters. Thus, this concept is highly linked to our failure function.
+  \section{Intractable problems}
+  Intractable problems are problems that are very hard to solve.
+  \subsection{Analysing time complexity}
+  Time complexity should be calculated with respects to the length of the input. This means that things that looked polynomial before
+  (such as Knapsack), are actually non-deterministic. \\ \\ We can define an integer $x$ to take up $\log_2(x)$ amount of space using
+  binary representation. Similarly, we can say that a graph takes up $E\cdot \log_2(W)$ space, where $W$ is the largest weight
+  of an edge. An $n$ length array, could then have an input length of $n \log_2(M)$, where $M$ is the largest value of the array. \\ \\ 
+  Consider the Knapsack problem. We have the time complexity $O(nC)$. Our length of input is $n\log_2(C)$, but $C = 2^{\log_2(C)}$, 
+  therefore, we are actually non-deterministic.
+  \subsection{Classifications}
+  \begin{itemize}
+    \item \textbf{P(olynomial)}\\ A decision problem $A(x)$ is in class \textbf{P} if there exists a polynomial time
+      algorithm which solves it.
+    \item \textbf{N(on-deterministic) P(olynomial)} \\A decision problem $A(x)$ is in class \text{NP} if there is a 
+      problem $B(x, y)$ such that:
+      \begin{enumerate}
+        \item For every input $x$, $A(x)$ is true if and only if there is some $y$ for which $B(x, y)$ is true, and
+        \item The truth of $B(x, y)$ can be verified by an algorithm running in polynomial time in the length of $x$ only
+        \item We call $B$ the certifier, and $y$ the certificate.
+      \end{enumerate}
+    \item \textbf{NP-hard} \\A decision problem $V$ is NP-\emph{hard} if every other NP problem is reducible to $V$. This means that
+      NP-\emph{hard} problems are at least as hard as everything in NP.
+    \item \textbf{NP-complete}\\ A decision problem is NP-\emph{complete} if it is in class \textbf{NP} and class \textbf{NP-H}. 
+      NP-complete problems are in a sense universal. If we had an algorithm which solves any problem $V$, then we could also
+      solve every other NP problem $U$ by reduction.
+  \end{itemize}
+  \subsection{Polynomial reductions}
+  Polynomial reductions is a problem-solving method in intractable problems, by reducing a problem into a similar situation. Importantly,
+  if there is a polynomial reduction from $U$ to $V$, we can conclude that $U$ is no harder than $V$. \\ \\ 
+  A reduction does not need to be \emph{surjective}, that is, we might only map to specific kinds of instances of $V$. A useful
+  result is to use the contrapositive. If $U$ can be reduced to $V$, then if you could solve problem $V$ in polynomial time,
+  the problem $U$ would also have a polynomial time solution. The contrapositive is also true, if there is no known polynomial
+  time algorithm for $U$, then there also can't be a polynomial time algorithm for $V$.
+  \subsubsection{Cook's Theorem} Every NP problem is polynomially reducible to the SAT problem. \\ \\
+  To show that a transformation from problem $U \to V$ $f(x)$ is a polynomial reduction, you must generally prove:
+  \begin{enumerate}
+    \item If $x$ is YES, then $f(x)$ is YES.
+    \item If $f(x)$ is YES, then it maps from a YES $x$ instance (or that if $x$ is NO, then $f(x)$ is also NO).
+    \item That the reduction can be performed in polynomial time.
+  \end{enumerate}
+  \subsection{Solving reductions}
+   Many problems are prefaced with an \emph{at most} or an \emph{at least} - if this is the case, just try to prove
+      the extreme equality case. For example, if the question wants you to prove the cases $\le 4000$, then try to just prove 
+      $= 4000$. in terms of a decision problem, this is still true.
+  \subsection{Linear Programming}
+  Linear programming is getting a set of variables, their linear constraints, and some linear \emph{objective function}, and
+  then solving an optimisation problem based on them. \vspace{-0.4cm}
+  \subsection{How it works through an example}
+  A farmer has 3 tons of potato seeds, 4 tons of carrot seeds and 5 tons of fertiliser (used in a $1:1$ ratio). The profit
+  is $\$1.2$/kg for potatoes, and $\$1.7$/kg for carrots. Then, we can set up our problem like this: \\ 
+  \begin{itemize}
+    \item Declare two variables, $p$ and $c$, for the amount of potatoes and carrots we plant.
+    \item We have some constraints, namely:
+      \begin{itemize}
+        \item $p, c \ge 0$
+        \item $p \le 3000$
+        \item $c \le 4000$
+        \item $p + c \le 5000$
+      \end{itemize}
+    \item We want to declare our objective, which is to maximise our profit. Hence, this becomes: $1.2p + 1.7c$
+  \end{itemize}
+  We first visualise all the constraints onto a plane. We then find the convex polygon that is the intersection of all of the
+  inequalities. From here, distinct corners are found. To find the optimal solution, we travel in the direction of the objective
+  function until we find the last point.
+  \begin{center}
+  \includegraphics[scale=0.15]{lp.png}
+  \end{center}
+  \subsection{Integers vs Real Numbers}
+  Real numbers create nice convex polygons, that we can utilise to find the "points" shown above. A lot of the time though,
+  we need to find only integer solutions. This actually becomes \emph{incractable}. \\ \\The biggest issue with integer linear
+  programming comes to the fact that it no longer follows the "corner" method that we saw before, since we cannot
+  guarantee that the polygons form corners at integer values. Hence, with this integer restrictions, comes an egregious amount
+  of new points to test, such that it becomes intractable.
+  \subsection{Super-polynomial algorithms}
+  Even if our problems are intractable, we can create exponential tiem algorithms and try to make them more efficient.
+  Many of these problems include finding \emph{subsets}, and then filtering through some form of objects, and hence,
+  and often seen time complexiy is $O(2^n n^k)$.\\ \\  For example, subset sum takes $O(2^{\frac{n}{2}}n)$ and the 
+  Travelling Salesman problem takes $O(2^nm)$, due to the way they consider every single subset.
+
+  \end{document}
+

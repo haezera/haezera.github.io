@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>COMM1100&colon; Business Decision Making</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="comm1100-business-decision-making">COMM1100: Business Decision Making</h1>
+<h2 id="table-of-contents">Table of contents</h2>
+<ul>
+<li><a href="#comm1100-business-decision-making">COMM1100: Business Decision Making</a>
+<ul>
+<li><a href="#table-of-contents">Table of contents</a></li>
+</ul>
+</li>
+<li><a href="#economics">Economics</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#sunk-and-opportunity-costs-marginal-benefits-and-costs">Sunk and opportunity costs, marginal benefits and costs.</a></li>
+<li><a href="#decision-making-principles">Decision making principles</a>
+<ul>
+<li><a href="#the-cost-benefit-principle">The cost-benefit principle</a></li>
+<li><a href="#the-opportunity-cost-principle">The opportunity cost principle</a></li>
+<li><a href="#the-marginal-principle">The marginal principle</a></li>
+<li><a href="#the-interdependence-principle">The interdependence principle</a></li>
+</ul>
+</li>
+<li><a href="#market-supply-and-demand">Market; supply and demand</a>
+<ul>
+<li><a href="#comparative-advantage">Comparative advantage</a>
+<ul>
+<li><a href="#example">Example</a></li>
+<li><a href="#definition">Definition</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#supply-and-demand">Supply and demand</a>
+<ul>
+<li><a href="#demand">Demand</a>
+<ul>
+<li><a href="#elasticity">Elasticity</a></li>
+</ul>
+</li>
+<li><a href="#supply">Supply</a>
+<ul>
+<li><a href="#firm-supply">Firm supply</a></li>
+<li><a href="#market-supply">Market supply</a></li>
+</ul>
+</li>
+<li><a href="#market-equilibrium">Market equilibrium</a></li>
+<li><a href="#types-of-competition">Types of competition</a>
+<ul>
+<li><a href="#perfect-competition">Perfect competition</a></li>
+<li><a href="#oligopoly">Oligopoly</a></li>
+<li><a href="#monopolistic-competition">Monopolistic competition</a></li>
+<li><a href="#monopoly">Monopoly</a></li>
+</ul>
+</li>
+<li><a href="#market-efficiency">Market efficiency</a>
+<ul>
+<li><a href="#consumer-surplus">Consumer surplus</a></li>
+<li><a href="#producer-surplus">Producer surplus</a></li>
+<li><a href="#economic-surplus">Economic surplus</a></li>
+</ul>
+</li>
+<li><a href="#market-failure">Market failure</a>
+<ul>
+<li><a href="#imperfect-competition">Imperfect competition</a></li>
+<li><a href="#externalities-and-imperfect-information">Externalities and imperfect information</a></li>
+<li><a href="#limitations-of-maximising-total-surplus">Limitations of maximising total surplus</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#law">Law</a>
+<ul>
+<li><a href="#overview-1">Overview</a></li>
+<li><a href="#how-are-laws-made">How are laws made?</a>
+<ul>
+<li><a href="#sources">Sources</a></li>
+<li><a href="#statue-lawacts-of-parliament">Statue law/acts of parliament</a></li>
+<li><a href="#courts">Courts</a></li>
+</ul>
+</li>
+<li><a href="#competition-law">Competition Law</a></li>
+<li><a href="#consumer-law">Consumer Law</a>
+<ul>
+<li><a href="#australian-consumer-law-acl-sections">Australian Consumer Law (ACL) sections</a></li>
+</ul>
+</li>
+<li><a href="#contract-law">Contract Law</a>
+<ul>
+<li><a href="#contract-enforceability">Contract enforceability</a></li>
+<li><a href="#what-forms-a-contract">What forms a contract?</a></li>
+<li><a href="#important-acl-sections">Important ACL sections</a></li>
+</ul>
+</li>
+<li><a href="#corporations-law">Corporations law</a>
+<ul>
+<li><a href="#duties-of-directors">Duties of directors</a></li>
+</ul>
+</li>
+<li><a href="#property-law">Property Law</a></li>
+<li><a href="#privacy-law">Privacy Law</a>
+<ul>
+<li><a href="#privacy-act-1988-commonwealth">Privacy Act 1988 (Commonwealth)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#corporate-social-responsibility-csr">Corporate Social Responsibility (CSR)</a>
+<ul>
+<li><a href="#overview-2">Overview</a></li>
+<li><a href="#core-characteristics-of-csr">Core characteristics of CSR</a></li>
+<li><a href="#stakeholders">Stakeholders</a></li>
+<li><a href="#shareholders-vs-stakeholders">Shareholders v.s stakeholders</a></li>
+<li><a href="#stakeholder-subgroups">Stakeholder subgroups</a></li>
+<li><a href="#approaches-to-business-decisions">Approaches to business decisions</a>
+<ul>
+<li><a href="#carrolls-csr-pyramid">Carroll's CSR pyramid</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="economics">Economics</h1>
+<h2 id="overview">Overview</h2>
+<ul>
+<li>Economics is a social science.</li>
+<li>In economics, there are two main tools:
+<ul>
+<li><strong>Models</strong> (often mathematical) that highlight essential features of reality relevant to the question at hand.</li>
+<li><strong>Empirical tools</strong> that use statistical and experimental features to estimate <strong>casual relationships</strong> using societal data.</li>
+</ul>
+</li>
+</ul>
+<h2 id="sunk-and-opportunity-costs-marginal-benefits-and-costs">Sunk and opportunity costs, marginal benefits and costs.</h2>
+<p>Consider buying a concert ticket for $50, and then having the decision to take the train to the concert for $3 or just stay home; if you value the concert experience as $55 dollars; what should you do?</p>
+<p><em>You should go to the concert</em>.</p>
+<p>Here, $50 is the sunk cost; it's money that's already been invested into the decision and can't be retrieved. Thus, the <em>opportunity cost</em> is $47, and the cost of the ticket is $3, so we should go to the concert!</p>
+<p>Here, $50 is our marginal cost, whereas $70 is our marginal benefit; thus our marginal profit is $20.</p>
+<p>Simply:</p>
+<ul>
+<li><strong>Sunk cost:</strong> The sunk cost are costs when an opportunity arises, that are already paid for.</li>
+<li><strong>Opportunity cost:</strong> The opportunity cost is the loss of gain from the next best opportunity besides the opportunity we are choosing.</li>
+</ul>
+<h2 id="decision-making-principles">Decision making principles</h2>
+<h3 id="the-cost-benefit-principle">The cost-benefit principle</h3>
+<ul>
+<li><strong>Evaluate</strong> the full set of costs and benefits associated with the choice</li>
+<li><strong>Pursuie</strong> the choice <strong>only if</strong> the benefits are <em>at least as great</em> as the costs.</li>
+</ul>
+<h3 id="the-opportunity-cost-principle">The opportunity cost principle</h3>
+<ul>
+<li>The <em>true cost</em> of something is the cost of the next best alternative; by this way, we can consider what we are <strong>losing</strong> when making a decision</li>
+<li>When making a decision, consider the <em>trade-offs</em> you are making.</li>
+</ul>
+<h3 id="the-marginal-principle">The marginal principle</h3>
+<ul>
+<li>Decisions about quantities are best made <em>incrementally.</em></li>
+<li>You should break &quot;<em>how many</em>&quot; questions into marginal decisions (increments), weighing the benefits of each new block.</li>
+<li>For example, how much more profit do we get by making 1 more shoe per month?</li>
+</ul>
+<h3 id="the-interdependence-principle">The interdependence principle</h3>
+<ul>
+<li>Everything is <em>connected</em>.</li>
+<li>The best choice is the choice that considers all the factors in your decision; including the actions of other entities.</li>
+<li>Act accordingly to your predictions of how other competitors and engagers into the market will react.</li>
+</ul>
+<h2 id="market-supply-and-demand">Market; supply and demand</h2>
+<h3 id="comparative-advantage">Comparative advantage</h3>
+<h4 id="example">Example</h4>
+<p>Imagine two cafe owners, <em>Paul</em> and <em>Cassie</em>. In an hour, Paul can create one pastry and one coffee. Cassie can create 2 pasties and 4 coffees. Note that they cannot do both at the same time.</p>
+<p>Note that when Paul makes a pastry, his opportunity cost is 1 coffee. When Cassie makes a pastry, her opportunity cost is 2 coffees. For making a coffee, Paul's opportunity cost is 1 pastry, and Cassie's opportunity cost is half a pastry.</p>
+<p>It's clear that for Paul, (if these products are equally priced), that it doesn't matter what he makes - whereas for Cassie, she is much more efficient at making coffee.</p>
+<h4 id="definition">Definition</h4>
+<p>Thus, comparative advantage considers the advantage businesses or people withing businesses have over eachother in the manafacturing of goods and the sale of goods. It explains why businesses specialise into specific areas.</p>
+<h2 id="supply-and-demand">Supply and demand</h2>
+<p>Before we consider the supply and demand model, we must assume:</p>
+<ul>
+<li>The consumer is a <em>price taker</em>; they must take the market price.</li>
+<li>The consumer applies the three principles of marginal principle, cost-benefit principle and opportunity cost principle.</li>
+</ul>
+<h3 id="demand">Demand</h3>
+<p><em>Individual demand</em> (consumer demand) is just the demand that an individual has for a given product over an amount of supply.</p>
+<p>A <em>reservation price</em> for in demand, is the maximum price that an individual is willing to pay for a specific quantity of a product.</p>
+<p>Then, the <em>market demand</em>, all we must do is sum all of the <em>individual</em> demands. If Joe would buy 3 bananas at $4, and Sara would buy 3 bananas at $7, the market demand (just given this information) for 6 bananas would be $11.</p>
+<p>Market demand can be moved around by changing incomes, economic conditions and external markets moving (which lessens the free income of individuals).</p>
+<h4 id="elasticity">Elasticity</h4>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mi>ϵ</mi></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mfrac><mi>P</mi><mi>Q</mi></mfrac><mo>⋅</mo><mfrac><mrow><mi mathvariant="normal">Δ</mi><mi>Q</mi></mrow><mrow><mi mathvariant="normal">Δ</mi><mi>P</mi></mrow></mfrac></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mfrac><mn>1</mn><mi>m</mi></mfrac><mo>⋅</mo><mfrac><mi>P</mi><mi>Q</mi></mfrac></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{align*}\epsilon &amp;= \frac{P}{Q}\cdot\frac{\Delta Q}{\Delta P} \\ &amp;= \frac{1}{m} \cdot \frac{P}{Q}\end{align*}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:5.0815em;vertical-align:-2.2908em;"></span><span class="mord"><span class="mtable"><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.7908em;"><span style="top:-4.7908em;"><span class="pstrut" style="height:3.3603em;"></span><span class="mord"><span class="mord mathnormal">ϵ</span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.3603em;"></span><span class="mord"></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.2908em;"><span></span></span></span></span></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.7908em;"><span style="top:-4.7908em;"><span class="pstrut" style="height:3.3603em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">Q</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">Δ</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">Δ</span><span class="mord mathnormal">Q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span><span style="top:-2.25em;"><span class="pstrut" style="height:3.3603em;"></span><span class="mord"><span class="mord"></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3214em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">m</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">Q</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:2.2908em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span></span> represents price and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8778em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">Q</span></span></span></span> represents quantity. Essentially, it is the gradient of the curve - and shows the behaviour of the quantity relative to the price.</p>
+<p>If the market is elastic, it means that the demand is circumstantial - something like ice cream would have high elasticity. A life-saving medication like insulin would be inelastic; even if the price is pushed higher, people still need insulin.</p>
+<h3 id="supply">Supply</h3>
+<p>We first consider when firms exist in perfect competition - such that:</p>
+<ul>
+<li>Firms sell identitical goods</li>
+<li>Firms are <strong>price takers</strong>.</li>
+</ul>
+<p>In supply, <em>reservation price</em> considers the <em>minimum price</em> that a firm would take to produce a specific quantity of product.</p>
+<h4 id="firm-supply">Firm supply</h4>
+<p>Firm supply details what a single firm is willing to supply a good at different prices and quantities.</p>
+<h4 id="market-supply">Market supply</h4>
+<p>The calculation of market supply is the same as market demand, where we add the quantities of each firm supply to create a new quantitiy - for example if firm X will supply 3 bananas at $2 and firm Y will supply 5 bananas at $5, the market demand is 8 bananas at $7.</p>
+<p>Supply can be shifted by input prices (cost of production), a betterment of technology, etc.</p>
+<p>An highly elastic market in supply means that for a small change in price, a lot more quantity will be produced; vice versa.</p>
+<h3 id="market-equilibrium">Market equilibrium</h3>
+<center> <img src="file:////Users/haekim/Library/CloudStorage/GoogleDrive-haeohreum04@gmail.com/My Drive/uni/comm1100/notes/supply_demand.png" height="400"></center>
+<p>Consider the market price is at $2. At $2, suppliers are willing to supply 2 bananas, but consumers want 5. There is excess demand here, and thus there will be positive price pressure.</p>
+<p>Conversely, think about if the price is at $4. Suppliers are willing to provide 4 bananas, but consumers only want 2 bananas. So there is negative price pressure.</p>
+<p>The equilibrium price is at the intersection of the supply and demand graphs intersect. We now know how many bananas should be farmed, and who will get these bananas.</p>
+<p>Often, market supply and demand can change. We denote changes in demand on a graph using apostrophes, <code>D'</code>. We can consider new demand and supply curves to compare with old markets.</p>
+<h3 id="types-of-competition">Types of competition</h3>
+<h4 id="perfect-competition">Perfect competition</h4>
+<p>Perfect competition is when there are multiple businesses selling the same product. There are many sellers, and it is easy to enter the market.</p>
+<p>As a result, the supply graph is constant - the marginal cost is the same as the marginal profit.</p>
+<h4 id="oligopoly">Oligopoly</h4>
+<p>An oligopoly is formed when there are a few large supplier sin a market. Most markets in the modern world are oligopolies - for example, supermarkets in Australia are dominated by Coles and Woolworths, cola-flavoured drinks are dominated by Coca Cola and Pepsi.</p>
+<p>In oligopoly markets, the way your competitors behave have a major impact on you (as there is limited competitors), so your decisions must be based reactionary.</p>
+<h4 id="monopolistic-competition">Monopolistic competition</h4>
+<p>Monopolistic competition is when there is a market with many small businesses competing, each selling <strong>differentiated products</strong>. The businesses have some power due to the product differentiation.</p>
+<p>Consider that if a pizza shop raises it's prices, it won't just lose all of it's customers linearly to the burger shop across the road.</p>
+<h4 id="monopoly">Monopoly</h4>
+<p>A price-taker firm (or a firm in a perfectly competitive market), is perfectly elastic; as in the quantity supplied will always yield to the same unit price. <em>In simpler terms, a price-taker firm only chooses it's quantity.</em></p>
+<p>A monopoly, however is elastic as it is the only supplier. The more quantity supplied, the less price the firm can charge. <em>In simpler terms, a monopoly chooses both it's price and quantity.</em></p>
+<p>Marginal analysis is important for monopolies - we can draw the <strong>marginal cost</strong> and <strong>marginal revenue</strong> plots, and we should only produce up till the point where the marginal cost and marginal revenue equations intersect.</p>
+<h3 id="market-efficiency">Market efficiency</h3>
+<h4 id="consumer-surplus">Consumer surplus</h4>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>CS</mtext><mo>=</mo><mtext>Marginal benefit</mtext><mo>−</mo><mtext>Price</mtext></mrow><annotation encoding="application/x-tex">\text{CS} = \text{Marginal benefit} - \text{Price}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">CS</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">Marginal benefit</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">Price</span></span></span></span></span></span></p>
+<p>Consumer surplus is the difference between <em>reservation price</em> and <em>actual price</em> - or more simply; it's the difference between the price the consumer would have been willing to pay and the price they actually paid.</p>
+<p>A consumer will participate in the market as long as the paid price is below the reservation price. Graphically, this is the area between the price paid and the demand curve.</p>
+<h4 id="producer-surplus">Producer surplus</h4>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>PS</mtext><mo>=</mo><mtext>Price</mtext><mo>−</mo><mtext>Marginal cost</mtext></mrow><annotation encoding="application/x-tex">\text{PS} = \text{Price} - \text{Marginal cost}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord">PS</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord text"><span class="mord">Price</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">Marginal cost</span></span></span></span></span></span></p>
+<p>Producer surplus is the difference between the price the supplier would be willing to supply and the price they actually received.</p>
+<p>The producer surplus is the area below the paid price, between the supply curve and the paid price line.</p>
+<h4 id="economic-surplus">Economic surplus</h4>
+<p>Economic surplus is then defined by:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mtext>Economic surplus</mtext><mo>=</mo><mtext>Consumer surplus</mtext><mo>+</mo><mtext>Producer surplus</mtext></mrow><annotation encoding="application/x-tex">\text{Economic surplus} = \text{Consumer surplus} + \text{Producer surplus}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">Economic surplus</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">Consumer surplus</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">Producer surplus</span></span></span></span></span></span></p>
+<h3 id="market-failure">Market failure</h3>
+<blockquote>
+<p>Market failure is when <strong>overall surplus is not maximised</strong>.</p>
+</blockquote>
+<h4 id="imperfect-competition">Imperfect competition</h4>
+<p>The following conditions are required for perfect competition:</p>
+<ul>
+<li>Both buyers and sellers are price takers</li>
+<li>Sellers produce identitical goods</li>
+<li>Free entry and exit in the market
+If any of these conditions are violated, this can cause market failure.</li>
+</ul>
+<h4 id="externalities-and-imperfect-information">Externalities and imperfect information</h4>
+<p>The following additional conditions must be satisfied:</p>
+<ul>
+<li>There are <strong>no externalities</strong></li>
+<li>There is <strong>full information</strong></li>
+</ul>
+<p>An <em>externality</em>, or some external source of influence from the market is categorised into <em>positive</em> and <em>negative</em>, by virtue of the effect it has on the bystanders of the market.</p>
+<p><strong>Private information</strong> is information that is exchanged between market participants without the knowledge of other participants, and can cause an inefficiency in the market due to those participants having greater clarity on the economic conditions.</p>
+<h4 id="limitations-of-maximising-total-surplus">Limitations of maximising total surplus</h4>
+<ul>
+<li>Just maximising economic surplus is not enough
+<ul>
+<li>How is this economic surplus being distributed?</li>
+<li>Is it being hoarded by the producers? By the consumers?</li>
+</ul>
+</li>
+<li>How economic surplus is</li>
+</ul>
+<h1 id="law">Law</h1>
+<h2 id="overview-1">Overview</h2>
+<ul>
+<li>The law is a key consideration when making business decisions. Depending on the scenario, the law can be a <em>constraint</em> (regulations) or an <em>enabler</em> (creation).</li>
+<li>The law of course dictates how a business may function.</li>
+<li>However, <em>just because the law permits an action, does not mean it is a good business decision</em>.</li>
+</ul>
+<blockquote>
+<p>From here on out <code>ACL sXX</code> refers to the Australian Consumer Law and it's respective section.</p>
+</blockquote>
+<h2 id="how-are-laws-made">How are laws made?</h2>
+<h3 id="sources">Sources</h3>
+<p>Laws come from <em>two</em> main sources:</p>
+<ol>
+<li>Parliament: which create <strong>statute law</strong> and <strong>acts of parliament</strong>, and:</li>
+<li>Courts: which create <strong>statutory interpretations</strong> and <strong>common law</strong>.</li>
+</ol>
+<h3 id="statue-lawacts-of-parliament">Statue law/acts of parliament</h3>
+<p><em>Commonwealth laws</em>, or federal laws, are made through the follow process:</p>
+<ul>
+<li>The bill is presented in each house of the governmnent, and discussed 3 times - these are formally called 'readings'.</li>
+<li>If the bills are approved by both houses, the bill goes to the Governor-General, which upon approval:</li>
+<li>Is published in the Commonwealth Government Gazette.</li>
+</ul>
+<p><em>State laws</em> have the same process, bu is instead approved and signed by the governor.</p>
+<h3 id="courts">Courts</h3>
+<ul>
+<li>Judges make decisions following the legal rule of doctrine of precendence - previous decisions from higher coruts in the same hierarchy should be followed facing similar facts;
+<ul>
+<li>Essentially, acts/laws cannot cover all scenarios.</li>
+<li>In light of this, judges in all levels of courts will create <em>precedences</em> by making judgements on cases.</li>
+<li>These judgements or <em>precedents</em> are now considered <em>common law</em> - and can be referenced in future cases as if it were a law.</li>
+</ul>
+</li>
+</ul>
+<p><em>Tribunals</em> make judgements about administrative decisions.</p>
+<h2 id="competition-law">Competition Law</h2>
+<p>Competition law is enforced by government authorties to ensure that markets and businesses operate appropiately. While it is impossible to ensure perfect competition in every market; and in fact doing so may not be in the interests of governments, it is important to reduce monopolisation of sectors.</p>
+<p>Anti-competition behavior includes:</p>
+<ul>
+<li><strong>Cartel conduct</strong> (<code>ACL s45</code>): businesses making agreements to fix prices, rig bids, share markets, etc.</li>
+<li><strong>Misuse of market power:</strong> A business with substantial power in the market is now allowed to engage in conduct that substantially lessens competition in the market</li>
+<li><strong>Anti-competitive contracts, arrangements and understandings:</strong> practices that have the purpose, effect or likely effect of substantially lessening competition in a market.</li>
+<li><strong>Exclusive dealing:</strong> attaching anti-competitive terms or conditions to the supply or acquisition of goods or services.</li>
+<li><strong>Resale price maintenance:</strong> requiring customers to sell goods or services at or above a specific minimum price</li>
+<li><strong>Anti-competitive mergers:</strong> mergers that give a single corporation overt market power.</li>
+</ul>
+<h2 id="consumer-law">Consumer Law</h2>
+<p><strong>The Australian Competition and Consumer Commission (ACC) regulates consumer law.</strong></p>
+<h3 id="australian-consumer-law-acl-sections">Australian Consumer Law (ACL) sections</h3>
+<ul>
+<li>Misleading or deceptive conduct <code>s18</code></li>
+<li>False or misleading representations <code>s29</code></li>
+<li>Unconscionable conduct <code>ss 20 and 21</code> (more serious than <code>s18</code>)</li>
+<li>Unfair contract terms <code>s23 - 28A</code></li>
+<li>Consumer guarantees <code>ss51 to 62</code></li>
+<li>Product safety <code>Part 3-3</code></li>
+</ul>
+<p>Consumer law ensures rights for consumers, including:</p>
+<ul>
+<li>Unconscionable conduct (<code>ACL s18</code>): businesses must not engage in unconscionable conduct</li>
+<li>Consumer guarantees: businesses must provide an automatic guarantee to consumers with any product or service, including that they work as advertised.</li>
+<li>Consumer product safety: the products and services that businesses supply must be safe and and meet consumer guarantees</li>
+<li>Fair contract terms: businesses need to make sure that their contract terms don't unfairly disadvantage consumers or small businesses</li>
+<li>Fair sales practices: businesses must conduct fair sales practices</li>
+</ul>
+<p>Businesses <em>CANNOT</em> compel their consumers to waive these protections.</p>
+<h2 id="contract-law">Contract Law</h2>
+<h3 id="contract-enforceability">Contract enforceability</h3>
+<ul>
+<li>Legal capacity
+<ul>
+<li>Parties must be legally capable of entering into a partnership. They must understand what they are doing - minors, intoxicated, mental capacity, etc.</li>
+</ul>
+</li>
+<li>Consent
+<ul>
+<li>The parties must genuinely consent, and must not be under duress or unconscionable conduct</li>
+</ul>
+</li>
+<li>Legality of purpose
+<ul>
+<li>The objects or purpose of the contract must be legal</li>
+</ul>
+</li>
+<li>Form
+<ul>
+<li>Contracts can be oral unless required to be in writing by law</li>
+</ul>
+</li>
+</ul>
+<h3 id="what-forms-a-contract">What forms a contract?</h3>
+<p>Contract law revolves around contracts; legally binding agreements between parties. The basics of a contract are:</p>
+<p><em>Agreement</em></p>
+<ul>
+<li>An offer is made by one party, promising to do something</li>
+<li>The other party accepts</li>
+</ul>
+<p><em>Intention</em></p>
+<ul>
+<li>There must be an intention to create a legal relationship by both parties</li>
+</ul>
+<p><em>Consideration</em></p>
+<ul>
+<li>Consideration for the offer - some payment of some kind for the offer must be made.</li>
+</ul>
+<p>Always go through the details a contract in a contract law question.</p>
+<h3 id="important-acl-sections">Important ACL sections</h3>
+<blockquote>
+<p><strong>S23</strong> A term of a consumer contract or small business contract is void if:</p>
+<ol>
+<li>the term is unfair; and</li>
+<li>the contract is a standard form contract</li>
+</ol>
+</blockquote>
+<blockquote>
+<p><strong>S24</strong> A term of a consumer contract or small business contract is <strong>unfair</strong> if:</p>
+<ol>
+<li>it would cause a significant imbalancein the partie's rights and obligations arising under the contract; and</li>
+<li>it is not reasonably necessary in order to protect the legitimate interests of the party who would be advantaged by the term; and</li>
+<li>it would cause detriment (whether financial or otherwise) to a party if it were to be applied or relied on.</li>
+</ol>
+</blockquote>
+<h2 id="corporations-law">Corporations law</h2>
+<p><strong>Corporations law is under the jurisdiction of ASIC (Australian Securities and Investment Commission)</strong></p>
+<p>Comrporation law dictates how companies operate and are structured. There are four types of companies that are classified along to the extent of the liability to their members:</p>
+<ul>
+<li>Companies limited my shares (public or propietary)</li>
+<li>Companies limited by guarantee (public only)</li>
+<li>Unlimited companies (public or private)</li>
+<li>No liability company (public only)</li>
+</ul>
+<h3 id="duties-of-directors">Duties of directors</h3>
+<ul>
+<li>Be honest and careful in their dealings at all times</li>
+<li>Know what their company is doing financially and practically</li>
+<li>Ensure that the company can and does pay it's debts on time</li>
+<li>Ensure that the company keeps proper financial records</li>
+<li>Act in the company's best interests</li>
+<li>Ensure that any information received is used properly and in the best interests of the company</li>
+<li>Disclose any conflicts of interest</li>
+</ul>
+<h2 id="property-law">Property Law</h2>
+<p>Property can be divided into three categories:</p>
+<ul>
+<li><strong>Real property</strong>
+<ul>
+<li>Govered by state and territory law</li>
+<li>Regulates transactions concerning land and things attached to land</li>
+</ul>
+</li>
+<li><strong>Personal property</strong>
+<ul>
+<li>Commonwealth law</li>
+<li>Personal property includes, eg: vehicles, phones, cameras, etc.</li>
+<li>Regulated by Personal Property Securities Act 2009</li>
+</ul>
+</li>
+<li><strong>Intellectual property</strong>
+<ul>
+<li>Commonwealth law</li>
+<li>A type of personal property</li>
+<li>Protects creations of the mind eg: trademarks, copyright, patents</li>
+</ul>
+</li>
+</ul>
+<h2 id="privacy-law">Privacy Law</h2>
+<p><strong>Privacy law is maintained by the Ofice of the Australian Information Comissioner (OAIC)</strong></p>
+<h3 id="privacy-act-1988-commonwealth">Privacy Act 1988 (Commonwealth)</h3>
+<ul>
+<li>Deals with how personal information is collected, used, stored and disclosed</li>
+<li>Covers data breaches</li>
+<li>Applies to federal public sector and private sector</li>
+<li>Sets out 13 privacy principles</li>
+</ul>
+<p><em>States and territories can also have their own privacy laws.</em></p>
+<h1 id="corporate-social-responsibility-csr">Corporate Social Responsibility (CSR)</h1>
+<h2 id="overview-2">Overview</h2>
+<ul>
+<li>CSR reflects a company's commitment to operating as a responsible and sustainable business.</li>
+<li>CSR looks beyond profit and legal compliance to consider how businesses can have a positve impact on society, the environment and the stakeholders of the business.</li>
+<li>CSR is about how managers can apply ethical principles to make business decisions.</li>
+</ul>
+<h2 id="core-characteristics-of-csr">Core characteristics of CSR</h2>
+<ul>
+<li>Voluntary</li>
+<li>Managing externalities</li>
+<li>Multiple stakeholder orientation</li>
+<li>Social and economic alignment</li>
+<li>Practices and values</li>
+<li>Beyond philanthropy</li>
+</ul>
+<h2 id="stakeholders">Stakeholders</h2>
+<p>Stakeholders are people who affect and are affected by corporate decisions (this is related to <em>Freeman's stakeholder theory</em>). Stakeholder view/theory is associated with the broader view of corporate social responsibility.</p>
+<p>To make good ethical decisions, we must always consider the people who are affected by our decisions. It's important to consider who has the power - and what specific group of stakeholders are affected, and how.</p>
+<h2 id="shareholders-vs-stakeholders">Shareholders v.s stakeholders</h2>
+<p>A Friedman view of businesses believes that increasing <em>shareholder</em> value is of the utmost importance for a business.</p>
+<p>The Freeman view of businesses believes that creating and sustaining value of <em>stakeholders</em> is of utmost importatnce for a business.</p>
+<h2 id="stakeholder-subgroups">Stakeholder subgroups</h2>
+<p>There are three main group of stakeholders:</p>
+<ul>
+<li><strong>Organisational:</strong> Internal stakeholders, such as employees, managers and investors.</li>
+<li><strong>Market:</strong> Entities who directly engage with the company but are not apart of the company; including competitotrs, consumers and suppliers.</li>
+<li><strong>Societal:</strong> Entities that are causally affected by the company's decisions - the environment, the government, community, the economy, etc.</li>
+</ul>
+<p><em>EXAM TIP:</em> When you are asked about stakeholders at all - always classify what subgroup the stakeholders are in.</p>
+<h2 id="approaches-to-business-decisions">Approaches to business decisions</h2>
+<ul>
+<li><strong>The normative approach</strong> focuses on what is <em>ethical</em>; impacts on stakeholders, environment, etc.</li>
+<li><strong>The instrumental approach</strong> focuses on business functions; profitability, regulatory compliance, etc.</li>
+</ul>
+<h3 id="carrolls-csr-pyramid">Carroll's CSR pyramid</h3>
+<ol>
+<li>Philanthropic responsibilities</li>
+</ol>
+<p>This is the <em>top</em> of the pyramid; and thus can be considered the &quot;least&quot; important one. It engages businesses to be charitable to the communities they are engaged in.</p>
+<ol start="2">
+<li>Ethical responsibilities</li>
+</ol>
+<p>Companies should what is <em>ethically right</em>; beyond being a profitable company - if profits come in the way of ethical ambiguity, then companies should avoice such activities.</p>
+<ol start="3">
+<li>Legal responsibilities</li>
+</ol>
+<p>At the core - companies should be following the laws that govern the countries they operate in. Without this; companies can come under legal scrutiny which affects the company's ability to engage in the rest of the activities in the pyramid.</p>
+<ol start="4">
+<li>Economical responsibilities</li>
+</ol>
+<p>The most important one for businesses - without profitability and economic upside, a business simply cannot survive.</p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>

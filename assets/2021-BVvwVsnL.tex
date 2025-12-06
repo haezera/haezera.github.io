@@ -1,0 +1,246 @@
+\documentclass{article}
+\usepackage[table]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+ \usepackage{graphicx}
+ \usepackage{titling}
+ \usepackage{amsmath}
+ \usepackage{amssymb}
+ \title{2021}
+\author{Haeohreum Kim}
+\date{December 2024}
+ 
+ \usepackage{fancyhdr}
+\fancypagestyle{plain}{%  the preset of fancyhdr 
+    \fancyhf{} % clear all header and footer fields
+    \fancyfoot[L]{\thedate}
+    \fancyhead[L]{MATH2831}
+    \fancyhead[R]{\theauthor}
+}
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1em%
+    %{\large \@date}%
+  \end{center}%
+  \par
+  \vskip 1em}
+\makeatother
+\usepackage{lipsum}  
+\usepackage{cmbright}
+
+\begin{document}
+
+\maketitle
+
+Please note for Question 5 c), the MLE \textit{does} concide. I forgot to add the $r_i$ component
+to the exponent.
+\section*{Question 1}
+\begin{verbatim}
+
+Call:
+lm(formula = log.mpg ~ log.disp)
+    
+Residuals:
+    Min       1Q   Median       3Q      Max 
+    -0.56908 -0.12283 -0.00699  0.14049  0.36851 
+    
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4.38377    0.26310  16.662  < 2e-16 ***
+log.disp    -0.27539    0.05004  -5.504 5.62e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    
+Residual standard error: 0.2176 on 30 degrees of freedom
+Multiple R-squared:  0.5024,	Adjusted R-squared:  0.4858 
+F-statistic: 30.29 on 1 and 30 DF,  p-value: 5.617e-06
+\end{verbatim}
+\subsection*{Part 1}
+\subsubsection*{a)}
+\begin{verbatim}
+plot_residuals <- function(model) {
+    par(mfrow=c(2,2))
+    plot(model)
+    par(mfrow=c(1, 1))
+    }
+
+normal_model <- lm(mpg~disp)
+log_model <- lm(log.mpg~log.disp)
+plot_residuals(normal_model)
+plot_residuals(log_model)
+\end{verbatim}
+\subsection*{Part 2}
+\subsubsection*{b)}
+50.24\%
+\newpage 
+\subsubsection*{c)}
+\begin{verbatim}
+# H_0: log.disp = 0
+# H_1: log.disp != 0
+    
+# F-statistic: 30.29
+# Null-distribution: F(1, 30)
+# p-value = 5.617 * 10^{-6}
+
+With a 1% level of significance, the p-value shows we can
+reject the null hypothesis - implying that the 
+model with log.disp as a predictor is better than the
+intercept only model. 
+\end{verbatim}
+
+\subsubsection*{d)}
+\begin{verbatim}
+# This is just the slope
+# -0.27539
+\end{verbatim}
+\subsubsection*{e)}
+\begin{verbatim}
+confint(log_model, level=0.97)
+# (-0.3893795, -0.1613927)
+\end{verbatim}
+
+\subsubsection*{f)}
+\begin{verbatim}
+predict(log_model, data.frame(log.disp=log(290)), interval="confidence", level=0.99)
+# (2.698533, 2.946202)
+\end{verbatim}
+
+\section*{Question 2}
+\begin{verbatim}
+Call:
+lm(formula = log.mpg ~ log.disp + dummy, data = cars)
+    
+Residuals:
+    Min       1Q   Median       3Q      Max 
+    -0.58657 -0.12023 -0.00934  0.12338  0.37026 
+    
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4.42299    0.26624  16.613 2.34e-16 ***
+log.disp    -0.28425    0.05087  -5.588 4.95e-06 ***
+dummy        0.22116    0.22473   0.984    0.333    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    
+Residual standard error: 0.2177 on 29 degrees of freedom
+Multiple R-squared:  0.5185,	Adjusted R-squared:  0.4853 
+F-statistic: 15.61 on 2 and 29 DF,  p-value: 2.498e-05
+\end{verbatim}
+
+\subsubsection*{b)}
+\begin{verbatim}
+t value = 0.984
+null distribution = t(29)
+p-value = 0.333
+    
+p-value > 0.01, therefore, we cannot reject the null hypothesis
+that the dummy has statistical significance to the model.
+\end{verbatim}
+\newpage
+\subsubsection*{c)}
+\begin{verbatim}
+# No. The test is testing whether the 25-th observation has
+# statistical significance to the model. It also does not 
+# externally calculate the variance.
+
+rstudent(log_model)[25]
+# r_i = 0.9841012, under t(29), as we externally studentize
+# the observation
+
+1 - pt(0.9841012, 29)
+# 0.1666027. Still not statistically significant. 
+\end{verbatim}
+
+\section*{Question 3}
+\begin{verbatim}
+Call:
+lm(formula = mpg ~ wt + cyl + disp + hp, data = mpg)
+    
+Residuals:
+    Min      1Q  Median      3Q     Max 
+    -4.9930 -2.1404  0.3625  1.1596  6.5199 
+    
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 43.67842    3.18573  13.711 1.11e-13 ***
+wt          -4.06476    1.22240  -3.325  0.00255 ** 
+cyl         -2.39820    0.70630  -3.395  0.00214 ** 
+disp         0.02960    0.01275   2.321  0.02806 *  
+hp          -0.01834    0.01480  -1.239  0.22588    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+    
+Residual standard error: 3.029 on 27 degrees of freedom
+Multiple R-squared:  0.7888,	Adjusted R-squared:  0.7575 
+F-statistic: 25.21 on 4 and 27 DF,  p-value: 8.912e-09
+\end{verbatim}
+\subsection*{a)}
+\begin{verbatim}
+q3_model <- lm(mpg~wt+cyl+disp+hp, data=mpg)
+# a)
+# F-test
+# H_0: wt = cyl = disp = hp = 0
+# H_1: not all betas are 0
+# F-statistic = 25.21
+# Distribution: F(4, 27)
+# p-value: 8.912 * 10^{-9}
+
+With a 5% level of significance, the F-test shows enough evidence
+to reject the null hypothesis; concluding that the model
+with the predictors is better than the model only containing
+the intercept term. 
+\end{verbatim}
+
+\subsection*{b)}
+\begin{verbatim}
+# F-test
+# H_0: cycl = disp = hp = 0
+# H_1: not all are 0
+anova(lm(mpg~wt, data=mpg), q3_model)
+    
+# F-statistic = 8.0194
+# Distribution: F(3, 27)
+# p-value = 0.0005578
+
+The F-test concludes, given a significance level of 5%, that
+there is enough evidence to reject the null hypothesis.
+This indicates that not all of the betas of cycl, disp
+and hp are 0, and thus contribute to the model.
+\end{verbatim}
+
+\subsection*{c)}
+\begin{verbatim}
+# F-test
+# H_0: displacement = 0
+# H_1: displacement != 0
+anova(lm(mpg~wt, data=mpg), lm(mpg~wt+disp, data=mpg))
+# F-statistic = 0.7911
+# Distribution: F(1, 29)
+# p-value = 0.3811
+
+With a 5% level of significance, and a p-value of 0.3811,
+there is not enough evidence to reject the null hypothesis.
+This means that the addition of displacement to the model
+with weight, does not benefit the model with statistical
+significance. 
+\end{verbatim}
+
+\subsection*{d)}
+\begin{verbatim}
+predict(q3_model, data.frame(wt=3.8,cyl=6,disp=220,hp=160), interval="prediction", level=0.92)
+# (11.60024, 23.24071)
+\end{verbatim}
+\end{document}
