@@ -2,10 +2,13 @@ import { Box } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
 import Home from "../pages/Home";
+import useWindowDimensions from "../helpers/window";
 
 const Router = () => {
   const routes = [
-    { name: "Home", path: "/" }
+    { name: "Home", path: "/" },
+    { name: "What I Work On", path: "/about" },
+    { name: "Resources", path: "/resources" }
   ]
 
   return (
