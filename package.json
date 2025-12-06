@@ -21,6 +21,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.10.1",
+    "recharts": "^3.5.1",
     "tailwindcss": "^4.1.17",
     "yahoo-finance2": "^3.10.2"
   },
