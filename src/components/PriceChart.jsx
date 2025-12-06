@@ -34,7 +34,7 @@ const lastPointPlugin = {
     const value = chart.data.datasets[0].data[chart.data.datasets[0].data.length - 1];
 
     ctx.save();
-    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('color') || 'currentColor';
+    ctx.fillStyle = '#ffffff';
     ctx.beginPath();
     ctx.arc(x, y, 4, 0, 2 * Math.PI);
     ctx.fill();
@@ -61,13 +61,13 @@ const PriceChart = ({ data }) => {
         {
           label: 'Price',
           data: prices,
-          borderColor: 'currentColor',
+          borderColor: '#ffffff',
           backgroundColor: 'transparent',
           borderWidth: 2,
           pointRadius: 0,
           pointHoverRadius: 0,
           tension: 0.4,
-          fill: false,
+          fill: false
         }
       ]
     };
