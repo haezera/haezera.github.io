@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
 import Home from "../pages/Home";
 import useWindowDimensions from "../helpers/window";
+import Resources from "../pages/Resources";
 
 const Router = () => {
   const routes = [
@@ -24,6 +25,7 @@ const Router = () => {
         <Box sx={{ flexGrow: 1, width: "100%", overflow: "auto" }}>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/resources" element={<Resources />} />
           </Routes>
         </Box>
 

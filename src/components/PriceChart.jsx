@@ -34,10 +34,14 @@ const lastPointPlugin = {
     const value = chart.data.datasets[0].data[chart.data.datasets[0].data.length - 1];
 
     ctx.save();
+    // Draw white circle
     ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.arc(x, y, 4, 0, 2 * Math.PI);
+    ctx.arc(x, y, 2, 0, 2 * Math.PI);
     ctx.fill();
+    ctx.stroke();
 
     ctx.fillStyle = '#ffffff';
     ctx.font = '500 12px Fira Code';

@@ -40,10 +40,15 @@ const Home = () => {
         width: "100%",
         height: "100%"
       }}>
-        <Typography sx={{ mb: 3}}>
-          hello, i'm hae
-        </Typography>
-        <Box width="40%" height="250px" minWidth="500px">
+        <TextScramble
+          texts={["hello, i'm hae"]}
+          letterSpeed={40}
+          nextLetterSpeed={100}
+          pauseTime={1000}
+          className="scramble-text"
+        />
+
+        <Box width="50%" height="250px" minWidth="400px" sx={{ overflow: 'visible' }}>
         <PriceChart data={walk} />
         </Box>
         <Typography sx={{ mt: 3}}>
