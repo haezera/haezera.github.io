@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Router from './components/Router';
@@ -15,8 +14,6 @@ const darkTheme = createTheme({
 });
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />

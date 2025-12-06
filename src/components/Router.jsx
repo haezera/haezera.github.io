@@ -1,8 +1,13 @@
 import { Box } from "@mui/material";
-import { Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
+import Home from "../pages/Home";
 
 const Router = () => {
+  const routes = [
+    { name: "Home", path: "/" }
+  ]
+
   return (
     <>
       <Box sx={{ 
@@ -12,10 +17,10 @@ const Router = () => {
         justifyContent: 'center', 
         height: '100vh'
       }}>
-        <Navbar />
+        <Navbar routes={routes}/>
         <Box sx={{ flexGrow: 1, width: "100%", overflow: "auto" }}>
           <Routes>
-
+            <Route path="/" element={<Home />} />
           </Routes>
         </Box>
 
