@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.14.1",
     "@fontsource/fira-code": "^5.2.7",
     "@mui/material": "^7.3.6",
+    "@skyshots/react-text-scrambler": "^1.1.8",
     "@tailwindcss/vite": "^4.1.17",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

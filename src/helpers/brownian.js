@@ -29,3 +29,11 @@ export function gbm(S0, mu, sigma, T, N) {
 
   return path;
 }
+
+export function gbmStep(currentPrice, mu, sigma, dt) {
+  const z = randn();
+  return currentPrice * Math.exp(
+    (mu - 0.5 * sigma ** 2) * dt +
+    sigma * Math.sqrt(dt) * z
+  );
+}

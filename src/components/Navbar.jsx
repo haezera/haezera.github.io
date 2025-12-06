@@ -7,13 +7,7 @@ import PriceChart from "./PriceChart";
 
 const Navbar = ({ routes }) => {
   const { width, height } = useWindowDimensions();
-  const [randomWalk, setRandomWalk] = useState([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const arr = gbm(25, 0, 1, 1, 1000);
-    setRandomWalk(arr);
-  }, []);
 
   return (
     <>
@@ -26,10 +20,7 @@ const Navbar = ({ routes }) => {
       >
         <Toolbar>
           <div className="flex flex-row items-center justify-between w-full">
-            haezera
-            <Box sx={{ width: "60%", height: 60 }}>
-            < PriceChart data={randomWalk}/>
-            </Box>
+            hae kim
 
             <div className="flex flex-row items-center justify-center gap-3">
               {
