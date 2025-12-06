@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import { Routes } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const Router = () => {
   return (
@@ -11,7 +12,7 @@ const Router = () => {
         justifyContent: 'center', 
         height: '100vh'
       }}>
-
+        <Navbar />
         <Box sx={{ flexGrow: 1, width: "100%", overflow: "auto" }}>
           <Routes>
 
