@@ -1,0 +1,1407 @@
+\documentclass{article}
+\usepackage{amsmath, fullpage, amsfonts}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{mathpazo}  % math & text
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{makecell}
+
+
+\usepackage[most]{tcolorbox}
+\newtcolorbox{theory}[2][]{breakable,sharp corners, skin=enhancedmiddle jigsaw,
+parbox=false, boxrule=0mm, leftrule=2mm, boxsep=0mm, arc=0mm, outer arc=0mm,
+attach title to upper, after title={\ },
+coltitle=black, coltext=black,
+colback=blue!10, colframe=blue!50,
+title={#2}, fonttitle=\bfseries, #1}
+
+\newtcolorbox{example}[2][]{breakable,sharp corners, skin=enhancedmiddle jigsaw,
+parbox=false, boxrule=0mm, leftrule=2mm, boxsep=0mm, arc=0mm, outer arc=0mm,
+attach title to upper, after title={\ },
+coltitle=black, coltext=black,
+colback=gray!10, colframe=gray!50,
+title={#2}, fonttitle=\bfseries, #1}
+
+\newtcolorbox{aside}[2][]{breakable,sharp corners, skin=enhancedmiddle jigsaw,
+parbox=false, boxrule=0mm, leftrule=2mm, boxsep=0mm, arc=0mm, outer arc=0mm,
+attach title to upper, after title={\ },
+coltitle=black, coltext=black,
+colback=red!10, colframe=red!50,
+title={#2}, fonttitle=\bfseries, #1}
+
+\begin{document}
+
+\title{\large{\textbf{Notes and commentary on FINS2624: Portfolio Management}}}
+\author{\texttt{haezera}}
+%\date{\vspace{-5ex}}
+\maketitle
+\thispagestyle{empty}
+
+\tableofcontents
+\newpage
+
+\section{Markowitz Optimisation}
+\subsection{Pre-text on statistics and measures used in portfolio management}
+
+In portfolio theory, we wish to describe characteristics of portfolios and asset returns - in particular \textbf{return}
+and \textbf{risk}. A \textit{portfolio}, is in general, a basket of assets which can be comprised of different instruments 
+(for example, stocks and bonds).
+\begin{aside}{Holding period return} \\
+    Holding period return describes the returns on some given asset (or a basket of assets; a \textit{portfolio}) during
+    the period it is held. It is described by
+    $$ \text{Holding period return} = \frac{P_T - P_0 + I_T}{P_0}$$
+    where $P_T$ is the period at the final time $T$, $P_0$ is the initial price and $I_T$ are the \textit{cumulative} income 
+    components of the asset.
+\end{aside}
+Whilst understanding how much we have earned by \textit{holding} our investment in history is an important \textit{ex-post}
+component of investment management; the "active" manager seeks to tell something about the \textit{future}. In this realm,
+we have \textit{expected return} and (estimated) \textit{volatility/risk}.
+
+\begin{theory}{Expected return} \\
+    Expected returns are a forecast of future returns on some asset (or basket of assets) generally given by historical data.
+    It relies on \textit{state-specific probabilities} multipled by their associated returns
+    $$ \mathbb{E}(r) = \sum_{s \in S} p(s) \cdot r(s)$$
+    where $s \in S$ is the "scenario" $s$ in the set of possible scenarios $S$, $p(s)$ is the possibility of scenario $s$ and $r(s)$ is the return of scenario $s$.
+\end{theory}
+
+\begin{theory}{Variance and standard deviation (volatility)} \\
+    Variance and volatility are \textit{generally} inferred from historical data, and rely on state-specific probabilities 
+    and their associated squared deviation from the expected return.
+    $$ \text{Var}(r) = \sigma_r^2 = \sum_{s \in S} p(s) \cdot \left[r(s) - \mathbb{E}(r) \right]^2$$
+    Standard deviation is the more common measure of "risk" in portfolio management, and is given by the square root of variance.
+    $$ \sigma_r = \sqrt{\sigma_r^2}$$
+\end{theory}
+
+So the name of the game in portfolio management is to have two "estimators" of your asset (or basket of assets):
+\begin{enumerate}
+    \item How much will your asset return in the future?
+    \item How volatile will this return be?
+\end{enumerate}
+When we "estimate" something, we like to put a $\widehat{\text{hat}}$ on it. Thus, we can express our estimation of future return as
+\begin{align*}
+    \hat{r} &= \mathbb{E}(r) \\
+\end{align*}
+and $\hat{\sigma}_r^2$ and $\hat{\sigma}_r$ for variance and standard deviation respectively.
+\begin{example}{Estimating future returns: the naive base case} \\
+    So how do we tell the future? The most obvious base case, and one that is the most natural to the human bind is that:
+    \begin{center}
+        \textit{Past returns indicate future returns}
+    \end{center}
+    Indeed, there is a reason why regulators in virtually every country include the negation of the above statement in most
+    financial advice. Nonetheless, this is our first returns "model":
+    $$ \hat{r} = \frac{1}{N}\sum_{i=1}^N r_i$$
+    where $r_i$ is the return at time $i$, with $N$ total periods. We will talk more about predicting future returns later on.
+\end{example}
+So we now have some way to predict future returns, as well as a way to express the risk in taking a position on an asset. 
+In statistics, knowing the underlying \textit{distribution} means we can make some pre-understood assumptions about the \textit{probability} of events.
+\newline \\
+If you have ever watched the financial news, you may haved heard things like "this is a once-in-a-million-years market crash!".
+It is very likely that some analyst has come up with this claim with an underyling distribution assumption - and (very, very) more likely than not - the \textbf{normal distribution}.
+\begin{aside}{The assumption of the normal distribution: a portfolio manager's best (and worst) friend} \\
+    A normal distribution (or more colloquially known as a "bell curve") is nice because:
+    \begin{itemize}
+        \item Normal distributions are symmetric around the mean
+        \item We can make assumptions on the probability of return "events" given $\mathbb{E}(r)$ and $\sigma_r$
+        \item Interdependence of returns between securities can be estimated by their correlations
+    \end{itemize}
+    This means that when we say something was a "2-sigma" event, that it was (with historical estimations) likely to happen 
+    2.5\% or less of the time. Furthermore, there is another nice thing about the normal distribution assumption:
+    \begin{center}
+        Taking a summation of normally distributed random variables always yields a normally distributed random variable
+    \end{center}
+    This is nice because portfolio management is often about \textbf{breadth}, and being able to analyse a \texttt{universe}
+    of stocks cross-sectionally (we'll get to this much later) is a nice trait. \textbf{Yet,} real financial markets 
+    have very fat tails - and $2\sigma, 3\sigma, \dots$ moves happen very often!
+\end{aside}
+We have so far been interested in the description of a single asset (or basket of assets), but we now turn to the analysis 
+of the relationships \textit{between} them. Of course, \textbf{portfolio} management is interested in the management of 
+many interdependent assets.
+\begin{theory}{Covariance and correlation: the co-movement of returns} \\
+    Consider some assets $X$ and $Y$. We would like to investigate how they move \textit{in tandem} - and whether they
+    fall or rise at the same (or different) times. \texttt{Covariance} measures the multiple of $X$'s return deviation 
+    from the mean and $Y$'s return deviation from the mean.
+    \begin{itemize}
+        \item When $X$ and $Y$ rise above their means at the same time, there is \textit{positive covariance}
+        \item Otherwise, there is \textit{negative} covariance
+    \end{itemize}
+    Covariance is given by
+    $$ \text{Cov}(r_X, r_Y) = \mathbb{E}\left[(X - \mathbb{E}(X))(Y - \mathbb{E}(Y)) \right]$$
+    It can also be dependent on state-specific probabilities just like $\mathbb{E}(X)$, where we must multiply the 
+    probabilities of the state-specific covariance. Consider then a third asset $Z$ which is much less volatile then 
+    $X$ and $Y$. If we were to study $\text{Cov}(X, Y)$ and $\text{Cov}(X, Z)$, we would soon be confused with these
+    meaningless units.
+    \newline \\
+    \texttt{Correlation} standardises covariance relative to the two asset's volatility, and thus creates a measure between 
+    $-1$ and $+1$ which represents the \textbf{linear} relationship between the assets.
+    $$ \rho_{X, Y} = \frac{\text{Cov}(r_X, r_Y)}{\sigma_X\sigma_Y} : -1 \le \rho_{X, Y} \le +1$$
+\end{theory}
+There are some other nice properties of covariances which become handy later on, for derivation of various portfolio-related
+metrics.
+\begin{itemize}
+    \item $\text{Var}(X) = \text{Cov}(X, X)$
+    \item $\text{Cov}(X, Y) = \text{Cov}(Y, X)$
+    \item $\text{Cov}(\alpha X + \beta Y, \gamma Z) = \alpha \gamma \text{Cov}(X, Z) + \beta \gamma \text{Cov}(Y, Z)$
+\end{itemize}
+\subsection{Portfolios}
+We now turn to the topic of portfolios. First, we wish to describe the two key metrics of portfolio management, return and volatility for our basket of assets.
+\begin{aside}{Portfolio return} \\
+    Portfolio return $r_P$ is given by the weight vector $\mathbf{w} \in \mathbb{R}^{p \times 1}$ and return vector $\mathbf{r} \in \mathbb{R}^{p \times 1}$ such that
+    $$ r_P = \mathbf{w}^T\mathbf{r} = \sum_{i=1}^p w_i r_i$$
+    By the linearity of expectation, the \textit{expected} return of a portfolio is given by
+    $$ \mathbb{E}(r_P) = \mathbf{w}^T\mathbb{E}(\mathbf{r}) = \sum_{i=1}^p w_i \mathbb{E}(r_i)$$
+\end{aside}
+\begin{aside}{Portfolio variance} \\
+    The calculation of portfolio variance is an involved process, as you must consider ${N \choose 2}$ different pairs of 
+    covariances for $N$ assets. The covariances are \textit{key} to the \textbf{diversification benefit} which we will 
+    come to talk to. Consider the two-asset portfolio variance
+    \begin{align*}
+        \text{Var}(r_P) &= \text{Var}(w_Ar_A + w_Br_B) \\
+        &= \text{Cov}(w_Ar_A + w_Br_B, w_Ar_A + w_Br_B) \\
+        &= \text{Cov}(w_Ar_A, w_Ar_A) + Cov(w_Br_B, w_Br_B) + 2\text{Cov}(w_Ar_A, w_Br_B) \\
+        &= w_A^2\sigma_A^2 + w_B^2\sigma_B^2 + 2w_Aw_B\text{Cov}(r_Ar_B) \\
+        &= w_A^2\sigma_A^2 + w_B^2\sigma_B^2 + 2w_Aw_B\rho_{A, B}\sigma_A\sigma_B
+    \end{align*}
+\end{aside}
+Due to the requirement of the different covariance pairs in a portfolio, it is often useful to represent the covariances/variances existing in a portfolio through a "covariance matrix".
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./photos/covmat.png}
+    \caption{A covariance matrix}
+    \label{fig:covmat}
+\end{figure}
+It should be fairly motivating that it is much easier to do portfolio variance calculations with a covariance matrix, as 
+we can simply go element by element, multiplying the row-column wise weights and the respective variance/covariance. We now 
+turn to \textit{why} portfolios matter and how the correlations between assets can affect the volatility outlook
+for portfolios.
+\begin{theory}{The diversification benefit and inter-asset correlation} \\
+    Consider the two-asset example once more. What occurs to the portfolio variance/volatility when they are \textit{perfectly}
+    correlated?
+    \begin{align*}
+        \sigma_P^2 &= w_A^2\sigma_A^2 + w_B^2\sigma_B^2 + 2w_Aw_B\sigma_A\sigma_B \\
+        &= (w_A\sigma_A + w_B\sigma_B)^2 \\
+        \sigma_P &= w_A\sigma_A + w_B\sigma_B
+    \end{align*}
+    Thus when assets are perfectly correlated, the volatility of the portfolio is just the weighted average of 
+    the individual assets. This should motivate the fact that as $\rho_{A, B} \to -1$, that "convexity" to the 
+    return-risk payoff is introduced.
+    \newline \\
+    That is, when assets are less-than perfectly correlated, we can achieve more turn for each unit of risk. The
+    \textbf{diversification benefit} is the difference between the \textit{actual} portfolio variance and the 
+    variance if the portfolio were to be \textit{perfectly correlated}.
+\end{theory}
+We now understand how to define individual and portfolio return/volatility metrics, and why inter-asset return correlation
+is important for reducing portfolio variance. We now turn to the practical selection of assets for individual investors relative 
+to their risk appetite.
+
+\subsection{Preference and utility}
+
+In the previous (sub)-sections, we defined different ways to describe the return and risk performance of assets and portfolios. In this section, we consider the selection of portfolios relative to the aforementioned portfolio descriptors or \textit{statistics}.
+
+\begin{aside}{The assumption of a rational investor} \\
+    In the selection of portfolios, it is useful to assume that the investor is rational. This means that:
+    \begin{itemize}
+        \item The investor wishes to \textit{maximise} their returns
+        \item The investor wishes to \textit{minimise} their risk
+    \end{itemize}
+\end{aside}
+
+In some cases, it is clear which portfolio/asset is the \textit{best} from a set of possible investments. In this case, we say 
+that this asset \textbf{dominates} the other assets.
+
+\begin{theory}{Asset dominance} \\
+    Asset $A$ dominates asset $B$ if all rational investors would choose to invest in $A$ over $B$. If \textit{return} and 
+    \textit{risk} are our only two criteria, asset $A$ dominates asset $B$ if
+    \begin{enumerate}
+        \item $\mathbb{E}(r_A) > \mathbb{E}(r_B)$ and $\sigma_A \le \sigma_B$ or 
+        \item $\sigma_A < \sigma_B$ and $\mathbb{E}(r_A) \ge \mathbb{E}(r_B)$
+    \end{enumerate}
+\end{theory}
+In Markowitz Portfolio Theory, we are principally concerned with the expected return and risk of an investment. We call 
+this the mean-variance criterion.
+\begin{theory}{Mean-variance criterion} \\
+    Mean-variance analysis deals with the payoff between expected return and risk. We can view mean-variance analysis with a chart:
+    \begin{itemize}
+        \item Expected return (mean) is plotted on the $y$-axis
+        \item Standard deviation is plotted on the $x$-axis
+    \end{itemize}
+    Thus we view return through units of risk - we generate more returns for taking on more risk. 
+    \begin{center}
+        The mean-variance (M-V) criterion is the selection of portfolios based on the means and 
+        variances of their returns.
+    \end{center}
+\end{theory}
+Investors are considered respective to their risk tolerance, or it's negation, risk \textit{aversion}. Investors 
+can be split into:
+\begin{itemize}
+    \item Risk averse: portfolios with more return and \textit{less risk} are attractive
+    \item Risk neutral: portfolios with more return are attractive
+    \item Risk seeking: portfolios with more risk are attractive
+\end{itemize}
+In M-V analysis and portfolio theory in general, we assume the rational investor is \textit{risk averse}. In reality,
+investors are averse at different levels - we can parameterise this arbitrary risk aversion with a parameter $A$. We should be motivated to create some objective function (or in economic terms, a \textit{utility} function) which rewards return and penalises risk.
+\begin{theory}{Utility and preference} \\
+    We model investor's risk-return tradeoff using \textit{utility}.
+    \begin{itemize}
+        \item Utility is a measure of satisfaction of an investor
+        \item The investor should seek to \textit{maximise} utility
+    \end{itemize}
+    We use \textbf{utility functions} to model preferences mathematically. Most commonly, we use \textit{quadratic utility} to model an investors risk-return payoff
+    $$ U = \mathbb{E}(r) - \frac{1}{2}A\sigma^2$$
+    For a risk-free asset, $U = \mathbb{E}(r)$, and thus we view utility as a \textbf{certainty equivalent return}. That is, it is the return required by a risk-free asset for the investor to be as equally as satisfied.
+\end{theory}
+\begin{aside}{A rational utility function} \\
+    Previously, we talked about how the \textit{rational investor} in portfolio theory is the risk-averse investor. For a given rational investors utility function $\widehat{U}(w)$ where $w$ represents \textit{wealth}, the following must be true
+    \begin{align*}
+        \frac{d\widehat{U}}{dw} &> 0 \\
+        \frac{d^2\widehat{U}}{dw^2} &< 0
+    \end{align*}
+    That is:
+    \begin{itemize}
+        \item Utility should increase as a function of wealth
+        \item The rate of utility increase should decrease (risk averseness)
+    \end{itemize}
+\end{aside}
+
+Investors can be equally as satisfied by a range of investments and portfolio compositions. As standard deviation 
+grows with a power of two, whereas return is linear, the required return to match some utility $\widehat{U}$ grows 
+in quadratic terms. We can plot for some utility $\widehat{U}$ the range of required returns for a range of $\sigma$;
+this is called an \textit{indifference curve}.
+
+\begin{aside}{Indifference curves} \\
+    Indifference curves show us a range of portfoliso for which investors are equally satisfied.
+    \begin{itemize}
+        \item Given a value of $A$, indifference curves above and to the left offer higher utility
+        \item Indifference curves steepness $\uparrow$ as $A \uparrow$
+    \end{itemize}
+    The second point is a result of the fact that risk aversion relates return as a tradeoff with risk. 
+    \textit{More risk averse investors} required more return per unit of volatility that we introduce to the
+    portfolio.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.4\textwidth]{./photos/utilfn.png}
+        \caption{Indifference curves for given $A$ with differing utilities}
+        \label{fig:utilfn}
+    \end{figure}
+\end{aside}
+
+\subsection{Efficient frontiers of risky portfolios}
+Given a universe of stocks $U = \{S_1, S_2, S_3, \dots \}$, and weights in these stocks $w = \begin{pmatrix}
+    w_1 & w_2 & w_3 & \dots
+\end{pmatrix}^T$, there exists an \textit{infinite} amount of possible portfolios $P$. As portfolio managers 
+and investment analysts, we wish to find the \textit{optimal} portfolio for risk-averse investors.
+\begin{theory}{Minimum Variance Frontier} \\
+    As risk-averse investors, we wish to maximise returns and minimise volatility. Conversely, for some range 
+    of returns $r_s \to r_f$, we can minimise the variance. This is a constrained optimisation problem for some given target return $C$
+    \begin{align*}
+        \min \text{Var}(r_P) &= \text{Var}\left(\sum_{i=1}^N w_ir_i \right) \\
+        \text{subject to}& \\
+        \mathbb{E}(r_P) &= \mathbb{E}\left(\sum_{i=1}^N w_ir_i \right) = C
+    \end{align*}
+    If we do this for the range of possible expected returns in our set of portfolios, we get the \textbf{minimum varaince frontier (MVF)}.
+\end{theory}
+\begin{aside}{Efficient Frontier and Global Minimum Variance Portfolio (GMVP)} \\
+    The MVF contains portfolios which match a given return by minimising variance.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{./photos/mvf.png}
+        \caption{Minimum variance frontier}
+        \label{fig:mvf}
+    \end{figure}
+    In the above figure, we can see the \textit{Global Minimum Variance Frontier (GMVP)} - we can also observe 
+    that any portfolios below the GMVP are dominated by the portfolios above it (greater $\mathbb{E}(r)$ for the same $\sigma$).
+    \newline \\ 
+    If we remove all portfolios below the GMVP, we get the \textit{efficient frontier} of portfolios. The GMVP 
+    is simply the portfolio with the minimum variance, which can be solved for by taking derivatives 
+    in the portfolio variance equation.
+\end{aside}
+On the efficient frontier, we should pick the basket of assets which maximises the investor's utility.
+\subsection{Complete portfolios including a risk-free asset}
+In the previous (sub)-section, we discussed the selection of optimal \textit{risky} portfolios - we now consider 
+a more realistic portfolio which blends a risky portfolio \textit{and a risk-free asset}.
+\begin{itemize}
+    \item A risk-free asset is an asset with $\sigma = 0$ and $\mathbb{E}(r_f) = r_f$, the "risk-free rate"
+    \item Short-term government bills are often considered as \textit{the} risk-free asset
+    \item This is due to the fact that they have no default risk and limited interest rate risk
+\end{itemize}
+Essentially, the risk-free asset allows us to have positive expected return with (virtually) no risk.
+\begin{theory}{The complete portfolio and the capital allocation line (CAL)} \\
+    Consider some portfolio of risky assets $P$, and risk-free asset(s) $F$. Given some weighting $y$ into 
+    the risky portfolio and $(1 - y)$ into the risk-free portfolio, our portfolio $C$ has the following 
+    characteristics
+    \begin{align*}
+        \mathbb{E}(r_{C}) &= (1 - y)r_f + y\mathbb{E}(r_P) = r_f + y\left[\mathbb{E}(r_P) - r_f \right] \\
+        \sigma_{C} &= y\sigma_P
+    \end{align*}
+    The return is then the risk-free rate, and a weighted component of a "risk premium" - the return over 
+    the risk free rate. We can derive the complete portfolio variance through the following
+    \begin{align*}
+        \text{Var}(r_{C}) &= \text{Var}(r_f + y\mathbb{E}(r_P) - yr_f) \\
+        &= y^2 \sigma_P^2
+    \end{align*}
+    Sicnce $\sigma_{C} = y\sigma_P$, it follows that $y = \frac{\sigma_{C}}{\sigma_P}$. Thus, the return profile can be further modifed to
+    $$ r_f + \sigma_C \frac{\mathbb{E}(r_P) - r_f}{\sigma_P}$$
+    or letting $S_P = \frac{\mathbb{E}(r_P) - r_f}{\sigma_P}$, the Sharpe ratio of $P$
+    $$ r_f + \sigma_C S_P$$
+    The return profile of the complete portfolio is called the \textbf{capital allocation line (CAP)}, and it's slope is given by the Sharpe of the risky portfolio.
+\end{theory}
+\begin{aside}{What is the Sharpe ratio?} \\
+    Since investors care about the (excess-of-risk) return and risk trade off, the Sharpe ratio measures investment returns on a vol-basis. For an asset $A$, and the risk-free rate $r_f$, the Sharpe ratio is given by
+    $$ S_A = \frac{\mathbb{E}(r_A) - r_f}{\sigma_A}$$
+\end{aside}
+Why is adding the risk-free asset important? In effect, adding the risk-free asset means that we have expanded
+the possible set of portfolios available to the investor.
+\begin{itemize}
+    \item The slope of the CAL is given by the Sharpe of the risky portfolio
+    \item Thus, for a complete portfolio, we wish to take the risky portfolio with the \textit{maximum Sharpe}.
+\end{itemize}
+The optimal CAL is then the one which is tangential to the efficient frontier.
+\begin{example}{Deriving the optimal risky portfolio} \\ 
+    Deriving the optimal risky portfolio means that we optimise for maximum Sharpe given a vector of weights 
+    $\mathbf{w} = \begin{pmatrix}
+        w_1 & w_2 & \dots 
+    \end{pmatrix}^T$ in our investment universe $U = \{S_1, S_2, \dots \}.$
+\end{example}
+\begin{example}{Deriving the optimal complete portfolio} \\
+    Our goal is to maximise investor utility $U$. Assume we have the optimal (Sharpe) risky portfolio $P^*$. We can then derive the optimal complete portfolio.
+    \begin{align*}
+        U &= r_f + y(\mathbb{E}(r_{P^*}) - r_f) - \frac{1}{2}Ay^2\sigma_{P^*}^2 \\
+        \frac{\partial U}{\partial y} &=\mathbb{E}(r_{P^*} - r_f) - Ay\sigma_{P^*}^2 \\
+        \hat{y} &= \frac{E(r_{P^*}) - r_f}{A\sigma_{P^*}^2}
+    \end{align*}
+    where $\hat{y}$ is the optimal weighting into the risky portfolio.
+\end{example}
+\begin{aside}{Separation theorem} \\
+    Separation theorem states portfolio optimisation is separated into two independent steps:
+    \begin{enumerate}
+        \item Determine the CAL and optimal risky portfolio $P^*$
+        \item Weight the risky portfolio $P^*$ w.r.t the investor's risk aversion $A$
+    \end{enumerate}
+\end{aside}
+
+\subsection{Capital Asset Pricing Model (CAPM)}
+In the previous subsections, we have discussed:
+\begin{itemize}
+    \item How to \textit{describe} individual assets
+    \item How to \textit{describe} portfolios (basket of assets)
+    \item How to \textit{allocate wealth} to portfolios w.r.t investor preference
+\end{itemize}
+We now turn to the problem of \textit{explaining} asset returns with explanatory factors. In this section, we principally talk about the \textit{Capital Asset Pricing Model (CAPM)}, created by Sharpe, Lintner, Mossin and other 
+economists between 1964 and 1966.
+\begin{aside}{Assumptions in deriving the Capital Asset Pricing Model} \\
+    To derive the CAPM, we must first take some (strong) assumptions. With reference to investor behaviour:
+    \begin{itemize}
+        \item Investors are rational, M-V optimisers
+        \item Investors are price takers and \textit{cannot} influence market prices
+        \item Investors common planning horizon is a single period
+        \item Investors have a homogenous view of all assets (same expectations)
+    \end{itemize}
+    In terms of market structure:
+    \begin{itemize}
+        \item Investors can borrow and lend at a common risk-free rate with no constraints
+        \item All assets are publicly held and traded on \textit{public} exchanges
+        \item Capital markets are \textit{frictionless}
+    \end{itemize}
+    Of course, the above assumptions are incredibly \textbf{strong} and are unrealistic in real financial markets.
+\end{aside}
+We begin by returning to our idea of separation theorem. Under separation theorem, all investors invest in a common capital allocation line, defined by a common risk-free asset and a common risky asset.
+\newline \\
+Since all investors hold the same risky asset, this must entail that the optimal risky portfolio $P^*$ is the market portfolio $M$ - where $M$ comprises of all available assets.
+\begin{aside}{Market portfolio $M$} \\
+    The market portfolio $M$ is comprised of all available assets. If $\mathbf{V} = (v_1, v_2, \dots, v_N)^T$ is a vector of the value of $N$ assets avaiable in the market portfolio, the weight of the market portfolio is given by
+    $$\mathbf{w} = \frac{1}{||\mathbf{V}||}\mathbf{V} $$
+\end{aside}
+Since we now assume all investors invest in the market portfolio as their risky asset, the capital allocation line 
+becomes the \textbf{Capital Market Line (CML).}
+\begin{aside}{Capital Market Line (CML)} \\
+    Under market equilibrium, investors all invest in the same risky portfolio, the market portfolio $M$. This 
+    arrangement of the CAL is called the \textit{Capital Market Line (CML)}.
+\end{aside}
+Now, since under the assumption of rationality and market equilibrium, all investors would choose to invest 
+in $M$ - our descriptive statistics on assets and their return + volatility now must also be considered 
+\textit{relative to the market portfolio}.
+\begin{center}
+    That is - our new risk measure is covariance with $M$ and return measure the performance relative to $M$
+\end{center}
+\begin{aside}{Risk premium $R_i$ versus raw return $r_i$} \\
+    $R_i$ indicates the risk premium $r_i - r_f$, whereas $r_i$ indicates the raw return.
+\end{aside}
+\begin{theory}{Derivation of CAPM} \\
+    We can now derive the CAPM.
+    \begin{enumerate}
+        \item In market equilibrium, all rational investors hold the market portfolio $M$
+        \item If all investors hold $M$, asset investment decisions should be compared relative to $M$
+    \end{enumerate}
+    We can then measure an asset's risk as it's contribution to the market risk
+    $$ w_i\text{Cov}(R_i, R_m)$$
+    and it's return as it's contribution to the market return
+    $$ w_i\mathbb{E}(R_i)$$
+    Then, it's contribution to the reward-to-risk ratio of te market is given by
+    $$ \frac{w_i\mathbb{E(R_i)}}{w_i\text{Cov}(R_i, R_M)} = \frac{\mathbb{E}(R_i)}{\text{Cov}(R_i, R_M)}$$
+    Under equilibrium, if any individual asset were to be underpriced (overpriced), all investors would choose 
+    to buy it (sell it) until it reached parity in reward-to-risk with the rest of the market. Thus, for the 
+    investment universe $U = \{S_1, S_2, \dots, S_N \}$ of stocks, it follows that
+    $$ \frac{\mathbb{E}(R_i)}{\text{Cov}(R_i, R_M)} = \frac{\mathbb{E}(R_j)}{\text{Cov}(R_j, R_M)}$$
+    for any asset $\in U$. Furthermore, any individual asset's reward-to-risk ratio should match the market 
+    portfolios
+    $$ \frac{\mathbb{E}(R_i)}{\text{Cov}(R_i, R_M)} = \frac{\mathbb{E}(R_M)}{\sigma_M^2}$$
+    otherwise, it would be bought (or sold) until parity. Rearranging, we find
+    \begin{align*}
+        \mathbb{E}(R_i) &= \frac{Cov(R_i, R_M)}{\sigma_M^2}\mathbb{E}(R_M) \\
+        &= \beta_i \mathbb{E}(R_M) \\
+        \mathbb{E}(r_i) &= r_f + \beta_i\left[\mathbb{E}(r_M) - r_f \right]
+    \end{align*}
+    for the risk-free rate $r_f$.
+\end{theory}
+
+Thus, we have an explanatory factor for the return of some asset $i$ - it's sensitivity to market movements, and then excess-of-risk market return.
+\begin{aside}{Beta to the market $\beta$} \\
+    $\beta$ measures the sensitivity to market movements.
+    \begin{itemize}
+        \item If $\beta < 1$, the asset is less sensitive to markets
+        \item If $\beta = 1$, the asset moves in tandem with markets
+        \item If $\beta > 1$, the asset is more sensitive to markets
+    \end{itemize}
+    If we were to empirically fit CAPM, it is also just the trained multiple of the simple regression model's single factor.
+\end{aside}
+
+\subsection{Usage and interpretation of CAPM}
+
+So, we now explain the expected return of stocks, by the "beta" of the stock, and the expected market risk premium. We can draw observations about asset \textit{risk} and \textit{return} from CAPM. First - we consider an empirical,
+linear regression understanding of CAPM.
+\begin{aside}{Linear regression interpretation of CAPM} \\
+    All empirical models have error, and we can view CAPM as a simple linear regression. At some time $t$, we can train a linear model under CAPM such that
+    $$ r_{i, t} = r_f + \beta_i \left[r_{M, t} - r_f\right] + \epsilon_{i, t}$$
+    Since no empirical model in finance is perfect, we introduce an error term $\epsilon_{i, t} \sim N(0, \sigma_{\epsilon}^2)$.
+\end{aside}
+\begin{aside}{Systematic and unsystematic risk} \\
+    From the linear regression interpretation of CAPM, we can derive an understanding of systematic (market driven) risk and unsystematic (idiosyncratic) risk. Find the variance of the above linear regression interpretation of asset $i$'s return
+    \begin{align*}
+        \sigma_i^2 &= \text{Var}(\beta_i(r_{M, t} - r_f) + \epsilon_{i, t}) \\
+        &= \text{Var}(\beta_ir_{M, t}) + \text{Var}(\beta_ir_f) + \text{Var}(\epsilon_{i, t}) + \text{Covariance pairs} \\
+        &= \beta_i^2\sigma_M^2 + 0 + \sigma_{\epsilon_i}^2 + 0 \\
+        &= \beta_i^2\sigma_M^2 + \sigma_{\epsilon_i}^2
+    \end{align*}
+    Thus, $\beta_i^2\sigma_M^2$ is the \textit{systematic} risk of the investment, whereas $\sigma_{\epsilon_i}^2$ is the \textit{unsystematic} risk.
+    \\\\
+    We are also able to estimate the covariance \textit{between} two assets as
+    \begin{align*}
+        \text{Cov}(r_{i, t}, r_{j, t}) = \beta_i\beta_j\sigma_M^2
+    \end{align*}
+\end{aside}
+
+\begin{theory}{Implications of $\beta$, CAPM and the Security Market Line (SML)} \\
+    CAPM has a strong assumption - that the expected return of an asset is explained solely by the asset's sensitivity to the market. This essentially means that we can only find more return by taking a riskier 
+    position relative to the market.
+    \newline \\
+    From this, comes the \textit{Security Market Line (SML)}. Whilst previously we plotted $\mathbb{E}(r_i) - \sigma_i$, we now plot $\mathbb{E}(r_i) - \beta_i$; which involves a linear relationship.
+    \begin{center}
+        To increase our return, we must increase our relative risk to the market
+    \end{center}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.4\textwidth]{./photos/sml.png}
+        \caption{Security market line}
+        \label{fig:sml}
+    \end{figure}
+\end{theory}
+CAPM has shown to be statistically significant throughout multiple economic periods and research papers. Recent research however questions the validity of the model.
+\begin{example}{How can the CAPM be used in finance?} \\
+    The CAPM can be used in three main ways:
+    \begin{enumerate}
+        \item In portfolio construction, to consider systematic and idiosyncratic risk
+        \item In investment performance evaluation, to consider the outperformance of investments relative to the market
+        \item In capital budgeting, to consider the cost of capital 
+    \end{enumerate}
+\end{example}
+\section{Market models and market efficiency}
+
+In the previous sections, we were primarly interested with the theoretical basis of portfolio optimisation, investment preferences and the theoretical pricing model CAPM. In this section, we consider practical implications of many of the discussions we've had prior, and extend our discussions into return explainability and more.
+\subsection{Single Index Model (SIM): A practical CAPM}
+The CAPM is a theoretical model which assumes that there exists some market portfolio $M$ of all possible assets. 
+In the real world, not all assets are publicly traded, tradeable on exchanges, etc. The Single Index Model (SIM) takes a \textit{single index} which \textit{represents} the market returns.
+\begin{theory}{Single Index Model (SIM)} \\
+    Similarly to CAPM, it is nice to take a linear regression interpretation. Assume we have a proxy for the market 
+    portfolo $\widehat{M}$ (e.g S\&P 500 index). We again have
+    $$ r_{i, t} - r_{f, t}= \beta_i(r_{\widehat{M}, t} - r_{f, t}) + \epsilon_{i, t}$$
+    Previously, we took the assumption that $\epsilon_{i, t} \sim N(0, 1)$. In empirical results, it is often
+    the case that $\mathbb{E}(\epsilon_{i, t}) \ne 0$. In this case, we must add another variable $\alpha_i$
+    $$ r_{i, t} - r_{f, t} = \alpha_i + \beta_i(r_{\widehat{M}, t} - r_{f, t}) + \epsilon_{i, t}$$
+    Expressed in terms of excess return, we have
+    $$ R_{i, t} = \alpha_i + \beta_iR_{\widehat{M}, t} + \epsilon_{i, t}$$
+\end{theory}
+Under CAPM, the residual $\epsilon_{i, t}$ must have a mean of 0 - otherwise the market is not in equilibrium.
+We then turn to the interpretation of $\alpha_i$.
+\begin{aside}{Jensen's alpha $\alpha$} \\
+    $\alpha$ is the \textit{average return not explained by market movements} - or the \textit{idiosyncratic/unsystematic} return of the investment. Note $\alpha$ may exist for two reasons:
+    \begin{itemize}
+        \item The asset is correctly priced but the model applied is incomplete
+        \item The model is correct, but the asset is mispriced
+    \end{itemize}
+    $\alpha$ in linear regression terms is the trained intercept term.
+\end{aside}
+\begin{aside}{SIM risk measures} \\
+    Under SIM, the relative risk measures stay the same as CAPM. Given some proxy for the market portfolio $\widehat{M}$, the total variance of an asset $i$ can be decomposed as such
+    $$ \sigma_i^2 = \beta_i^2\sigma_i^2 + \sigma_{\epsilon_i}^2$$
+    The ratio of systematic risk on total is the $R^2$, given by
+    $$ R^2 = \frac{\beta_i^2\sigma_M^2}{\sigma_i^2} = (\rho_{i, M})^2$$
+    The covariance between two assets under SIM is given by
+    $$ \text{Cov}(r_i, r_j) = \beta_i\beta_j\sigma_M^2$$
+    The correlation between two assets is simply the product of their correlations with the market
+    $$ \rho_{i, j} = \rho_{i, M}\cdot \rho_{j, M}$$
+    The above results rely on the fact that risk is all \textit{relative} to the market.
+\end{aside}
+The very existence of $\alpha$ and $\sigma_{\epsilon_i}^2$ raises a very interesting question
+\begin{center}
+    If there exists assets with $\alpha \ne 0$, is the market portfolio $M$ still optimal?
+\end{center}
+The answer is of course \textbf{no} - there now exists assets that have higher/lower reward-to-risk ratios 
+than the market portfolio. In the next section, we discuss on how investors can take educated bets 
+on these mispriced assets.
+\subsection{Active investing and exploiting $\alpha$}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./photos/smlalpha.png}
+    \caption{SML with overvalued and undervalued assets}
+    \label{fig:smlalpha}
+\end{figure}
+When considering the construction of an "active component" of a portfolio, we consider two major steps:
+\begin{enumerate}
+    \item Building the active portfolio, relative to idiosyncratic risk and return
+    \item Weighting the active portfolio, relative to diversification benefit
+\end{enumerate}
+\begin{theory}{Building the active portfolio} \\
+    Given $N$ mispriced assets with $\alpha = (\alpha_1, \alpha_2, \dots, \alpha_N)^T$ and $\sigma_{\epsilon}^2 = (\epsilon_{\epsilon_1}^2, \sigma_{\epsilon_2}^2, \dots, \sigma_{\epsilon_N}^2)^T$, the weight of an asset $i$ in the active portfolio $A$ is given by
+    $$ w_i = \frac{\alpha_i / \sigma_{\epsilon_i}^2}{\sum_{j} \alpha_j/\sigma_{\epsilon_j}^2}$$
+    We get the reward-to-risk ratio for the idiosyncratic component of the asset; we weight assets with \textit{high alpha} and \textit{low idiosyncratic variance} more, as they have more "reliable" or less volatile $\alpha$. From this, we find that
+    \begin{align*}
+        \alpha_{A} &= \sum_{i} w_i \cdot \alpha_i \\
+        \beta_{A} &= \sum_{i} w_i \cdot \beta_i \\ 
+        \sigma_A^2 &= \sum_{i} w_i^2 \cdot \sigma_{\epsilon_i}^2
+    \end{align*}
+    Note we do not have to consider covariance pairs, as idiosyncratic variances are assumed to be independent.
+\end{theory}
+
+Now, how do we weight the active portfolio and the market portfolio?
+
+\begin{theory}{Allocating wealth to the active portfolio} \\
+    Given the active portfolio $A$ and it's reward-to-to-risk ratio 
+    $$ \frac{\alpha_A}{\sigma_{\epsilon_A}}^2$$
+    We first find the \textit{naive} weight by finding it's reward-to-risk ratio relative to the market
+    $$ w_A^0 = \frac{\alpha_A / \sigma_{\epsilon_A}^2}{\mathbb{E}(R_M)/\sigma_M^2}$$
+    Then, we adjust this naive weight for the diversification benefit
+    $$ w_A^* = \frac{w_A^0}{ 1 + (1 - \beta_A)w_A^0}$$
+\end{theory}
+Thus, we are now able to exploit empirically mispriced assets, by creating a "tilt", which adjusts the weights of our overall portfolio to capitalise on mispricing opportunities.
+\begin{aside}{Information ratio and active Sharpe} \\
+    An investment $P^*$'s \textit{information ratio} is defined by the ratio between the alpha it yields and the standard deviation 
+    of the idiosyncratic return
+    $$ \text{IR}_i = \frac{\alpha_i}{\sigma_{\epsilon_i}}$$
+    It's squared Sharpe ratio is linked to the existing market portfolio and the alpha component by
+    $$ S_{P^*}^2 = S_M^2 + \text{IR}_i^2$$
+\end{aside}
+For a quantitative portfolio manager, what matters is a broad universe of assets and a correct model.
+\begin{theory}{Fundamental Law of Active Management} \\
+    Given $N$ stocks in the investible universe, and an $\text{IC}$ (information coefficient) of investments, the information ratio is given by
+    $$ \text{IR} = \text{IC} \cdot \sqrt{N}$$
+    The \textit{information coefficient} is the (Spearman or Pearson) correlation between forecasts and results.
+\end{theory}
+
+\subsection{Fama-French-Carhart 4 Factor Model}
+So far we have exclusively discussed single factor models - in particular, CAPM and SIM; researchers in 
+empirical finance have however found more explanatory variables for asset returns. The Fama-French-Carhart 
+4 factor model extends CAPM with 3 additional factors:
+\begin{enumerate}
+    \item Small-minus-big (SMB): Long the smallest 50\% of firms, and short the largest 50\% of firms
+    \item High-minus-low (HML): Long the highest 30\% of firms relative to Book-to-Market ratios, and short the lowest 30\%
+    \item Momentum (MOM): Long the highest 30\% of firms relative to preceding year returns, and short the lowest 30\%
+\end{enumerate}
+Thus, the model can be expressed as
+$$ \mathbb{E}(R_i) = \alpha_i + \beta_{M, i} \cdot \lambda_M + \beta_{SMB, i} \cdot \lambda_{SMB} + \beta_{HML, I} \cdot \lambda_{HML} + \beta_{MOM, i} \cdot \lambda_{MOM}$$
+where $\lambda$ represents the returns of each of the portfolios used as explanatory factors. The Fama-French-Carhart model has been shown to be more explanatory than the CAPM/SIM; but these 'risk factors' have unclear risks associated (unlike the systematic market risk).
+
+\subsection{Efficient Market Hypothesis (EMH)} 
+
+We have now discussed
+\begin{itemize}
+    \item How do we describe investments and their favourability?
+    \item How do we \textit{combine} investments optimally?
+    \item How do we explain investment returns?
+\end{itemize}
+We now turn to the "microstructure" of markets, and how information is absorbed into markets.
+\begin{theory}{Efficient Market Hypothesis (EMH) and it's forms} \\
+    The \textit{Efficient Market Hypothesis (EMH)} states that market prices are \textit{efficient}, and reflect the
+    current information set $I$. \textit{Thus}, an efficient market results in a \textit{random walk} for market prices.
+    \newline \\
+    More specifically, there are three forms of EMH which are subsets within eachother (in growing strength)
+    \begin{enumerate}
+        \item Weak form: current prices reflect all publicy available historical \textit{trading} information
+        \item Semi-strong form: Current price reflects all \textit{public information} about a firm
+        \item Strong form: Current price reflects all \textit{available information}, including non-public information
+    \end{enumerate}
+\end{theory}
+\begin{example}{Examples of counter-EMH trading strategies} \\
+    For each form, we propose a trading strategy which could \textit{not} be possible if the EMH were true
+    \begin{enumerate}
+        \item Momentum, the idea of buying winners and selling losers, contests weak EMH
+        \item Value, the idea of buying cheap and selling expensive, contests semi-strong EMH
+        \item Insider trading, the idea of trading on inside information, contests strong EMH
+    \end{enumerate}
+    Note that every subsequent example must also contest the stronger forms of EMH.
+\end{example}
+How do we test theorys in empirical finance? Particularly for theories such as \textit{EMH}, \textbf{event studies} are a useful tool to test the differences ex-ante and ex-post an event.
+\begin{theory}{Event studies} \\
+    \textit{Events} for empirical finance, are major announcements which are likely to have a material impact on stock prices. Common examples include:
+    \begin{itemize}
+        \item Earnings
+        \item Dividends
+        \item Buybacks, and more
+    \end{itemize}
+    The research of events - called \textit{event studies}, generally studies the excess return ex-post an event
+    relative to some empirical model - we call this \textit{abnormal return}.
+\end{theory}
+\begin{aside}{Cumulative Abnormal Return (CAR)} \\
+    Cumulative Abnormal Return (CAR) is the \textit{cumulative} excess return of some investment or asset, relative 
+    to some empirical model of the asset's return. For example, under SIM
+    $$ \hat{r}_t = \alpha + \beta r_{M, t} + \epsilon_t$$
+    The \textit{abnormal return} is then given by
+    $$ \epsilon_t = \hat{r}_t - (\alpha + \beta r_{M, t})$$
+    Since we are in return space, the cumulative abnormal return for a range of discrete time steps $t = [0, 1, \dots, T ]$ is given by
+    $$ \text{CAR} = \left[ \prod_{t=1}^T (1 + \epsilon_i) \right] - 1$$
+\end{aside}
+Testing for market efficiency can be difficult due to various reasons:
+\begin{itemize}
+    \item Market data is very noisy, and it is difficult to obtain sufficient statistical power
+    \item Statistical power requires large magnitudes, but minor mispricings can be exploited by traders
+    \item Only unsuccessful investment schemes become public; thus positive-side anomalies are not publicised (they are capitalised on)
+    \item Sample periods may not reflect out-of-sample behaviour; data mining
+    \item The empirical model used to calculated abnormal return may not be valid
+\end{itemize}
+\begin{aside}{Market anomaly} \\
+    A market anomaly is a \textit{persistent} pattern to market prices and returns. In general, there are two 
+    ways to understand why market anomalies exist:
+    \begin{enumerate}
+        \item Markets are not as efficient as people think
+        \item These anomalies are unaccounted for risk premiums in the model
+    \end{enumerate}
+\end{aside}
+\begin{example}{Examples of market anomalies} \\
+    There are a few well-known market anomalies, some still widely used by investment managers (whether for $\alpha$ or return attribution).
+    \begin{itemize}
+        \item Momentum (and reversal): price performance over $N$ periods tend to show continuining momentum for the next $K$ periods. There also exists short term reversal.
+        \item Size effect: small cap outperforms large cap
+        \item Value effect: cheap outperforms expensive (relative to \texttt{P/E})
+        \item Post-earnings announcement drift (PEAD): returns after earnings tend to persist over long periods of time
+    \end{itemize}
+\end{example}
+
+\subsection{Behavioural biases}
+In this section, we introduce a framework for explaining market anomalies.
+\begin{theory}{Behavioural biases in pricing} \\
+    Some investors behave in irrational manners and for persistent amounts of time. This can cause persistent
+    price deviation from expectation. Consider an individual $i$'s prediction on some asset's price impact
+    $$ x_i = \mu + \epsilon_i$$
+    where $\mu$ is the correct price impact. The average of all investors prediction is then
+    \begin{align*}
+    \bar{x} &= \frac{1}{N}\sum_{i=1}^N \mu + \epsilon_i \\
+        &= \mu + \frac{1}{N}\sum_{i=1}^N \epsilon_i
+\end{align*}
+If the average prediction had some intrinsic $\text{Bias}$ in their estimate errors, then we could reformulate this as
+\begin{align*}
+    \frac{1}{N}\sum_{i=1}^n = \text{Bias} + \frac{1}{N}\sum_{i=1}^N \tilde{\epsilon}_i
+\end{align*}
+where $\tilde{\epsilon}_i \sim N(0, \sigma^2)$. Thus, the average estimate becomes 
+$$ \bar{x} = \mu + \text{Bias}$$
+\end{theory}
+
+\subsection{Limits to arbitrage}
+
+We wish to quickly consider arbitrage, what it entails, and how arbitrage (\textit{statistical} arbitrage, to be clear) can go wrong.
+\begin{theory}{Arbitrage} \\
+    Arbitrage is a risk-free investment opportunity with positive expected return. These opportunities are \textit{not common} in markets.
+    \newline \\
+    \textit{Statistical arbitrage} is a risky investment opportunity with positive expected return - it is characterised by an expected market behaviour (spreads between two stocks, for example).
+\end{theory}
+
+Arbitrage, and in particular \textit{statistical arbitrage} can go very wrong. There are two main limitations to arbitrage:
+\begin{enumerate}
+    \item Implementation costs and execution risk
+    \item Model risk
+\end{enumerate}
+\begin{example}{How implementation costs affect arbitrage} \\
+    Assume there exists a dual-listed and fungible company share $X$, which is listed in both Hong Kong and Australia. During 
+    the overlapping trading period, the current market prices are as below (assume Australian dollars)
+    \begin{align*}
+        \text{HK Leg} &: \$15.20 \\
+        \text{Aus Leg} &: \$15.1924
+    \end{align*}
+    Not that this is a 5 basis point (0.05\%) difference. Hong Kong has a stamp duty tax of 10 basis points for each side of the trade. The obvious arbitrage trade is to go long in Australia, and short in Hong Kong, and then convert the Australian share to Hong Kong.
+    $$
+    +\$15.20 (\text{HK Short}) - \$15.1924(\text{Aus Long}) = \$0.0076
+    $$
+    But with the 10 bp cost, there is a tax of \$0.0152 on this trade - which results in a \textit{net loss}. Thus, prices can stay inefficient within a 10bp band of the fair price.
+\end{example}
+Thus in the real world, there exists limits to the fair price - in particular any implementation costs such as 
+brokerage fees, taxes, etc. must be accounted for before an arbitrageur executes a trade.
+\begin{example}{How model risk can affect arbitrage} \\
+    We would love for all of our models regarding fair price to be correct - but as seen before, behavioural biases 
+    can have persistent impacts on prices. 
+    \newline \\
+    We can have historical data that says some factor expects $x$\% return in the future, which in turn is a arbitrage opportunity. These sorts of strategies can work 99\% of the time, but it is in that 1\% where significant drawdowns (or even straight blowups) can occur (check out LTCM).
+\end{example}
+
+\section{Bonds}
+
+We now turn to a very new direction - the art of pricing bonds, and utilising bonds to achieve specific investment objectives.
+
+\subsection{Bond characteristics}
+
+\begin{theory}{What is a bond?} \\
+    Bonds are \textit{debt obligations} for a fixed sum between issuers (borrowers) and bondholders (lenders).
+    \begin{itemize}
+        \item A contract where the issuer makes interest and principal payments,
+        \item And where holders lend a sum of money to the issuer
+    \end{itemize}
+\end{theory}
+Compared to equities (stocks), we can already see that there are significant differences in how cash flow 
+can be received for a buyer (lender) of a bond. In equities, cash flows for the buyer can be found in 
+either income payments (dividends, etc.) or by selling the equity and realising the profit/loss.
+\newline \\
+In bonds, we know at the present time the \textit{exact} value of the cash flows we will receive in the future (but we do not know the price of the bond). There are also more associated risks with bonds that are unique to the borrow-lender relationship.
+\begin{aside}{Default risk} \\
+    \textit{Default risk} is the risk that the issuer (seller) of the bond cannot repay it's debt obligations.
+    \begin{itemize}
+        \item This is an important risk for bonds from distressed assets
+        \item But is generally not a risk in developed countries (although is never \textit{not} a risk)
+    \end{itemize}
+\end{aside}
+How are bonds priced? At the very essence, bond pricing works by discounting future cash flows to the present 
+value.
+\begin{theory}{Bond pricing} \\
+    The price $P_B$ for a bond $B$ is given by
+    $$ P_B = \frac{FV}{(1 + y)^T} + \sum_{t=1}^T \frac{C_t}{(1 + y)^T}$$
+    where
+    \begin{itemize}
+        \item $C_t$ is the coupon/interest payment at time $t$
+        \item $T$ is the number of periods until maturity
+        \item $FV$ is the face value of the bond (redemption price)
+        \item $y$ is the yield-to-maturity
+    \end{itemize}
+    We can re-arrange the above pricing to an annuity
+    $$ P_B = \frac{FV}{(1+y)^T} + C \cdot \frac{1}{y}\left[1 - \frac{1}{(1 + r)^T} \right]$$
+    given coupon payments $C$ and yield-to-maturity $y$ are constant for the entire period.
+\end{theory}
+\begin{aside}{Bond pricing with changing yields} \\
+    You may have knowledge of more discrete yield rates until maturity - for example, for a 3-year bond, you may know $y_1$, $y_2$ and $y_3$, the per-annum yield for a $1, 2$ and $3$ year bond. In this case, we appropiately discount each cashflow at time $t$ with the per-annum yield for a $t$-year bond.
+    $$ P_B = \frac{FV}{(1+y_T)^T} + \sum_{t=1}^T \frac{C_t}{(1 + y_t)^T}$$
+\end{aside}
+Consider the relationship between the price of a bond, and it's coupon payments as well as it's yield-to-maturity.
+\begin{itemize}
+    \item If $C \uparrow$, then we have more future cash flow, thus $P_B \uparrow$
+    \item If $y \uparrow$, then future cash flows are more discounted, thus $P_B \downarrow$
+\end{itemize}
+We classify bonds into three different categories
+\begin{aside}{Par, discount and premium bonds} \\
+    Given the price $P_B$ of a bond $B$ and value at maturity $FV$
+    \begin{itemize}
+        \item If $P_B = FV$, then it is a \textit{par bond}
+        \item If $P_B > FV$, then it is a \textit{premium bond}
+        \item If $P_B < FV$, then it is a \textit{discount bond}
+    \end{itemize}
+    These relate the the difference between the coupon \textit{rate} $c$ and the yield-to-maturity $y$. For example,
+    if $c > y$, then received cash-flow exceeds discounts, and thus the redemption price must be lower than the bond price.
+\end{aside}
+
+How do bond prices move, and how sensitive are bond prices? It is clear that bonds that are longer in term, 
+are more sensitive to changes in the yield-to-maturity (as more of their cashflows are affected). It should be fairly clear then, that there exists a closing spread between the price of the bond and the face value.
+$$ \lim_{t \to T} P_{B, t} \to FV_{B}$$
+That is, the price of the bond converges to the face value as the bond reaches maturity.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./photos/yieldconverge.png}
+    \caption{Prices of bonds converge to the face value as bonds reach maturity}
+    \label{fig:yieldconverge}
+\end{figure}
+\begin{aside}{Yield-to-maturity versus current yield} \\
+    The yield to maturity $y$ is an agreed rate which the future cash flows will be discounted for. The current yield for the bond given by
+    $$ \text{Current yield} = \frac{C}{P}$$
+    for the annual coupon $C$ and price $P$, is a different metric.
+\end{aside}
+\begin{aside}{Deriving yield-to-maturity $y$} \\
+    Given $P$ (price), $FV$, $C$ (coupon) and $T$, we can find the yield-to-maturity by using Excel, or backwards solving using 
+    the bond pricing equation as previously mentioned.
+    $$ \verb|RATE(T, C, -P, FV)|$$
+\end{aside}
+The yield-to-maturity $y$ does not necessarily reflect the actual realised return whilst holding the bond.
+To illustrate why this may occur, consider we buy a bond at $5\%$ yield to maturity, which equals the current 
+risk-free rate. If the risk-free rate were to drop, then our bond becomes \textit{more attractive}, as it has 
+a higher yield.
+\newline \\
+Due to the fact that market interest rates are not constant, we must account for the total returns using the \textit{Holding Period Return (HPR)}.
+\begin{theory}{Holding Period Return ($HPR$)} \\
+    The holding period return $HPR$ is given by the summation of total bond proceeeds, divided by the entry price.
+    $$ \text{HPR} = \frac{\text{Total bond proceeds}}{P_0} - 1$$
+    Due to interest/coupon components $C_t$, we must at each point of coupon receipt, re-invest the coupon relative to a re-investment rate $r$. This means we ensure that any received cash flows keep growing with the time value of money.
+\end{theory}
+
+Since we now have the \textit{actual} returns of the bond at maturity (given we know the re-investment rates), we can find the \textit{realised} yield.
+\begin{aside}{Realised compound yield} \\
+    Given the HPR of some bond,, and it's number of periods $T$, the realised compound yield is given by
+    $$ \text{Realised compound yield} = (1 + \text{HPR})^{1/T} - 1$$
+\end{aside}
+
+\begin{example}{Finding the holding period return for a bond} \\
+    Consider purchasing a \$1000 5-year 4\% annual coupon bond at \$1045.80. The future re-invesment rates ($r$) 
+    are given as
+    $$ r_1 = 3.0\% \hspace{0.5cm} r_2 = r_3 = 3.5\% \hspace{0.5cm} r_4 = r_5 = 4.0\%$$
+    What is the holding period return of the bond, if held until maturity?
+    \\ \\
+    Consider the re-investment of coupons for each year first
+    \begin{align*}
+        \text{Coupon returns} &= 40 \cdot (1.035^2 \cdot 1.04^2) + 40 \cdot (1.035 \cdot 1.04^2) + 40 \cdot (1.04^2) + 40 \cdot 1.04 + 40\\
+        &= \$215.99
+    \end{align*}
+    We also receive \$1000 at redemption, for a total return of \$1215.99. Therefore, the HPR can be found by
+    $$ \text{HPR} = \frac{1215.99}{1045.80} - 1 = 16.27\%$$
+    for the total holding period.
+\end{example}
+
+\subsection{Term structure of interest rates}
+
+In the previous section, we were concerned with the \textit{pricing of bonds} given certain parameters. We now consider how the interest rates received on bonds can different across different investment horizons.
+\begin{theory}{Yield curves} \\
+    The yield curve displays the relationship between yield-to-maturity $y$ and maturity $T$. Thus, the yield curve explicitly reflects market expectations on \textit{future} interest rates.
+    \newline \\
+    Typically, yields increase as time-to-maturity increases, for reasons we will discuss later.
+\end{theory}
+The following question is how yield curves can be formed. In general, recent transactions of bonds are used to form yield curves - there are however differing methodologies are rates that can be used.
+\begin{aside}{Spot rates and pure yield curves} \\
+    Spot rates $y_T$ are the interest rates \textit{prevailing today} at $t=0$, for a $T$-period investment, which \textit{does not involve any cash flow besides the redemeption}. Thus, the \textbf{pure yield curve} is derived from spot rates on zero-coupon bonds purchased at differing maturities on market.
+\end{aside}
+However, zero-coupon bonds are rare - particularly for longer term maturities. Thus, it is much more common to see the second methodology used - \text{boostrapping} yield rates from coupon bonds.
+\begin{aside}{Boostrapping and on-the-run yield curves} \\
+    On-the-run yield curves are formed by using recently issued \textit{coupon bonds} selling at or near par value. Given $N$ bonds of different maturities $t = (1, 2, \dots, N)$, we are able to find the on-the-run yield curve 
+    given a ZCB exists for the first year.
+    \begin{enumerate}
+        \item Calculate $y_1$ from the ZCB for year 1
+        \item For $y_2$, discount the first year bond using $y_1$, and find the remaining $y_2$
+        \item For $y_3$, discount the first year bond using $y_1$, the second year bond using $y_2$, and then find $y_3$
+        \item Repeat this until $y_N$
+    \end{enumerate}
+    Thus, to find $y_3$ for some coupon $\bar{C}$, bond price $\bar{P}$, face value $FV$ and known spot rates $\bar{y}_1, \bar{y}_2$, then $y_3$ is isolatable
+    $$ \frac{\bar{C}}{1 + \bar{y}_1} + \frac{\bar{C}}{(1 + \bar{y}_2)^2} + \frac{\bar{C} + FV}{(1 + y_3)^3} = P$$
+\end{aside}
+Note that for the second, third, etc. years, we use compounded rates for $y_2, y_3, \dots$ instead of combining forward rates (which will be explored later) like $(1 + y_1)(1 + y_2)$, as $y_2, y_3, \dots, y_N$ express the spot rate for an $N$ period investment already.
+
+\subsection{Future rates} 
+
+Previously, we have discussed how we can find \textit{spot rates}, which give the investment rates for $t = 0$ for some $N$-period investment. We now turn to inferring \textit{future rates}, which give the investment rates for $t = k$ where $k$ is in the future, for some $N$-periodn investment. Consider the following notation:
+\begin{itemize}
+    \item $y_{0, t}$ is the spot rate for an investment maturing at $t$
+    \item $y_{s, t}$ is the future spot rate (future rate) for an investment starting at $s$ maturing at time $t$
+\end{itemize}
+\begin{theory}{Deriving future rates} \\
+    Future rates are derived with the basis that spot rates are a combination of multiple future spot rates.
+    That is, given a spot rate $y_{0, t}$, we can construct this spot rate with a bunch of future spot rates
+    $$ (1 + y_{0, t})^t = (1 + y_{0, 1})(1 + y_{1, 2})\dots(1 + y_{t-1, t})$$
+\end{theory}
+However, rates that are a forecast of the future are not \textit{always} called future rates.
+\begin{aside}{When are rates called \textit{future} rates?} \\
+    Spot rates that are in the future are only caled \textbf{future rates} when the interest rates change over time are \textit{certain}.
+\end{aside}
+\begin{aside}{Short rates: intermediate yearly future rates} \\
+    Under certainty - that is, the knowledge of all future interest rates, the rate between some years $k$ and $k+1$ is called the short rate $r_{k}$. Given 1-year and 2-year spot rates, we could find the short rate $r_2$ by the following
+    \begin{align*}
+        (1 + y_1)(1 + r_2) &= (1 + y_2)^2 \\
+        (1 + r_2) &= \frac{(1 + y_2)^2}{(1 + y_1)} \\
+        r_2 &= \frac{(1 + y_2)^2}{(1 + y_1)} - 1
+    \end{align*}
+\end{aside}
+
+\subsection{Forward rates}
+Where future rates are under \textit{certainty} of the future interest rate changes over time, forward rates 
+make no such assumption. 
+\begin{theory}{Forward rates} \\
+    The derivation of forward rates is pretty much the same as future rates - just that the rates that we use 
+    are explicitly estimations, not certainties. An \textit{implied forward rate} for a time period $s \to t$ is the interest rate implied by two spot rates $y_s$ and $y_t$ where $t > s$, such that
+    $$ (1 + y_s)^s(1 + f_{s, t})^{t - s} = (1 + y_t)^t$$
+    $f_{s, t}$ is the forward rate, and is the per-annum rate expected between the time periods $s \to t$.
+\end{theory}
+\begin{aside}{The important distinction between future and forward rates} \\
+    So why the need for the distinction between the two? Well, they serve different purposes
+    \begin{itemize}
+        \item Forward rates are yields for investments contracted \textit{now} and invested in the future
+        \item Future rates are yields for investments that are contracted \textit{in the future} and invested in the future
+    \end{itemize}
+    That is, forward rates are the rates that a lender and a bondholder would agree on at $t = 0$ for some time period $s \to t$ where $t > s > 0$. \textit{Forward rates are not known to investors}.
+\end{aside}
+
+\subsection{Expectations Hypothesis}
+We previously derived future rates by the assuming that we could re-construct a future spot rate with 
+short-term bonds
+$$ (1 + y_{0, t})^t = (1 + y_{0, 1})(1 + y_{1, 2})\dots(1 + y_{t-1, t})$$
+Beyond $y_{0, 1}$, the reality is that everything else is an \textit{expectation} or an \textit{estimator} 
+$$ (1 + y_{0, t})^t = (1 + y_{0, 1})(1 + \mathbb{E}(y_{1, 2}))\dots(1 + \mathbb{E}(y_{t-1, t}))$$
+\begin{theory}{Expectations Hypothesis} \\
+    Expectations Hypothesis states that \textit{only} market expectations on the future interest rates shape 
+    the yield curve. That is, for some forward rate $f_{s, t}$
+    $$ f_{s, t} = \mathbb{E}(y_{s, t})$$
+    Thus, there exists \textit{no other external factors} to forward rates pricings, other than the interest rat expectation.
+\end{theory}
+Thus, the slope of the yield curve is a \textit{pure proxy} for the markets expectations for future interest rates.
+\subsection{Liquidity Preference Hypothesis}
+Expectations Hypothesis is a \textit{strong} assumption that there exists no other factors in the pricing-in of future interest rates. 
+\begin{aside}{Liquidity/price risk} \\
+Consider investing in a 1-year ZCB and investing in a 2-year ZCB and selling at $t=1$.
+\begin{itemize}
+    \item Option 1: we are \textit{guaranteed} the current spot rate $y_1$
+    \item Option 2:
+    \begin{align*}
+        HPR &= \frac{P_1}{P_0} - 1 \\
+        P_1 &= \frac{FV}{1 + \mathbb{E}(y_{1, 2})}
+    \end{align*}
+\end{itemize}
+
+Thus, there exists \textit{risk} in reconstructing option 1 with option 2! This is called price/liquidity risk.
+\end{aside}
+
+\begin{aside}{Re-investment risk} \\
+    Consider investing in a 2-year ZCB, or reconstructing this with 2 1-year ZCBs
+    \begin{itemize}
+        \item Option 1: we are \textit{guaranteed} the current spot rate $y_2$
+        \item Option 2:
+        \begin{align*}
+            (1 + HPR)^2 = (1 + y_1)(1 + \mathbb{E}(y_{1, 2}))
+        \end{align*}
+    \end{itemize}
+    Thus, there exists \textit{risk} in re-investment too! This is called re-investment risk
+\end{aside}
+The above two examples of risk begin to explore the fact that for investors into bonds, that there may be 
+additional risk factors to consider for future rates.
+\begin{theory}{Liquidity preference hypothesis} \\
+    \textit{Liquidity Preference Hypothesis} deviates from Expectations Hypothesis - investors into longer-term bonds hold more risk, and thus demand a \textit{premium} for it. We call this the \textit{liquidity risk premium ($LRP$)}.
+    $$ f_{s, t} = \mathbb{E}(y_{s, t}) + LRP$$
+\end{theory}
+Thus, under liquidity preference hypothesis, even if the interest rate expectations for the future were flat - the yield curve would \textit{still} be upward sloping, as longer-term bonds attract more liquidity risk premium.
+
+\subsection{Interest rate risk ($\Delta$), duration and convexity}
+Recall that the price of a bond with cash flows $CF_t$ received at time $t$, with yield $y$ is given by 
+$$ P_0 = \sum_{t=1}^T \frac{CF_t}{(1 + y)^t}$$
+Thus, bond prices are exposed to \textit{interest rate risk}, or delta ($\Delta$) risk. When interest rates rise, prices fall, and vice versa. Before we talk about how bond prices change with interest rate changes, we must first dicuss \textit{duration}.
+\\ \\
+Bonds have time to maturity $T$ - but for investor risk, this is not very valuable. Bonds hold risk as the total remaining cashflow $|CF|$ is higher. Thus, you can imagine that bonds with coupons have less risk then bonds without coupons all else held equal.
+\\ \\
+Duration is then use as a way to more faithfully represent the remaining risk (time risk, and thus $\Delta$ risk) of bonds, by considering time-to-maturity in terms of cash flow received, and \textit{not} the time remaining until 
+maturity.
+\begin{theory}{(Macaulay) Duration} \\
+    \textbf{Duration (Macaulay's Duration)} $D$ is the \textit{effective maturity} of the bond w.r.t cash flow. It is a weighted average time for cash flow receipt in years.
+    \begin{align*}
+        D &= \sum_{t=1}^T \frac{CF_t / (1 + y)^t}{P} \cdot t \\
+        &= \sum_{t=1}^T w_t \cdot t
+    \end{align*}
+    where 
+    $$ 
+    w_t = \frac{CF_t/(1 + y)^t}{P} = \frac{PV(CF_t)}{\sum_{t=1}PV(CF_t)}
+    $$
+    We use the weight variable $w_t$ commonly. Thus, at each cash flow receipt time $t$, we consider the total present value received cumulative up until $t$.
+\end{theory}
+\begin{aside}{Derivation of Macaulay Duration w.r.t $\Delta$ risk} \\
+    It turns out that \textit{duration is directly tied to $\Delta$ risk}. First, define the price of a bond in cash flow terms
+    $$ P = \sum_{t=1}^T CF(1 + y)^{-t}$$
+    We then differentiate w.r.t $y$, to find the interest rate risk (the change of $P$ relative to the change of $y$).
+    \begin{align*}
+        \frac{\partial P}{\partial y} &= \sum_{t=1}^T CF \cdot (-t) \cdot (1 + y)^{-t-1} \\
+        &= -\sum_{t=1}^T \frac{CF_t}{(1 + y)^{t + 1}} \cdot t = \Delta \text{ risk}
+    \end{align*}
+    We can then then multiply a term to get duration from $\Delta$ risk.
+    \begin{align*}
+        -\frac{\partial P}{\partial y} \cdot \frac{1 + y}{P} &= \sum_{t=1}^T \frac{CF/(1+y)^t}{P} \cdot T \\
+        &= D
+    \end{align*}
+    Thus, this means that a $\frac{\Delta y}{1 + y_{\text{old}}}$\% change in interest rates leads to an approximately $D\%$ change in the bond price.
+\end{aside}
+As we can see, the derived $\Delta P$ w.r.t $\Delta y$ formula is a little unintuitive due to the "relative change" (divided by $1 + y$) definition. We therefore present a \textit{modified} definition.
+\begin{theory}{Modified duration} \\
+    Modified duration $D^*$ takes the aforementioned Macaulday duration $D$, and divides through by $1 + y$.
+    $$ D^* = \frac{D}{1 + y}$$
+    This now means that
+    $$ \frac{\Delta P}{P} \approx -D^* \cdot \Delta y$$
+\end{theory}
+How does duration change with bond characteristics?
+\begin{itemize}
+    \item A ZCB's duration is the same as it's time-to-maturity, as it has no intermediate cash flows
+    \item Bonds with higher coupon $C$, all else held equal, have lower duration (more intermediate cash flows)
+    \item Higher yield bonds have a lower duration than lower yield bonds, all else held equal (as future cash flows are more heavily discounted)
+\end{itemize}
+What if we had more than one bond? 
+\begin{aside}{Portfolio duration} \\
+    The duration of a portfolio is the price-weighted average of the bond's durations
+    $$ D_{\text{Portfolio}} = \sum_{i} D_i \cdot w_i$$
+    where
+    $$ w_i = \frac{P_i}{P_{\text{Portfolio}}}$$
+\end{aside}
+\subsection{Convexity}
+Convexity defines the non-linear relationship between $P$ and $y$ - bond prices and yield-to-maturity. Previously, we approximated bond price changes relative to duration as 
+$$ \frac{\Delta P}{P} = -D^* \cdot \Delta y$$
+which indicates a linear relationship with slope $m = -D^*$. Real bond prices change with a \textit{convex} relationship to yield changes.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./photos/convexity.png}
+    \caption{Bond price convexity w.r.t yield-to-maturity}
+    \label{fig:convexity}
+\end{figure}
+Of course, this is \textit{desirable} for investors:
+\begin{itemize}
+    \item Positive changes are \textit{better} for favourable yield moves
+    \item Negative changes are \textit{better} for unfavourable yield moves
+\end{itemize}
+\textit{Convexity} is given by the second derivative.
+\begin{align*}
+    \frac{\partial^2 P}{\partial y^2} &= -\sum_{t=1}^T CF_t \cdot \frac{\partial}{\partial y}\left[t (1 + y)^{-t-1}\right] \\
+    &= \sum_{t=1}^T CF_t \cdot t \cdot (t + 1) \cdot (1 + y)^{-t-2} \\
+    &= \sum_{t=1}^T t(t+1)\frac{CF_t}{(1 + y)^{t + 2}}
+\end{align*}
+Thus, bond price changes can be further approximated (this is a second-order Taylor series) including the second derivative
+$$ \frac{\Delta P}{P} \approx -D^* \cdot \Delta y + \frac{1}{2} \cdot \text{Convexity} \cdot (\Delta y)^2$$
+\subsection{Interest rate immunisation}
+Given some debt obligation that we hold with face value $FV_O$, duration $D_O$ at some rate $r_O$ - this obligation is exposed to $\Delta$ risk. This means that if interest rates fall, we are paying \textit{more} for this debt relative to market rates. This is clearly undesirable.
+\begin{aside}{Immunising debt obligations with bonds} \\
+    We can immunise debt obligations with bonds by matching the \textit{duration} and \textit{present value} of the debt obligation with bond(s). \\ \\
+    To figure out weights in immunisation (you will generally be given two bonds - otherwise there is infinite solutions):
+    \begin{enumerate}
+        \item Take a vector of weights $\mathbf{w} = \{ w_1, w_2, \dots, w_N\}$ in your \textit{bond portfolio} (e.g $\mathbf{w} = \{w_1, w_2\}$)
+        \item Match the duration of the bonds to the duration of the liability (e.g $D = \{D_1, D_2\}$ reflecting the bonds).
+        \begin{align*}
+            w_1D_1 + (1 - w_1)D_2 &= D_\text{liability} \\
+            w_1(D_1 - D_2) &= D_\text{liability} - D_2 \\
+            w_1 &= \frac{D_\text{liability} - D_2}{D_1 - D_2}
+        \end{align*}
+        \item Now, get the present value of your bonds and your liabilities. Given a weight and the present value of your liability and bond, the \# of bonds to buy is
+        $$ \text{Number of bond $i$} = \frac{w_i \cdot PV(\text{Liability})}{PV(\text{Bond $i$})} = \frac{\text{\$ to be immunised by bond $i$}}{\text{Price of bond $i$}}$$
+    \end{enumerate}
+\end{aside}
+\newpage
+\section{Options}
+In this section, we give a \textit{practical} overview of options, their types, their pricing models and importantly, how to employ them in effective portfolio management.
+\begin{theory}{Derivatives} \\
+    A \textit{derivative} is a financial instrument whose value (price) depends on another asset's observable price.
+\end{theory}
+\subsection{Option characteristics and types}
+\begin{theory}{Options and their types} \\
+    An option is a derivative that gives the holder (buyer) the \textit{right but not the obligation} to trade the underlying asset at a non-market price.
+    \\ \\
+    There are two main types of options.
+    \begin{enumerate}
+        \item Call options, which give the right to \textit{buy} an option at a fixed price
+        \item Put options, which give the right to \textit{sell} an option at a fixed price
+    \end{enumerate}
+\end{theory}
+
+\begin{aside}{Rights and obligations within option counterparties} \\
+    Selling an option is known as \textit{writing} or \textit{issuing} an option. Depending on whether you are a holder (buyer) or an issuer (seller), your rights and obligations are different.
+    \begin{itemize}
+        \item If you are the writer of an option - you always have an \textit{obligation} to the holder if they choose to exercise
+        \item The holder is \textit{never}$^*$ obligated to exercise an option
+    \end{itemize}
+    \footnotesize{
+        $^*$Some exchanges have rules against making adverse decisions (not exercising a profitable option, etc.) in options
+    }
+\end{aside}
+\begin{aside}{Option premium} \\
+    Option premiums are the \textit{price} of the option. They are quoted on a per-share basis.
+    \\ \\
+    Consider a contract for \texttt{CBA} for $X = \$58.50$, at a premium of \$1.50 at purchase. Each contract grants you the right to purchase 100 shares of \texttt{CBA}. If $S_T = 61$, then the payoff for each share is
+    $$ C_T = \max(61.00 - 58.50, 0) - 1.50 = \$1$$
+    Thus, we have made \$100 dollars of profit (\$1 profit for 100 shares)
+\end{aside}
+
+There are two main ways that options are settled (exercised) at maturity:
+\begin{enumerate}
+    \item Physical settlement: The writer must sell (buy) the underlying asset to (from) the holder for a put (call) option.
+    \item Cash settlement: The option writer pays out the \textit{intrinsic value} of the option at the time of exercise.
+\end{enumerate}
+Typically, options are larger than just one unit - and would rather come with 100 units for one option contract, for example. There are different types of options with respect to the ability to exercise before maturity
+\begin{aside}{European and American options} \\
+    \textit{European options}$^*$ can only be exercised at the expiration date. This makes pricing European options easier.
+    \\ \\
+    \textit{American options}$^*$ can be exercised at any time before or at the expiration date.
+    \\\\
+    \footnotesize{
+        $^*$European options are generally written for indices. \\
+        $^*$American options are generally written for individual stocks.
+    }
+\end{aside}
+Options have a few important parameters - $t$, the current time, $T$ the expiration time of the option, $S_t$ the current underlying price and $X$, the exercise price of the option. These are some parameters than a buyer and seller of an option will take into consideration when pricing an option or choosing the right option to purchase.
+\begin{aside}{Payoff diagrams and profit diagrams} \\
+    Payoff and profit diagrams are a way to show the relationship between the payoff and profit of an option with respects to the underlying price.
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.25\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{./photos/payoff.png}
+            \caption{Payoff diagram}
+            \label{fig:payoff}
+        \end{minipage}
+        \hspace{3cm}
+        \begin{minipage}{0.25\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{./photos/profit.png}
+            \caption{Profit diagram}
+            \label{fig:profit}
+        \end{minipage}
+    \end{figure}
+    The profit diagram takes into consideration the initial option premium which must be overcome to create 
+    a profit. For a put option, the above diagrams can be seen as flipped on the $y$-axis.
+\end{aside}
+\subsection{Intrinsic value at exercise}
+We need a standard way to refer to option's values relative to their exercise price. Given the strike price $X$
+and underlying stock price $S_t$ at time $t$:
+\begin{itemize}
+    \item A call (put) option is \textbf{in the money} if $S_t > X$ ($S_t < X$)
+    \item A call/put option is \textbf{at the money} if $X = S_t$
+    \item A call (put) option is \textbf{out of the money} if $S_t < X$ ($S_t > X$)
+\end{itemize}
+We add \textbf{deep} (in/out of the money) when an option is very profitable/unprofitable.
+\begin{theory}{Intrinsic value} \\
+    The intrinsic value of an option is the value it would have if exercised immediately. Of course, we do not exercise out-of-the-money options. Thus
+    \begin{itemize}
+        \item Call option
+        $$ \text{Intrinsic value} = \max(0, S_t - X)$$
+        \item Put option
+        $$ \text{Intrinsic value} = \max(0, X - S_t)$$
+    \end{itemize}
+\end{theory}
+
+\subsection{Binomial pricing model}
+When we price options (in general, using binomial or other), we take a few strong assumptions and ideas
+\begin{enumerate}
+    \item Options are redundant securities, which can be replicated with combinations of existing securities
+    \item Assets (stocks) are risk-neutral, and thus return the same as the risk-free rate $r$
+\end{enumerate}
+The second assumption comes from the fact that the perfectly hedged option writer holds zero net underlying $\Delta$ risk. It makes pricing options much easier.
+\begin{theory}{Binomial option pricing model: hedge ratio, risk-neutral probability and more} \\
+    We replicate option payoffs with a stock and a risk-free asset. Consider pricing a single-period option, with two possible states w.r.t stock return
+    \begin{itemize}
+        \item $U$, which indicates the \% return (as a multiplier$^*$) if the stock goes up 
+        \item $D$, which indicates the \% return (as a multiplier) if the stock goes down
+    \end{itemize}
+    Given at $t = 0$, the underlying stock price is $S$, we then have two states $S_U$ and $S_D$ for the single period return of the stock. We wish to replicate the payoff (in dollar terms) of the option in these states $O_U$ and $O_D$, using the stock and the risk-free rate.
+    \\ \\
+    The \textit{hedge ratio} $H$ or \textit{delta} of an option is the number of shares required to replicate the option values in the next period.
+    $$ H = \frac{O_U - O_D}{S_U - S_D}$$
+    Essentially we are trying to match the returns of the option and stock in each state so we can hedge perfectly. Our intention is to replicate the payoff of the option with just stocks and bonds. 
+    \newline \\
+    Thus for some initial bond investment $B_U$ for the positive return state.
+    \begin{align*}
+    H\cdot S \cdot U + B_U \cdot R &= P_U \\
+    B_U &= \frac{P_U - H \cdot S \cdot U}{R}
+    \end{align*}
+    Then the option value in the positive return state after substituting $H$ and $B_U/B_D$ can be reduced to
+    $$ \text{Value} = \frac{O_U(R - D) + O_D(U - R)}{R( U - D)}$$
+    Here, we introduce the risk-neutral probability $q$ - the probability that would make investors indifferent to the risky asset or the stock
+    $$ q = \frac{R - D}{U - D}$$
+    Thus, we have
+    $$ \text{Value} = \frac{1}{R}(qO_U + (1 - q)O_D)$$
+    \\ \\
+    \footnotesize{
+        $^*$That is, if the up return is $0.04$, then $U = 1.04$. If the down return is $-0.03$, then $D = 0.97$.
+    }
+\end{theory}
+\begin{example}{Practical calculation of option prices using binomial pricing} \\ 
+    Practically, given $n$-periods, a risk-free rate of $r$, a strike price $X$ the up/down states $U$/$D$ and a beginning stock price $S$, we start from expiration and work our way backwards. 
+    \newline \\
+    Consider a three period call option.
+    \newline
+    At state $S_{uu}$, we need to consider $\max(0, S_{uuu} - X) = P_U$ and $\max(0, S_{uud} - X) = P_D$. We can calculate $q$, and the value of the option at $uu$ simply becomes
+    $$ P_{uu} = \frac{1}{R}(q \cdot (\max(0, S_{uuu} - X)) + (1 - q) \cdot (\max(0, S_{uud} - X)))$$ 
+    We can do unwind this for every state until we get to $P_0$
+\end{example}
+Note that the hedge ratio (the number of stocks required to replicate option payoff) is due to change every step, and thus \textit{dynamic hedging} is required.
+
+\subsection{Put-call parity}
+
+Consider two investments $I_1$ and $I_2$.
+\begin{itemize}
+    \item $I_1$: Long one unit of stock, long one put option at strike \$$X$
+    \item $I_2$: Long one call option at strike \$$X$, and one bond that yields \$$X$ at expiration
+\end{itemize}
+It can be found that the payoff of the two investments are the same.
+\begin{align*}
+    \text{Payoff} = \begin{cases}
+        X & \text{ if } S_t \le X \\
+        S_T & \text{ if } S_tt > X
+     \end{cases}
+\end{align*}
+This relationship is called the \textit{put-call parity}.
+\begin{theory}{Put-call parity} \\
+    Using the put-call parity, puts can be priced relative to calls and vice-versa. 
+    $$ S_t + P_t = C_t + Xe^{-rt}$$
+    where
+    \begin{itemize}
+        \item $S_t$ is the underlying at time $t$
+        \item $P_t$ is the price of the put at time $t$ with exercise $X$
+        \item $C_t$ is the price of the call at time $t$ with exercise $X$
+        \item $Xe^{-rt}$ is the face value of the bond discounted$^*$
+    \end{itemize}
+
+    \footnotesize{
+        $^*$Note that if in discrete time, the discount should be $\frac{1}{(1 + r)^t}$
+    }
+
+\end{theory}
+
+\subsection{Practical bounds on option prices}
+
+There exists practical bounds on the value of options, related to arbitrage limits, put-call parity and general sensibility bounds. Consider a call option with payoff $C_t = \max(0, S_T - X)$ where $S_t$ is the underlying price at time $t$, $X$ is the strike price and $r$ is the risk-free rate.
+\begin{itemize}
+    \item Non-negative: $C_t \ge 0$
+    \item Cannot exceed stock price (upper bound): $C_t \le S_t$
+    \item No arbitrage (lower bound): $ C_t \ge S_t - Xe^{-rt}$
+    \item Put-call parity: $C_t = P_t + S_t - Xe^{-rt}$
+\end{itemize}
+For a put option:
+\begin{itemize}
+    \item Non-negative: $P_t \ge 0$
+    \item Cannot exceed PV of strike (upper bound): $P_t \le Xe^{-rt}$
+    \item No arbitrage (lower bound): $P_t \ge Xe^{-rt} - S_t$
+    \item Put-call parity: $P_t = C_t - S_t + Xe^{-rt}$
+\end{itemize}
+
+\subsection{Non-linearity of option prices relative to the underlying}
+
+We have explored the payoff and profit diagrams, which show a piece-wise linear relationship between the underlying price. In reality, there exists a non-linear relationship between market prices for options and strike price, due to time ($\theta$) value.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./photos/option.png}
+    \caption{As $t \to T$ (approaching expiration), prices begin to flatten to the payoff curve}
+    \label{fig:option}
+\end{figure}
+\subsection{Optimality and usefulness of early exercise on Americans}
+In this section, we consider the optimality of early exercise on American options.
+\begin{enumerate}
+    \item Early exercise on a call option with no dividends is \textit{never} optimal
+    \begin{align*}
+        C_t &\ge S_t - Xe^{-rt} \\
+        C_t &\ge S_t - X \hspace{0.5cm} \square
+    \end{align*}
+    \item Early exercise on an American call option \textit{may} be optimal on dividened paying stocks
+    \begin{itemize}
+        \item Consider a stock at \$30 before ex-dividend - purchase call for $X = 25$
+        \item After ex-dividend, now \$27 with \$5 dividend
+        \item At expiration, now \$26
+        \item Thus, exercise at ex-dividend was optimal
+    \end{itemize}
+    \item Early exercise on an American put option may be optimal for all stocks
+    \begin{itemize}
+        \item Once a put option is deep in the money, prices may move away from you 
+        \item $S_t \ge 0$, and thus there is a bound for profitability
+    \end{itemize}
+\end{enumerate}
+\subsection{Black-Scholes pricing model (B-S model)}
+The Black-Scholes options pricing model is a \textit{continuous}-time pricing model for options. It's derivation is much more involved than binomial pricing, and is omitted for the purposes of these notes.
+\begin{theory}{Black-Scholes model} \\
+    The Black-Scholes pricing model for a European \textit{call} option is given by
+    \begin{align*}
+        C_t &= S_t\phi(d_1) - Xe^{-r(T-t)}\phi(d_2) \\
+        \text{where}& \\
+        d_1 &= \frac{1}{\sigma\sqrt{T - t}}\left(\ln \left(\frac{S_t}{X}\right) + \left(r + \frac{\sigma^2}{2}\right)(T - t)\right) \\
+        d_2 &= d_1 - \sigma\sqrt{T - t}
+    \end{align*}
+    where
+    \begin{itemize}
+        \item $S_t$ is the price of the underlying at time $t$
+        \item $X$ is the exercise price
+        \item $T - t$ is the time remaining (in years) until expiration
+        \item $r$ is the risk-free rate (continously compounded)
+        \item $\sigma$ is the return volatility of the underlying
+        \item $\phi$ is the normal CDF for $N(0, 1)$
+    \end{itemize}
+    The put option value can be found by put-call parity, such that
+    \begin{align*}
+    P_t &= C_t + Xe^{-r(T - t)} - S_t \\
+    \text{substituting }& C_t \\
+    P_t &= Xe^{-r(T - t)}\phi(-d_2) - S_t\phi(-d_1)
+    \end{align*}
+\end{theory}
+
+There are a few interesting points from empirical observations of option prices and volatility 
+under Black-Scholes pricing.
+\begin{aside}{Implied volatility (IV)} \\
+    Implied volatility (IV) is the solved $\sigma$ in the B-S model given the market price for an option. The Black-Scholes model suggests that IV should be independent of strike price, yet:
+    \begin{itemize}
+        \item IV of options appear to be correlated to strike price
+        \item Many options have higher IV for puts than calls
+        \item IV is generally higher for out-of-the-money put options
+    \end{itemize}
+\end{aside}
+\begin{aside}{Dynamic hedging} \\
+    Dynamic hedging is a strategy where the payoff an option is replicated by trading a portfolio of the underlying and a risk-free asset.
+    \begin{itemize}
+        \item As previously mentioned, the hedge ratio $H$ or delta is used to replicate the option payoff
+        \item Black-Scholes provide simple expressions of the option delta - for non-dividend paying stocks:
+        \begin{itemize}
+            \item $\phi(d_1)$ for a call and $-\phi(-d_1)$ for a put
+        \end{itemize}
+        \item Most assets do not have options or are very illiquid; dynamic hedging can be then used to synthesise options
+    \end{itemize}
+\end{aside}
+
+\subsection{Option price sensitivity to parameters}
+\begin{table}[H]
+    \centering
+    \rowcolors{2}{white}{gray!10}
+    \begin{tabular}{|>{\raggedright\arraybackslash}m{4.5cm}|>{\centering\arraybackslash}m{7.5cm}|}
+    \hline
+    \rowcolor{blue!70}
+    \textcolor{white}{\textbf{If the variable Increases...}} & 
+    \textcolor{white}{\textbf{the value of a call option}} \\ \hline
+    
+    Stock Price, $S$ & Increases more in the money \\ \hline
+    
+    Strike price, $X$ & 
+    \makecell{Decreases the in the money \\ region} \\ \hline
+    
+    Volatility, $\sigma$ & Increases \\ \hline
+    
+    Time to expiration, $T$ & Increases \\ \hline
+    
+    Interest rate, $r_f$ & 
+    \makecell{Increases as it reduces the \\ 
+    present value of the strike \\ 
+    $(C_t = P_t + S_t - \mathrm{PV}(X))$} \\ \hline
+    
+    Dividend payouts & Decreases as stock price goes down \\ \hline
+    \end{tabular}
+    \caption{Effect of increasing each variable on the value of a European call option}
+    \label{tab:call-greeks-direction}
+    \end{table}
+
+\subsection{Options strategies}
+Below are some commonly used option strategies.
+\begin{itemize}
+    \item Protective put: one long stock, one long put at $X = S_0$
+    \begin{itemize}
+        \item Maximum loss is the option premium
+        \item Provides asymmetric return characteristics
+    \end{itemize}
+    \item Covered call: one long stock, one short call at $X = S_0$
+    \begin{itemize}
+        \item Allows immediate gain of income through option premium
+        \item Limited upside, as the two positions are in contradiction for $S_t \ge X$
+    \end{itemize}
+    \item Straddle: one long put and one long call at the same exercise price $X$
+    \begin{itemize}
+        \item Two-way profitability, but with two premiums to overcome
+        \item Betting on heightened stock volatility
+    \end{itemize}
+    \item Straddle: One long stock, one long put at $X = X_P$ and one short call at $X = X_C$
+    \begin{itemize}
+        \item Creates a defined "range" for profitability
+        \item Provides income \textit{whilst} limiting downside
+        \item Put position can be paid off by call premium
+    \end{itemize}
+\end{itemize}
+
+\end{document}
