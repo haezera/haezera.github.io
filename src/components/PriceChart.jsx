@@ -1,49 +1,133 @@
-// src/components/PriceChart.jsx
-import { LineChart, Line, ResponsiveContainer } from "recharts";
-import { useMemo } from "react";
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+  Filler
+} from 'chart.js';
+import { useMemo } from 'react';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+  Filler
+);
+
+const lastPointPlugin = {
+  id: 'lastPoint',
+  afterDraw: (chart) => {
+    const ctx = chart.ctx;
+    const meta = chart.getDatasetMeta(0);
+    if (!meta.data || meta.data.length === 0) return;
+
+    const lastPoint = meta.data[meta.data.length - 1];
+    const x = lastPoint.x;
+    const y = lastPoint.y;
+    const value = chart.data.datasets[0].data[chart.data.datasets[0].data.length - 1];
+
+    ctx.save();
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('color') || 'currentColor';
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '500 12px Fira Code';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText(Number(value).toFixed(2), x, y - 8);
+    ctx.restore();
+  }
+};
 
 const PriceChart = ({ data }) => {
   if (!data || data.length === 0) return null;
 
-  const dataLength = data.length;
+  const chartData = useMemo(() => {
+    const labels = data.map(d => d.t);
+    const prices = data.map(d => d.p);
 
-  // Memoize the dot component
-  const CustomDot = useMemo(() => {
-    return ({ cx, cy, index, payload }) => {
-      if (index === dataLength - 1) {
-        return (
-          <g>
-            <circle cx={cx} cy={cy} r={4} fill="currentColor" />
-            <text
-              x={cx}
-              y={cy - 12}
-              fill="currentColor"
-              textAnchor="middle"
-              fontSize={12}
-              fontWeight="500"
-            >
-              {payload.p.toFixed(2)}
-            </text>
-          </g>
-        );
-      }
-      return null;
+    return {
+      labels,
+      datasets: [
+        {
+          label: 'Price',
+          data: prices,
+          borderColor: 'currentColor',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 0,
+          tension: 0.4,
+          fill: false,
+        }
+      ]
     };
-  }, [dataLength]);
+  }, [data]);
+
+  const options = useMemo(() => {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      layout: {
+        padding: {
+          right: 60, // Add padding on the right for the price label
+          top: 20,
+          bottom: 0,
+          left: 0
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          enabled: false
+        }
+      },
+      scales: {
+        x: {
+          display: false,
+          grid: {
+            display: false
+          }
+        },
+        y: {
+          display: false,
+          grid: {
+            display: false
+          }
+        }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
+      },
+      animation: {
+        duration: 0
+      },
+      elements: {
+        point: {
+          radius: 0
+        }
+      }
+    };
+  }, []);
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={data} margin={{ top: 40, right: 40, bottom: 40, left: 40 }}>
-        <Line
-          type="monotone"
-          dataKey="p"
-          dot={CustomDot}
-          activeDot={false}
-          strokeWidth={2}
-          isAnimationActive={false}
-        />
-      </LineChart>
-    </ResponsiveContainer>
+    <Line 
+      data={chartData} 
+      options={options}
+      plugins={[lastPointPlugin]}
+    />
   );
 };
 

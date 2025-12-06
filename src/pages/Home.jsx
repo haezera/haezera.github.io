@@ -10,7 +10,7 @@ const Home = () => {
     p: 25
   }]);
   const mu = 0.03;
-  const sigma = 1;
+  const sigma = 0.4;
   const dt = 1 / 252;
 
   useEffect(() => {
@@ -18,12 +18,14 @@ const Home = () => {
       setWalk((prevWalk) => {
         const lastPrice = prevWalk[prevWalk.length - 1].p;
         const newPrice = gbmStep(lastPrice, mu, sigma, dt);
-        return [...prevWalk, { 
+        const newWalk = [...prevWalk, { 
           t: prevWalk[prevWalk.length - 1].t + 1, 
           p: newPrice 
         }];
+
+        return newWalk;
       });
-    }, 250);
+    }, 50);
 
     return () => clearInterval(interval);
   }, []);
@@ -38,9 +40,22 @@ const Home = () => {
         width: "100%",
         height: "100%"
       }}>
-        <Box width="40%" height="250px">
+        <Typography sx={{ mb: 3}}>
+          hello, i'm hae
+        </Typography>
+        <Box width="40%" height="250px" minWidth="500px">
         <PriceChart data={walk} />
         </Box>
+        <Typography sx={{ mt: 3}}>
+          i'm a trader and researcher in the australian quant fund industry
+          <br />
+          in the past, i've worked on a wide range of problems in financial markets
+          <br /> <br/>
+          in university, i decided to "open source" my study materials - you can 
+          <br />
+          find these materials <a style={{ textDecoration: "underline" }} href="/resources"> here</a>.
+        </Typography>
+
       </Box>
     </>
   )
