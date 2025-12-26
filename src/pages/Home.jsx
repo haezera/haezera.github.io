@@ -3,6 +3,7 @@ import { TextScramble } from "@skyshots/react-text-scrambler";
 import { useEffect, useState } from "react";
 import { gbmStep } from "../helpers/brownian";
 import PriceChart from "../components/PriceChart";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [walk, setWalk] = useState([{
@@ -12,6 +13,8 @@ const Home = () => {
   const mu = 0.03;
   const sigma = 0.4;
   const dt = 1 / 252;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,7 +61,7 @@ const Home = () => {
           <br /> <br/>
           in university, i decided to "open source" my study materials - you can 
           <br />
-          find these materials <a style={{ textDecoration: "underline" }} href="/resources"> here</a>.
+          find these materials <a style={{ textDecoration: "underline", cursor: "pointer" }} onClick={() => navigate("/resources")}> here</a>.
         </Typography>
 
       </Box>

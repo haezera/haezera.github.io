@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
 import Home from "../pages/Home";
-import useWindowDimensions from "../helpers/window";
 import Resources from "../pages/Resources";
 
 const Router = () => {
